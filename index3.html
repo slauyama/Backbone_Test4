@@ -1,0 +1,848 @@
+ 
+
+All Gists
+slauayama
+ 
+ 
+Star0 
+Fork0
+SECRET
+ MeoMix / gist:e9a6385acc90e2795aee
+Created an hour ago
+
+Gist Detail
+Revisions 1
+Download Gist
+Clone this gist
+
+Embed this gist
+
+Link to this gist
+
+ gistfile1.txt Raw
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/backbone/backbone.js"></script>
+    <script src="bower_components/marionette/lib/core/backbone.marionette.js"></script>
+    <script type="text/javascript" src="http://x3dom.org/x3dom/example/x3dom.js"></script>
+ 
+</head>
+<body>
+    <!-- x3d#x3dElement will contains all 3D elements-->
+    <x3d id="x3dElement" class="fltLeft">
+      <!-- added buttons. buttons do not currently work-->
+      <button id="zoom-in">Zoom In</button>
+      <button id="zoom-out">Zoom Out</button>
+    </x3d>
+ 
+    <script type="text/javascript">
+        // ut
+        Math.roundTo = function(num, amount) {
+          if (amount == null) {
+            amount = 0;
+          }
+          return Math.round(num * Math.pow(10, amount)) / Math.pow(10, amount);
+        };
+ 
+        /* Adds a timestamp to console.log */
+        console.logDate = function() {
+          var timestamp;
+          if (arguments.length) {
+            timestamp = '[' + new Date().toUTCString() + '] ';
+            return console.log(timestamp, arguments);
+          }
+        };
+ 
+        /* could use underscore will implement t later */
+        /* Returns if a value is a number or not */
+        isNumber = function(n) {
+          return !isNaN(parseFloat(n)) && isFinite(n);
+        };
+ 
+    </script>
+    <script type="text/javascript">
+        $(function(){
+            "use strict";
+ 
+            var Rack = Backbone.Model.extend({
+                defaults: {
+                    componentId: 0,
+                    name: "",
+                    //convert and adjust the rack height into proper units 
+                    //I dont remember the converted units ask PF 
+                    height: 0,
+                    width: 0,
+                    depth: 0,
+                    rackOrientation: 0,
+                    //adjust x position to move it from the center to the left edge 
+                    adjustedXPosition: 0,
+                    //adjust y position to move it from the center to the top edge 
+                    adjustedYPosition: 0,
+                    numberingOrigin: -1,
+                    overlappingAllowed: -1,
+                    coolingMax: -1,
+                    weightMax: -1,
+                    powerMax: -1,
+                    largestUnitLocation: -1,
+                    largestUnitSize: -1,
+                    usedUnitsCurrent: -1,
+                    usedUnitsPlanned: -1,
+                    weightCurrent: -1,
+                    weightPlanned: -1,
+                    //heat is calculate based off of power. watss to BTU's 
+                    heatCurrent: -1,
+                    heatPlanned: -1,
+                    powerCurrent: -1,
+                    powerPlanned: -1,
+                    powerActual: -1,
+                    powerActualDerivation: -1,
+                    //adjust the floorplan by a scale of 1000 
+                    //this is matched with the height 
+                    floorPlanWidth: 0,
+                    floorPlanHeight: 0
+                }
+            });
+ 
+            var Racks = Backbone.Collection.extend({
+                model: Rack,
+				
+				load: function(){
+				
+					//  TODO: Ideally just call this.reset w/ server-side array of JSON objects.
+					this.add({
+						componentId: 0,
+						name: "",
+						...
+					});
+ 
+                    this.add(new Rack(1470, "50M", 42, 483, 0, 0, 4250,   3650, 0,
+                       1, 35000, 500, "NULL", 1,  41, 1,  0, 16,    0,   102,   0, "NULL",   0, 115
+                       , 1, 1500, 700));
+                    this.add(new Rack(1471, "50N", 42, 483, 0, 0, 4250,   2950, 0,
+                       1, 35000, 500, 300,   1,  35, 5,  0, 0,     0,   0,     0, 0,     0, 0,    1
+                       , 1500, 700));
+                    this.add(new Rack(1472, "50O", 42, 483, 0, 0, 4250,   2250, 0,
+                     1, 35000, 500, 10000, 16, 27, 15, 0, 172.8, 0,   12700, 0, 0,     0, 0,
+                         1, 1500, 700));
+                    this.add(new Rack(1473, "50P", 42, 483, 0, 0, 4250,   1550, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    this.add(new Rack(1500, "50Q", 42, 483, 0, 0, 4250,   150,  1,
+                     1, 35000, 500, 10000, 11, 22, 10, 0, 0,     0,   0,     0, 5600,     0, 0,
+                         1, 1500, 700));
+                    this.add(new Rack(1501, "50R", 42, 483, 0, 0, 4250,  -550,  0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    this.add(new Rack(1502, "50S", 42, 483, 0, 0, 4250,  -1250, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    this.add(new Rack(1503, "50T Tile", 42, 483, 0, 0, "NULL",  -1950, 0,
+                     1, 35000, 500, 10000, 1,  31, 11, 0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    this.add(new Rack(1504, "50U", 42, 483, 0, 0, 4250,  -2650, 0,
+                     1, 35000, 500, 10000, 1,  32, 10, 0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    this.add(new Rack(1474, "51M", 42, 483, 0, 0, 1450,   3650, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1475, "51N", 42, 483, 0, 0, 1450,   2950, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 86,    0,   5457,  0, 1300,  0, 1300,
+                      1, 1500, 700));
+                    racks.add(new Rack(1476, "51O", 42, 483, 0, 0, 1450,   2250, 0,
+                     1, 35000, 500, 10000, 1,  38, 4,  0, 86,    0,   5457,  0, 1300,  0, 1300,
+                      1, 1500, 700));
+                    racks.add(new Rack(1477, "51P", 42, 483, 0, 0, 1450,   1550, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 86,    0,   5457,  0, 1300,  0, 1300,
+                      1, 1500, 700));
+                    racks.add(new Rack(1478, "51Q", 42, 483, 0, 0, 1450,   850,  0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 86,    0,   5457,  0, 1300,  0, 1300,
+                      1, 1500, 700));
+                    racks.add(new Rack(1479, "51R", 42, 483, 0, 0, 1450,   150,  0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 86,    0,   5457,  0, 1300,  0, 1300,
+                      1, 1500, 700));
+                    racks.add(new Rack(1480, "51S", 42, 483, 0, 0, 1450,  -550,  0,
+                     1, 35000, 500, 10000, 1,  38, 4,  0, 86,    0,   5457,  0, 1300,  0, 1300,
+                      1, 1500, 700));
+                    racks.add(new Rack(1481, "51T", 42, 483, 0, 0, 1450,  -1250, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 86,    0,   5457,  0, 1300,  0, 1300,
+                      1, 1500, 700));
+                    racks.add(new Rack(1482, "51U", 42, 483, 0, 0, 1450,  -1950, 0,
+                     1, 35000, 500, 10000, 1,  36, 6,  0, 136,   0,   9832,  0, 1900,  0, 1900,
+                      1, 1500, 700));
+                    racks.add(new Rack(1483, "51V", 42, 483, 0, 0, 1450,  -2650, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 136,   0,   9832,  0, 1900,  0, 1900,
+                      1, 1500, 700));
+                    racks.add(new Rack(1484, "51W", 42, 483, 0, 0, 1450,  -3350, 1,
+                     1, 35000, 500, 10000, 1,  37, 3,  0, 136,   0,   9832,  0, 1900,  0, 1900,
+                      1, 1500, 700));
+                    racks.add(new Rack(1510, "51X", 42, 483, 0, 0, 1450,  -4050, 0,
+                     1, 35000, 500, 10000, 1,  15, 16, 0, 422,   0,   32789, 0, 5600,  0, 5600,
+                      1, 1500, 700));
+                    racks.add(new Rack(1485, "52L", 42, 483, 0, 0, -1350,  4350, 0,
+                     1, 35000, 500, 10000, 1,  36, 2,  0, 68,    0,   9832,  0, 1900,  0, 1900,
+                      1, 1500, 700));
+                    racks.add(new Rack(1486, "52M", 42, 483, 0, 0, -1350,  3650, 0,
+                     1, 35000, 500, 10000, 1,  36, 6,  0, 68,    0,   9832,  0, 1900,  0, 1900,
+                      1, 1500, 700));
+                    racks.add(new Rack(1487, "52N", 42, 483, 0, 0, -1350,  2950, 0,
+                     1, 35000, 500, 10000, 1,  36, 2,  0, 68,    0,   9832,  0, 1900,  0, 1900,
+                      1, 1500, 700));
+                    racks.add(new Rack(1488, "52O", 42, 483, 0, 0, -1350,  2250, 0,
+                     1, 35000, 500, 10000, 1,  28, 14, 0, 154,   0,   20746, 0, 4500,  0, 4500,
+                      1, 1500, 700));
+                    racks.add(new Rack(1489, "52P", 42, 483, 0, 0, -1350,  1550, 0,
+                     1, 35000, 500, 10000, 1,  24, 14, 0, 204,   0,   29496, 0, 5700,  0, 5700,
+                      1, 1500, 700));
+                    racks.add(new Rack(1490, "52Q", 42, 483, 0, 0, -1350,  "NULL",  0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1491, "52R", 42, 483, 0, 0, -1350,  150,  0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1492, "52S", 42, 483, 0, 0, -1350, -550,  0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 5700,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1493, "52T", 42, 483, 0, 0, -1350, -1250, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1511, "52U", 42, 483, 0, 0, -1350, -1950, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1512, "52V", 42, 483, 0, 0, "NULL", "NULL", 0,
+                     1, 35000, 500, 10000, 1,  28, 10, 0, 161,   0,   24039, 0, 4400,  0, 4400,
+                      1, 1500, 700));
+                    racks.add(new Rack(1494, "52W", 42, 483, 0, 0, -1350, -3350, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1495, "52X", 42, 483, 0, 0, -1350, -4050, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1496, "53M", 42, 483, 0, 0, -4150,  3650, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1497, "53N Tile", 42, 483, 0, 0, -4150,  2950, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1498, "53O", 42, 483, 0, 0, -4150,  2250, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1499, "53P", 42, 483, 0, 0, -4150,  1550, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1505, "53Q", 42, 483, 0, 0, -4150,  150,  0,
+                     1, 35000, 500, 10000, 1,  32, 10, 0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1506, "53R", 42, 483, 0, 0, "NULL", -550,  0,
+                     1, 35000, 500, 10000, 1,  26, 16, 0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1507, "53S", 42, 483, 0, 0, -4150, -1250, 0,
+                     1, 35000, 500, 10000, 1,  42, 0,  0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1508, "53T", 42, 483, 0, 0, -4150, -1950, 0,
+                     1, 35000, 500, 10000, 1,  30, 12, 0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+                    racks.add(new Rack(1509, "53U", 42, 483, 0, 0, -4150, -2650, 0,
+                     1, 35000, 500, 10000, 1,  32, 10, 0, 0,     0,   0,     0, 0,     0, 0,
+                         1, 1500, 700));
+				
+				
+					//  Probably good to call sanitize here since new racks have been added.
+					this.sanitize();
+				},
+ 
+                //  Filter out racks which do not have the right properties
+                _sanitize: function(){
+                    var racks = this.get('racks');
+                    racks.reset(racks.filter(function(rack) {
+                        return rack.get('name').indexOf('Tile') === -1 && 
+                        isNumber(rack.get('adjustedXPosition')) &&
+                        isNumber(rack.get('adjustedYPosition')) &&
+                        isNumber(rack.get('floorPlanWidth')) &&
+                        isNumber(rack.get('floorPlanHeight'));
+                    })); 
+                }
+            });
+ 
+            var RackProgram = Backbone.Model.extend({
+    
+                defaults: {
+                    racks: new Racks()
+                },
+ 
+                initialize: function(){
+                    console.log("initializing RackProgram")
+                    this.get('racks').load();
+                }
+            });
+ 
+            var RackFloor = Backbone.Model.extend({
+                defaults: {
+                    // initialize the values to extremes to find actual value  //
+                    // not sure i need this anymore if I am getting values from data //
+                    // will relook at this later //
+                    boundingBox: {
+                        minX: Number.MAX_VALUE,
+                        maxX: Number.MIN_VALUE,
+                        minY: Number.MAX_VALUE,
+                        maxY: Number.MIN_VALUE                        
+                    },
+ 
+                    // find the max width and height of a rack to extend the grid and views
+                    maxWidth: 0,
+                    maxHeight: 0
+                },
+ 
+                initialize: function(data) {
+                    this.setBounds(data)
+                },
+ 
+                // Recalculate the bounds based on the data //
+                // Was used if i want to change plans. Need to relook at the scale. //
+                setBounds: function(data) {
+                    // Will find the min and max values for x and y position //
+                    this.boundingBox.minX = Math.roundTo(d3.min(data, function(data) {
+                        return data.adjustedXPosition;
+                    }), 2);
+                      
+                    this.boundingBox.maxX = Math.roundTo(d3.max(data, function(data) {
+                        return data.adjustedXPosition;
+                    }), 2);
+ 
+                    this.boundingBox.minY = Math.roundTo(d3.min(data, function(data) {
+                        return data.adjustedYPosition;
+                    }), 2);
+ 
+                    this.boundingBox.maxY = Math.roundTo(d3.max(data, function(data) {
+                        return data.adjustedYPosition;
+                    }), 2);
+                    
+                    // Will find the max width and height
+                    this.maxWidth = Math.roundTo(d3.max(data, function(data) {
+                        return data.floorPlanWidth;
+                    }), 2)
+                    
+                    this.maxHeight = Math.roundTo(d3.max(data, function(data) {
+                        return data.floorPlanHeight;
+                    }), 2)
+                },
+            });
+ 
+            console.log("Models are done");
+ 
+            var RackView = Backbone.View.extend({
+                tagName: 'transform',
+ 
+                initialize: function() {
+                    _.bindAll(this, 'render');
+                },
+ 
+                getColor: function(colorValue) {
+                    var badDataFlag = false, value;
+                    
+                    switch (colorValue) {
+                        case "Power":
+                            value = this.model.powerCurrent / this.model.powerMax;
+                            if (!isNumber(value))
+                                badDataFlag = true;
+                            break;
+                        case "Weight":
+                            value = this.model.weightCurrent / this.model.weightMax;
+                            if (!isNumber(value))
+                                badDataFlag = true;
+                            break;
+                        case "Temperature":
+                            value = this.model.heatCurrent / this.model.coolingMax;
+                            if (!isNumber(value))
+                                badDataFlag = true;
+                            break;
+                        default:
+                            badDataFlag = true;
+                            break;
+                    }
+ 
+                    var red, green, redString, greenString, color; 
+                    if (value < 0.5) {
+                        red = Math.floor(value * 255);
+                        green = 200;
+                    } else {
+                        red = 255;
+                        green = Math.floor((1 - value) * 255);
+                    }
+ 
+                    redString = (red < 16 ? "0" : "") + red.toString(16);
+                    greenString = (green < 16 ? "0" : "") + green.toString(16);
+ 
+                    color = "#" + redString + greenString + "00";
+                    if (badDataFlag) 
+                        color = "steelblue";
+                    
+                    return color;
+                },
+ 
+                render: function(){
+                    this.el.translation = "3.5 3.3 0";
+ 
+                    var shape = "<shape id='this.model.componentId' class='rack'>";
+                    var appearance = "<appearance sorttype='auto'>";
+                    var material = "<material ambientintensity='0.2'" + 
+                        " diffusecolor=" + this.getColor() + " shininess='0.2'>";
+                    var closeAppearance = "</material></appearance>";
+                    var box = "<box size='"+ this.model.floorPlanWidth + ' ' +
+                        (this.model.floorPlanHeight - 0.1) + ' ' + 
+                        this.model.height + "'></box>";
+                    var closeTransform = "</shape></transform>";
+ 
+                    $(this.el).html(shape + appearance + material + closeAppearance 
+                        + box + closeTransform);
+                    return this;
+                }
+            });
+ 
+            var RacksView = Backbone.View.extend({
+                //itemview is marionette
+                model: RackView,
+ 
+                initialize: function() {
+                    var rackProgram = new RackProgram();
+                    console.log(rackProgram);
+                }
+ 
+            });
+ 
+            var AppView = Backbone.View.extend({
+                el: $('#x3dElement')
+            });
+ 
+ 
+            
+            
+        });
+ 
+//NOTES FOR BACKBONE MVC
+//view - properties
+    // el is the element.
+    // ui is marionette
+    // ui allows for binding variables to elements. faster than searching them up all the time
+ 
+    </script>
+</body>
+</html>
+
+Write Preview Parsed as Markdown  Edit in fullscreen
+
+Comment
+© 2014 GitHub Inc. All rights reserved.
+The GitHub Blog Terms Privacy Support Contact
