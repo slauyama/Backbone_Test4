@@ -1,6 +1,22 @@
 $(function(){
     "use strict";
 
+    Math.roundTo = function(num, amount){
+        if (amount == null)
+            amount = 0;
+        return Math.round(num * Math.pow(10,amount)) / Math.pow(10,amount)
+    }
+
+    console.logDate = function(){
+        if (arguments.length)
+            timestamp = '[' + new Date().toUTCString() + '] '
+        console.log(timestamp, arguments)
+    }
+
+    var isNumber = function(n){
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+
     var Rack = Backbone.Model.extend({
         defaults: {
             componentId: 0,
@@ -37,6 +53,18 @@ $(function(){
             //this is matched with the height 
             floorPlanWidth: 0,
             floorPlanHeight: 0
+        },
+
+        adjustProperties: function() {
+            console.log("adjusting");
+            this.height = this.height * 44.5 / 1000;
+            this.adjustedXPosition = (this.adjustedXPosition - this.floorPlanWidth / 2) / 1000;
+            this.adjustedYPosition = (this.adjustedYPosition - this.floorPlanHeight / 2) / 1000;
+            this.heatCurrent = this.powerCurrent * 3.412141633;
+            this.heatPlanned = this.powerPlanned * 3.412141633;
+            this.floorPlanWidth = this.floorPlanWidth / 1000;
+            this.floorPlanHeight = this.floorPlanHeight / 1000;
+
         }
     });
 
@@ -45,6 +73,7 @@ $(function(){
         
         //  TODO: Ideally just call this.reset w/ server-side array of JSON objects.
         load: function(){
+            console.log("Loading data into variable racks")
             this.add({
                 componentId:1470,
                 name:"50M",
@@ -1298,9 +1327,8 @@ $(function(){
         },
 
         //  Filter out racks which do not have the right properties
-        _sanitize: function(){
-            var racks = this.get('racks');
-            racks.reset(racks.filter(function(rack) {
+        sanitize: function(){
+            this.reset(this.filter(function(rack) {
                 return rack.get('name').indexOf('Tile') === -1 && 
                 isNumber(rack.get('adjustedXPosition')) &&
                 isNumber(rack.get('adjustedYPosition')) &&
@@ -1312,13 +1340,18 @@ $(function(){
 
     var RackProgram = Backbone.Model.extend({
 
-        defaults: {
-            racks: new Racks()
-        },
+        // defaults: {
+        //     racks: new Racks()
+        // },
 
         initialize: function(){
             console.log("initializing RackProgram")
-            this.get('racks').load();
+            console.log(this);
+            this.racks = new Racks();
+            this.racks.load();
+            var racksView = new RacksView({collection: this.racks})
+            $('#x3dElement').append(racksView.render().el);
+            racksView.triggerMethod('show');
         }
     });
 
@@ -1376,7 +1409,9 @@ $(function(){
 
     console.log("Models are done");
 
-    var RackView = Backbone.View.extend({
+    var RackView = Backbone.Marionette.ItemView.extend({
+        model: Rack,
+
         tagName: 'transform',
 
         initialize: function() {
@@ -1388,17 +1423,17 @@ $(function(){
             
             switch (colorValue) {
                 case "Power":
-                    value = this.model.powerCurrent / this.model.powerMax;
+                    value = this.model.get('powerCurrent') / this.model.get('powerMax');
                     if (!isNumber(value))
                         badDataFlag = true;
                     break;
                 case "Weight":
-                    value = this.model.weightCurrent / this.model.weightMax;
+                    value = this.model.get('weightCurrent') / this.model.get('weightMax');
                     if (!isNumber(value))
                         badDataFlag = true;
                     break;
                 case "Temperature":
-                    value = this.model.heatCurrent / this.model.coolingMax;
+                    value = this.model.get('heatCurrent') / this.model.get('coolingMax');
                     if (!isNumber(value))
                         badDataFlag = true;
                     break;
@@ -1428,33 +1463,53 @@ $(function(){
 
         render: function(){
             this.el.translation = "3.5 3.3 0";
+            this.model.adjustProperties();
+            console.log(this.model);
 
-            var shape = "<shape id='this.model.componentId' class='rack'>";
+            var shape = "<shape id='" + this.model.get('componentId') + "' class='rack'>";
             var appearance = "<appearance sorttype='auto'>";
             var material = "<material ambientintensity='0.2'" + 
                 " diffusecolor=" + this.getColor() + " shininess='0.2'>";
             var closeAppearance = "</material></appearance>";
-            var box = "<box size='"+ this.model.floorPlanWidth + ' ' +
-                (this.model.floorPlanHeight - 0.1) + ' ' + 
-                this.model.height + "'></box>";
+            var box = "<box size='"+ this.model.get('floorPlanWidth') + ' ' +
+                (this.model.get('floorPlanHeight') - 0.1) + ' ' + 
+                this.model.get('height') + "'></box>";
             var closeTransform = "</shape></transform>";
 
-            $(this.el).html(shape + appearance + material + closeAppearance 
-                + box + closeTransform);
+            var testString = shape + appearance + material + closeAppearance 
+                + box + closeTransform;
+            console.log(testString);
+            this.$el.html(testString);
+
             return this;
         }
     });
 
-    var RacksView = Backbone.View.extend({
+    var RacksView = Backbone.Marionette.CollectionView.extend({
+        tagName: 'scene',
+        id: 'x3dScene',
+
         //itemview is marionette
-        model: RackView,
+        itemView: RackView,
 
         initialize: function() {
-            var rackProgram = new RackProgram();
-            console.log(rackProgram);
+
+        },
+
+        // Becuase I am using Marionette
+        // Whenever I pass in a collection to the RackView
+        // It will automiatically render
+        // render: function() {
+        onBeforeRender: function() {
+            
+        },
+        onRender: function() {
+               
         }
 
     });
+
+    var rackProgram = new RackProgram();
 
     var AppView = Backbone.View.extend({
         el: $('#x3dElement')
