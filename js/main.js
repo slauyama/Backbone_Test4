@@ -55,6 +55,10 @@ $(function(){
             floorPlanHeight: 0
         },
 
+        initialize: function(){
+            this.adjustProperties();
+        },
+
         adjustProperties: function() {
             this.set('height', this.get('height') * 44.5 / 1000);
             this.set('adjustedXPosition', (this.get('adjustedXPosition') - this.get('floorPlanWidth') / 2) / 1000);
@@ -1341,16 +1345,13 @@ $(function(){
     });
 
     var RackProgram = Backbone.Model.extend({
-
-        // defaults: {
-        //     racks: new Racks()
-        // },
-
         initialize: function(){
             console.log("initializing RackProgram")
 
-            this.racks = new Racks();
-            var racksView = new RacksView({collection: this.racks})
+            var racks = new Racks();
+            var racksView = new RacksView({
+                collection: racks
+            });
             $('#x3dElement').append(racksView.render().el);
             racksView.triggerMethod('show');
         }
@@ -1411,12 +1412,19 @@ $(function(){
     console.log("Models are done");
 
     var RackView = Backbone.Marionette.ItemView.extend({
-        model: Rack,
-
         tagName: 'transform',
 
+        attributes: function() {
+
+            console.log("this.model.get('adjustedXPosition')", this.model.get('adjustedXPosition'));
+
+            return {
+                translation: this.model.get('adjustedXPosition') + ' ' + this.model.get('adjustedYPosition') + ' 0'
+            };
+        },
+
         initialize: function() {
-            _.bindAll(this, 'render');
+            //_.bindAll(this, 'render');
         },
 
         getColor: function(colorValue) {
@@ -1463,9 +1471,6 @@ $(function(){
         },
 
         render: function(){
-            // this.$el.set('translation', "3.5 3.3 0");
-            this.model.adjustProperties();
-
             var shape = "<shape id='" + this.model.get('componentId') + "' class='rack'>";
             var appearance = "<appearance sorttype='auto'>";
             var material = "<material ambientintensity='0.2'" + 
