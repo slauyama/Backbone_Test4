@@ -56,24 +56,26 @@ $(function(){
         },
 
         adjustProperties: function() {
-            console.log("adjusting");
-            this.height = this.height * 44.5 / 1000;
-            this.adjustedXPosition = (this.adjustedXPosition - this.floorPlanWidth / 2) / 1000;
-            this.adjustedYPosition = (this.adjustedYPosition - this.floorPlanHeight / 2) / 1000;
-            this.heatCurrent = this.powerCurrent * 3.412141633;
-            this.heatPlanned = this.powerPlanned * 3.412141633;
-            this.floorPlanWidth = this.floorPlanWidth / 1000;
-            this.floorPlanHeight = this.floorPlanHeight / 1000;
-
+            this.set('height', this.get('height') * 44.5 / 1000);
+            this.set('adjustedXPosition', (this.get('adjustedXPosition') - this.get('floorPlanWidth') / 2) / 1000);
+            this.set('adjustedYPosition', (this.get('adjustedYPosition') - this.get('floorPlanHeight') / 2) / 1000);
+            this.set('heatCurrent', this.get('powerCurrent') * 3.412141633);
+            this.set('heatPlanned', this.get('powerPlanned') * 3.412141633);
+            this.set('floorPlanWidth', this.get('floorPlanWidth') / 1000);
+            this.set('floorPlanHeight', this.get('floorPlanHeight') / 1000);
         }
     });
 
     var Racks = Backbone.Collection.extend({
         model: Rack,
         
+        //  Collection should not be loading itself it should be done in rackProgram
         //  TODO: Ideally just call this.reset w/ server-side array of JSON objects.
+        initialize: function() {
+            this.load();
+        }, 
+
         load: function(){
-            console.log("Loading data into variable racks")
             this.add({
                 componentId:1470,
                 name:"50M",
@@ -1346,9 +1348,8 @@ $(function(){
 
         initialize: function(){
             console.log("initializing RackProgram")
-            console.log(this);
+
             this.racks = new Racks();
-            this.racks.load();
             var racksView = new RacksView({collection: this.racks})
             $('#x3dElement').append(racksView.render().el);
             racksView.triggerMethod('show');
@@ -1462,24 +1463,21 @@ $(function(){
         },
 
         render: function(){
-            this.el.translation = "3.5 3.3 0";
+            // this.$el.set('translation', "3.5 3.3 0");
             this.model.adjustProperties();
-            console.log(this.model);
 
             var shape = "<shape id='" + this.model.get('componentId') + "' class='rack'>";
             var appearance = "<appearance sorttype='auto'>";
             var material = "<material ambientintensity='0.2'" + 
-                " diffusecolor=" + this.getColor() + " shininess='0.2'>";
+                " diffusecolor=" + this.getColor('Power') + " shininess='0.2'>";
             var closeAppearance = "</material></appearance>";
             var box = "<box size='"+ this.model.get('floorPlanWidth') + ' ' +
                 (this.model.get('floorPlanHeight') - 0.1) + ' ' + 
                 this.model.get('height') + "'></box>";
             var closeTransform = "</shape></transform>";
 
-            var testString = shape + appearance + material + closeAppearance 
-                + box + closeTransform;
-            console.log(testString);
-            this.$el.html(testString);
+            this.$el.html(shape + appearance + material + closeAppearance 
+                + box + closeTransform);
 
             return this;
         }
