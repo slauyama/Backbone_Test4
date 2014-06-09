@@ -1,17 +1,22 @@
-/* Simon utility file */
+define(function(){
+    "use strict";
+    var Utility = {
+        this.roundTo: function(number, amount){
+            if (amount == null)
+                amount = 0;
+            return Math.round(number * Math.pow(10,amount)) / Math.pow(10,amount)
+        },
 
-Math.roundTo = function(num, amount) {
-  if (amount == null) {
-    amount = 0;
-  }
-  return Math.round(num * Math.pow(10, amount)) / Math.pow(10, amount);
-};
+        this.logDate: function(){
+            if (arguments.length)
+                timestamp = '[' + new Date().toUTCString() + '] '
+            console.log(timestamp, arguments)
+        },
 
-/* Adds a timestamp to console.log */
-console.logDate = function() {
-  var timestamp;
-  if (arguments.length) {
-    timestamp = '[' + new Date().toUTCString() + '] ';
-    return console.log(timestamp, arguments);
-  }
-};
+        this.isNumber: function(number){
+            return !isNaN(parseFloat(number)) && isFinite(number);
+        }
+    }
+    
+    return Utility;
+);
