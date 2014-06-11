@@ -1,4 +1,4 @@
-define(['js/models/racks', 'js/views/racksView']),
+define(['models/racks', 'views/racksView'],
     function(Racks, RacksView) {
         "use strict";
 

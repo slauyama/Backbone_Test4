@@ -65,6 +65,7 @@ legend {
 x3d {
   border: 1px solid black;}
   x3d canvas {
+    position: relative;
     width: 700px;
     height: 400px;  
   }

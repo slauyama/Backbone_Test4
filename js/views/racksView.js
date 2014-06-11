@@ -1,4 +1,4 @@
-define(['js/views/rackView', 'js/models/rackProgram'], 
+define(['views/rackView', 'models/rackProgram'], 
 	function(RackView, RackProgram){
 		var RacksView = Backbone.Marionette.CollectionView.extend({
 		    tagName: 'scene',

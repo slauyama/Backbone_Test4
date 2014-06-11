@@ -1,5 +1,5 @@
-define(['js/models/rack', 'js/utility/utility'],
-	function(Rack) {
+define(['models/rack', 'utility/utility'],
+	function(Rack, Utility) {
 		"use strict";
 
 		var Racks = Backbone.Collection.extend({
