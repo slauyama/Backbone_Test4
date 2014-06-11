@@ -1,0 +1,8 @@
+<shape id='{%= componentId %}'  class='rack'>
+	<appearance sorttype='auto'>
+	     <material ambientintensity='0.2' diffusecolor='{% }' + this.getColor('Power') shininess='0.2'>
+	     </material>
+	</appearance>
+	<box size='{%= floorPlanWidth + " " + (floorPlanHeight - 0.1) + " " + height'>
+	</box>
+</shape>

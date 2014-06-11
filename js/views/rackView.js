@@ -1,8 +1,12 @@
-define(function(){
+define([
+	'text!../templates/rackViewTemplate.html'
+], function(RackViewTemplate){
 	"use strict";
 
 	var RackView = Backbone.Marionette.ItemView.extend({
 	    tagName: 'transform',
+
+	    template: _.template(RackViewTemplate),
 
 	    attributes: function() {
 		    return {

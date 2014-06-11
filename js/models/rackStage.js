@@ -1,10 +1,9 @@
 define([
-    'collections/racks',
     'views/racksView'
-], function(Racks, RacksView) {
+], function(RacksView) {
     "use strict";
 
-    var RackStage = Backbone.Model.extend({
+    var RackStage = Backbone.View.extend({
         initialize: function(collection){
             var racksView = new RacksView({
                 collection: collection

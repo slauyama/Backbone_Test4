@@ -2,7 +2,7 @@ define([
 	'views/topListItem'
 ], function(TopListItem){
 	var topList = Backbone.Marionette.CompositeView.extend({
-		tagName: 'ul'
+		tagName: 'ul',
 		itemView: TopListItem,
 
 		initialize: function(collection){
