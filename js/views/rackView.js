@@ -5,10 +5,7 @@ define(function(){
 	    tagName: 'transform',
 
 	    attributes: function() {
-
-	        console.log("this.model.get('adjustedXPosition')", this.model.get('adjustedXPosition'));
-
-	        return {
+		    return {
 	            translation: this.model.get('adjustedXPosition') + ' ' + this.model.get('adjustedYPosition') + ' 0'
 	        };
 	    },
@@ -23,17 +20,17 @@ define(function(){
 	        switch (colorValue) {
 	            case "Power":
 	                value = this.model.get('powerCurrent') / this.model.get('powerMax');
-	                if (!isNumber(value))
+	                if (!_.isNumber(value))
 	                    badDataFlag = true;
 	                break;
 	            case "Weight":
 	                value = this.model.get('weightCurrent') / this.model.get('weightMax');
-	                if (!isNumber(value))
+	                if (!_.isNumber(value))
 	                    badDataFlag = true;
 	                break;
 	            case "Temperature":
 	                value = this.model.get('heatCurrent') / this.model.get('coolingMax');
-	                if (!isNumber(value))
+	                if (!_.isNumber(value))
 	                    badDataFlag = true;
 	                break;
 	            default:
@@ -61,6 +58,7 @@ define(function(){
 	    },
 
 	    render: function(){
+	    	console.log("rendering RackView");
 	        var shape = "<shape id='" + this.model.get('componentId') + "' class='rack'>";
 	        var appearance = "<appearance sorttype='auto'>";
 	        var material = "<material ambientintensity='0.2'" + 
@@ -73,10 +71,9 @@ define(function(){
 
 	        this.$el.html(shape + appearance + material + closeAppearance 
 	            + box + closeTransform);
-
 	        return this;
 	    }
 	});
-	
+	console.log("returning RackView");
 	return RackView;
 });

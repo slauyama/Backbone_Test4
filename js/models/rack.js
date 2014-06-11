@@ -17,7 +17,7 @@ define(function() {
             adjustedYPosition: 0,
             numberingOrigin: -1,
             overlappingAllowed: -1,
-            coolingMax: -1,
+            coolingMax: -1, 
             weightMax: -1,
             powerMax: -1,
             largestUnitLocation: -1,

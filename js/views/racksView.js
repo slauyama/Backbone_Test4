@@ -1,8 +1,15 @@
-define(['views/rackView', 'models/rackProgram'], 
-	function(RackView, RackProgram){
+define(['views/rackView'], 
+	function(RackView){
 		var RacksView = Backbone.Marionette.CollectionView.extend({
 		    tagName: 'scene',
-		    id: 'x3dScene',
+		    itemViewContainer: '#x3dScene',
+
+		    attributes: function() {
+		    	// Specifically added attributes to ensure loading on
+		        return {
+		            render: true,
+		        };
+		    },
 
 		    //itemview is marionette
 		    itemView: RackView,
@@ -23,13 +30,7 @@ define(['views/rackView', 'models/rackProgram'],
 		    }
 
 		});
-
-		var rackProgram = new RackProgram();
-
-		var AppView = Backbone.View.extend({
-		    el: $('#x3dElement')
-		});
-
+		console.log("returning Rack(s)View");
 		return RacksView;
 	}
 );
