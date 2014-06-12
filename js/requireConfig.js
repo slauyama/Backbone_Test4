@@ -6,18 +6,33 @@ define(function() {
 		//baseUrl: 'js',
 
 		paths: {
-			'jquery': 'bower_components/jquery/dist/jquery',
-			'underscore': 'bower_components/underscore/underscore',
 			'backbone': 'bower_components/backbone/backbone',
-			'marionette': 'bower_components/marionette/lib/core/backbone.marionette',
 			'd3': 'bower_components/d3/d3',
+			'jquery': 'bower_components/jquery/dist/jquery',
+			'marionette': 'bower_components/marionette/lib/core/backbone.marionette',
+			'require-text': 'bower_components/requirejs/requireText',
+			'underscore': 'bower_components/underscore/underscore',
 			'x3dom': 'bower_components/x3dom/x3dom'
 		}, 
 		
 		shim: {
 			// 'underscore': ['jquery'],
+			'backbone': {
+				deps: ['jquery', 'underscore'],
+				exports: 'Backbone'
+			},
+			
+			'd3': {
+				exports: 'd3'
+			},
+			
 			'jquery': {
 				exports: '$'
+			},
+			
+			'marionette': {
+				deps: ['jquery', 'underscore', 'backbone'],
+				exports: 'Backbone.Marionette'
 			},
 
 			'underscore': {
@@ -25,18 +40,8 @@ define(function() {
 				exports: '_'
 			},
 
-			'backbone': {
-				deps: ['jquery', 'underscore'],
-				exports: 'Backbone'
-			},
-
-			'marionette': {
-				deps: ['jquery', 'underscore', 'backbone'],
-				exports: 'Backbone.Marionette'
-			},
-
-			'd3': {
-				exports: 'd3'
+			'require-text': {
+				exports: 'require-text'
 			},
 
 			'x3dom': {

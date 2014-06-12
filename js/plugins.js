@@ -1,11 +1,13 @@
 //Plugins All the plugins I will be using
 define([
-    'jquery',
-	'underscore',
 	'backbone',
+    'd3',
+    'jquery',
 	'marionette',
-	'x3dom',
-	'd3'
+	'require-text',
+	'underscore',
+	'x3dom'
+	
 ], function () {
     'use strict';
     // Dont have an application    
