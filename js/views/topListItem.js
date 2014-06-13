@@ -6,6 +6,7 @@ function(){
 	var TopListItem = Backbone.Marionette.ItemView.extend({
 		tagName: 'li',
 
+		//  CODE REVIEW SA - You can just use the 'className' property ie: className: 'topListItem'
 	    attributes: function() {
 	    	// Give the item a class
 		    return {

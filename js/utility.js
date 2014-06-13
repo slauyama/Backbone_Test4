@@ -17,6 +17,7 @@ define(function(){
             console.log(timestamp, arguments)
         },
 
+		//  CODE REVIEW SA - Generally better to rely on svn history instead of leaving the code, but that's fine.
         // Not used but I wanted to keep it for a personal utility function
         isNumber: function(number){
             return !isNaN(parseFloat(number)) && isFinite(number);

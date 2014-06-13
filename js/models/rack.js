@@ -40,6 +40,7 @@ define(function() {
         },
 
         initialize: function(){
+			//  CODE REVIEW SA - Maybe call this adjustDefaults for consistent naming conventions? But properties is fine, too.
             this.adjustProperties();
         },
 

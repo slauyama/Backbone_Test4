@@ -6,10 +6,12 @@
 
 define([
 	"collections/racks",
+	//  CODE REVIEW SA - Naming -- I like to say 'view' at the end.
 	"views/topList"
 ], function(Racks, TopList) {
 	"use strict";
 
+	//  CODE REVIEW SA - Capitalize variables which aren't instantiated. Lowercase once instantiated.
 	var topListPanel = Backbone.Marionette.CollectionView.extend({
 		// Create 6 topLists and pass them the collection
 		initialize: function(collection){
@@ -38,6 +40,7 @@ define([
 		        collection: collection
 		    });
 
+			//  CODE REVIEW SA - Should be using a Region here.
 		    // I want to append this panel to #leader-data
 		    $('#leader-data').append(this.render().el);
 		    this.triggerMethod('show');

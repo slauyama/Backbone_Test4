@@ -7,6 +7,7 @@ define(function() {
 		        // initialize the values to extremes to find actual value  //
 		        // not sure i need this anymore if I am getting values from data //
 		        // will relook at this later //
+				//  CODE REVIEW SA - BoundingBox should maybe be a Backbone.Model for consistencies sake, but this is also fine if it's only going to be used very minimally.
 		        boundingBox: {
 		            minX: Number.MAX_VALUE,
 		            maxX: Number.MIN_VALUE,
