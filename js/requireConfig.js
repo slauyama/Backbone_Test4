@@ -1,7 +1,7 @@
 // Config File
 define(function() {
 	"use strict";
-	console.log("config file");
+
 	require.config({
 		//baseUrl: 'js',
 
@@ -10,13 +10,15 @@ define(function() {
 			'd3': 'bower_components/d3/d3',
 			'jquery': 'bower_components/jquery/dist/jquery',
 			'marionette': 'bower_components/marionette/lib/core/backbone.marionette',
-			'require-text': 'bower_components/requirejs/requireText',
+			// Had to change the pathway of this module.
+			// Must be a sibling to your "data-main" main.js script
+			// http://requirejs.org/docs/download.html
+			'text': 'requireText',
 			'underscore': 'bower_components/underscore/underscore',
 			'x3dom': 'bower_components/x3dom/x3dom'
 		}, 
 		
 		shim: {
-			// 'underscore': ['jquery'],
 			'backbone': {
 				deps: ['jquery', 'underscore'],
 				exports: 'Backbone'
@@ -40,8 +42,10 @@ define(function() {
 				exports: '_'
 			},
 
-			'require-text': {
-				exports: 'require-text'
+			// Not sure if this is correct
+			// Is there any dependencies on require
+			'text': {
+				exports: 'text'
 			},
 
 			'x3dom': {

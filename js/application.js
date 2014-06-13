@@ -10,7 +10,11 @@ define([
     var Application = new Backbone.Marionette.Application();
 
     Application.addInitializer(function(){
+        // Create a new racks. Racks automatically has the data
+        // This should change in the future
         var racks = new Racks();
+
+        // Pass in the racks collection to the rackStage and the topPanelList
         var rackStage = new RackStage(racks);
         var topPanelList = new TopPanelList(racks);
     });

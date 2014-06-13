@@ -1,3 +1,4 @@
+// Individual Item for a todo list
 define([],
 function(){
 	"use strict";
@@ -6,11 +7,13 @@ function(){
 		tagName: 'li',
 
 	    attributes: function() {
+	    	// Give the item a class
 		    return {
 	            class: 'topListItem'
 	        };
 	    },
 
+	    // Should be using templating
 		render: function(){
 			console.log("rendering TopListItem");
 		    

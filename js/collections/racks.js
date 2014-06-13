@@ -1270,7 +1270,6 @@ define([
 		    sanitize: function(){
 		    	console.log("sanitizing Rack(S)");
 		        this.reset(this.filter(function(rack) {
-		        	//Need to replace with _.isNumber
 		            return rack.get('name').indexOf('Tile') === -1 && 
 		            _.isNumber(rack.get('adjustedXPosition')) &&
 		            _.isNumber(rack.get('adjustedYPosition')) &&
@@ -1279,8 +1278,7 @@ define([
 		        })); 
 		    }
 		});
-		console.log("returning Rack(S)");
-		return Racks;
 
+		return Racks;
 	}
 );

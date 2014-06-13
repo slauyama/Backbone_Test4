@@ -1,3 +1,4 @@
+// Not yet used. Will be used to set up a grid
 define(function() {
 		"use strict";
 

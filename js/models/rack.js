@@ -43,6 +43,7 @@ define(function() {
             this.adjustProperties();
         },
 
+        // This will adjust the properties to proper scale
         adjustProperties: function() {
             this.set('height', this.get('height') * 44.5 / 1000);
             this.set('adjustedXPosition', (this.get('adjustedXPosition') - this.get('floorPlanWidth') / 2) / 1000);

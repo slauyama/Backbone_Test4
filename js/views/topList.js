@@ -1,3 +1,5 @@
+// Not used yet. Will be used to for the 
+
 define([
 	'views/topListItem'
 ], function(TopListItem){
@@ -5,6 +7,7 @@ define([
 		tagName: 'ul',
 		itemView: TopListItem,
 
+		// Make 3 topListItems per topList
 		initialize: function(collection){
 			this.first = new TopListItem({});
 			this.second = new TopListItem({});

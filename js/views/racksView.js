@@ -23,6 +23,8 @@ define([
 	    // Whenever I pass in a collection to the RackView
 	    // It will automiatically render
 	    // render: function() {
+
+	    // These functions are not used but rather they help me remember what I can do
 	    onBeforeRender: function() {
 	        
 	    },

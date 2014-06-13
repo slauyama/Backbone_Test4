@@ -1,13 +1,18 @@
+// Templating not working
 define([
-	'text!../templates/rackViewTemplate.html'
+	"text!rackViewTemplate.html" //Trying to pass in a template to the rackView
 ], function(RackViewTemplate){
 	"use strict";
 
+	console.log(RackViewTemplate);
 	var RackView = Backbone.Marionette.ItemView.extend({
+	    // Each rack is the type transform
 	    tagName: 'transform',
 
-	    template: _.template(RackViewTemplate),
+	    // template: _.template(RackViewTemplate),
+	    // console.log(RackViewTemplate);
 
+	    // Get the x and y translation from the model 
 	    attributes: function() {
 		    return {
 	            translation: this.model.get('adjustedXPosition') + ' ' + this.model.get('adjustedYPosition') + ' 0'
@@ -18,6 +23,7 @@ define([
 	        //_.bindAll(this, 'render');
 	    },
 
+	    // Determine the color of the rack
 	    getColor: function(colorValue) {
 	        var badDataFlag = false, value;
 	        
@@ -61,6 +67,7 @@ define([
 	        return color;
 	    },
 
+	    // How the rackView will be rendered
 	    render: function(){
 	    	console.log("rendering RackView");
 	        var shape = "<shape id='" + this.model.get('componentId') + "' class='rack'>";
@@ -78,6 +85,6 @@ define([
 	        return this;
 	    }
 	});
-	console.log("returning RackView");
+
 	return RackView;
 });
