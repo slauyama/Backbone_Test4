@@ -3,25 +3,19 @@ define([],
 function(){
 	"use strict";
 
-	var TopListItem = Backbone.Marionette.ItemView.extend({
+	var TopListItemView = Backbone.Marionette.ItemView.extend({
 		tagName: 'li',
-
-	    attributes: function() {
-	    	// Give the item a class
-		    return {
-	            class: 'topListItem'
-	        };
-	    },
+		className: 'topListItem'
 
 	    // Should be using templating
 		render: function(){
 			console.log("rendering TopListItem");
-		    
+
 		    this.$el.innerHTML = 'Hello';
 		    return this;
 		}
 
 	});
 
-	return TopListItem;
+	return TopListItemView;
 });

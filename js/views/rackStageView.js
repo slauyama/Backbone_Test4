@@ -6,8 +6,12 @@ define([
     "use strict";
 
     // 
-    var RackStage = Backbone.View.extend({
-        // RackStage will be passed a collection from the rackProgram
+    var RackStageView = Backbone.View.extend({
+        // RackStageView will be passed a collection from the rackProgram
+        ui: {
+            scene: '#x3dScene'
+        },
+
         initialize: function(collection){
             //Create a new racksView and pass it the collection
             var racksView = new RacksView({
@@ -15,10 +19,10 @@ define([
             });
 
             // Will attach the rendered racksView to the #x3dScene
-            $('#x3dScene').append(racksView.render().el);
+            this.ui.scene.append(racksView.render().el);
             racksView.triggerMethod('show');
         }
     });
 
-    return RackStage;
+    return RackStageView;
 });

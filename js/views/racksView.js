@@ -5,11 +5,9 @@ define([
 	    tagName: 'scene',
 	    itemViewContainer: '#x3dScene',
 
-	    attributes: function() {
+	    attributes: {
 	    	// Specifically added attributes to ensure loading on
-	        return {
-	            render: true,
-	        };
+	        render: true
 	    },
 
 	    //itemview is marionette

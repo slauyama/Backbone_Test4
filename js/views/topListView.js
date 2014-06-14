@@ -1,9 +1,9 @@
 // Not used yet. Will be used to for the 
 
 define([
-	'views/topListItem'
-], function(TopListItem){
-	var topList = Backbone.Marionette.CompositeView.extend({
+	'views/topListItemView'
+], function(TopListItemView){
+	var TopListView = Backbone.Marionette.CompositeView.extend({
 		tagName: 'ul',
 		itemView: TopListItem,
 
@@ -15,7 +15,7 @@ define([
 		}
 	});
 
-	return topList;
+	return TopListView;
 });
 
 //  findMaxNumbers = (data, property, length) ->

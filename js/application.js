@@ -1,8 +1,7 @@
 // Do not fully understand this code.
 // Took this from https://github.com/MeoMix/StreamusChromeExtension/blob/master/src/js/foreground/application.js
 define([
-    //  todo: create a collections folder to hold collections -- different than models
-    'collections/Racks',
+    'collections/racks',
     'models/rackStage',
     'views/topListPanel' 
 ], function(Racks, RackStage, TopPanelList) {
@@ -15,7 +14,7 @@ define([
         var racks = new Racks();
 
         // Pass in the racks collection to the rackStage and the topPanelList
-        var rackStage = new RackStage(racks);
+        var rackStage = new RackStageView(racks);
         var topPanelList = new TopPanelList(racks);
     });
 

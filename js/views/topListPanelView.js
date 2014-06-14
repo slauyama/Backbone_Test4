@@ -6,11 +6,11 @@
 
 define([
 	"collections/racks",
-	"views/topList"
-], function(Racks, TopList) {
+	"views/topListView"
+], function(Racks, TopListView) {
 	"use strict";
 
-	var topListPanel = Backbone.Marionette.CollectionView.extend({
+	var TopListPanel = Backbone.Marionette.CollectionView.extend({
 		// Create 6 topLists and pass them the collection
 		initialize: function(collection){
 			// I attached all lists to the topListPanel
@@ -44,5 +44,5 @@ define([
 		}
 	});
 
-	return topListPanel;
+	return TopListPanel;
 });
