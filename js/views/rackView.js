@@ -1,5 +1,6 @@
 // Templating not working
 define([
+	//  CODE REVIEW SA -  Template isn't working because you're overriding render.
 	"text!rackViewTemplate.html" //Trying to pass in a template to the rackView
 ], function(RackViewTemplate){
 	"use strict";
@@ -28,6 +29,7 @@ define([
 	        var badDataFlag = false, value;
 	        
 	        switch (colorValue) {
+				//  CODE REVIEW SA - Use an enum here instead of comparing to string constant.
 	            case "Power":
 	                value = this.model.get('powerCurrent') / this.model.get('powerMax');
 	                if (!_.isNumber(value))
@@ -67,6 +69,7 @@ define([
 	        return color;
 	    },
 
+		//  CODE REVIEW SA - This should be your template code. I can show you how to move it over.
 	    // How the rackView will be rendered
 	    render: function(){
 	    	console.log("rendering RackView");
