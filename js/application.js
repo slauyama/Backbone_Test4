@@ -1,16 +1,10 @@
 // Do not fully understand this code.
 // Took this from https://github.com/MeoMix/StreamusChromeExtension/blob/master/src/js/foreground/application.js
 define([
-<<<<<<< HEAD
     'collections/racks',
-=======
-    //  CODE REVIEW SA - Comment is out of date and you should use consistent, lowercase capitalization for file paths.
-    //  todo: create a collections folder to hold collections -- different than models
-    'collections/Racks',
->>>>>>> origin/templating
-    'models/rackStage',
-	//  CODE REVIEW SA - I like my views to end in 'view' because if the view needs a TopPanelList model you'll have naming conflicts.
-    'views/topListPanel' 
+    'collections/racks',
+    'models/rackStageView',
+    'views/topListPanelView' 
 ], function(Racks, RackStage, TopPanelList) {
     'use strict';
     var Application = new Backbone.Marionette.Application();

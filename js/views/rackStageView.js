@@ -5,19 +5,12 @@ define([
 ], function(RacksView) {
     "use strict";
 
-<<<<<<< HEAD:js/views/rackStageView.js
-    // 
     var RackStageView = Backbone.View.extend({
         // RackStageView will be passed a collection from the rackProgram
         ui: {
             scene: '#x3dScene'
         },
 
-=======
-    //  CODE REVIEW SA - RackStage is in your /models folder but it's clearly a view. Move it.
-    var RackStage = Backbone.View.extend({
-        // RackStage will be passed a collection from the rackProgram
->>>>>>> origin/templating:js/models/rackStage.js
         initialize: function(collection){
 		
 		

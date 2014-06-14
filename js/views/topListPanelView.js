@@ -6,21 +6,11 @@
 
 define([
 	"collections/racks",
-<<<<<<< HEAD:js/views/topListPanelView.js
 	"views/topListView"
 ], function(Racks, TopListView) {
 	"use strict";
 
 	var TopListPanel = Backbone.Marionette.CollectionView.extend({
-=======
-	//  CODE REVIEW SA - Naming -- I like to say 'view' at the end.
-	"views/topList"
-], function(Racks, TopList) {
-	"use strict";
-
-	//  CODE REVIEW SA - Capitalize variables which aren't instantiated. Lowercase once instantiated.
-	var topListPanel = Backbone.Marionette.CollectionView.extend({
->>>>>>> origin/templating:js/views/topListPanel.js
 		// Create 6 topLists and pass them the collection
 		initialize: function(collection){
 			// I attached all lists to the topListPanel

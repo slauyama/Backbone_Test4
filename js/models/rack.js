@@ -40,12 +40,7 @@ define(function() {
         },
 
         initialize: function(){
-<<<<<<< HEAD
-            this.adjustDefaults();
-=======
-			//  CODE REVIEW SA - Maybe call this adjustDefaults for consistent naming conventions? But properties is fine, too.
             this.adjustProperties();
->>>>>>> origin/templating
         },
 
         // This will adjust the properties to proper scale
