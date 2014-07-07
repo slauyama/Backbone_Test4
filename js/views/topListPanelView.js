@@ -13,28 +13,29 @@ define([
 	var TopListPanel = Backbone.Marionette.CollectionView.extend({
 		// Create 6 topLists and pass them the collection
 		initialize: function(collection){
+			console.log("initialize topListPanel")
 			// I attached all lists to the topListPanel
-		    this.power = new TopList({
+		    this.power = new TopListView({
 		        collection: collection
 		    });
 
-		    this.heat = new TopList({
+		    this.heat = new TopListView({
 		        collection: collection
 		    });
 
-		    this.weight = new TopList({
+		    this.weight = new TopListView({
 		        collection: collection
 		    });
 
-		    this.usedUnits = new TopList({
+		    this.usedUnits = new TopListView({
 		        collection: collection
 		    });
 
-		    this.largestUnitLocation = new TopList({
+		    this.largestUnitLocation = new TopListView({
 		        collection: collection
 		    });
 
-		    this.largestUnitSize = new TopList({
+		    this.largestUnitSize = new TopListView({
 		        collection: collection
 		    });
 

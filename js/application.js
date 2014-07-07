@@ -2,11 +2,11 @@
 // Took this from https://github.com/MeoMix/StreamusChromeExtension/blob/master/src/js/foreground/application.js
 define([
     'collections/racks',
-    'collections/racks',
-    'models/rackStageView',
+    'views/rackStageView',
     'views/topListPanelView' 
-], function(Racks, RackStage, TopPanelList) {
+], function(Racks, RackStageView, TopPanelList) {
     'use strict';
+    console.log('creating new Application');
     var Application = new Backbone.Marionette.Application();
 
     Application.addInitializer(function(){

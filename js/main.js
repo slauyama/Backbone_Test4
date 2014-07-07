@@ -5,5 +5,7 @@ require([
 ], function() {
 	'use strict';
 	//  Load all of the plugins needed by the foreground:
+	console.log("loading plugin");
 	require(['plugins']);
+	console.log("finished loading plugin");
 });

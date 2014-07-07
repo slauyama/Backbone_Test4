@@ -12,8 +12,7 @@ define([
         },
 
         initialize: function(collection){
-		
-		
+				
             //Create a new racksView and pass it the collection
             var racksView = new RacksView({
                 collection: collection
@@ -21,7 +20,8 @@ define([
 
 			//  CODE REVIEW SA - Use .ui instead of a jQuery selector here.
             // Will attach the rendered racksView to the #x3dScene
-            this.ui.scene.append(racksView.render().el);
+
+            $(this.ui.scene).append(racksView.render().el);
             racksView.triggerMethod('show');
         }
     });

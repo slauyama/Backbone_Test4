@@ -5,13 +5,14 @@ define([
 ], function(TopListItemView){
 	var TopListView = Backbone.Marionette.CompositeView.extend({
 		tagName: 'ul',
-		itemView: TopListItem,
+		itemView: TopListItemView,
 
 		// Make 3 topListItems per topList
 		initialize: function(collection){
-			this.first = new TopListItem({});
-			this.second = new TopListItem({});
-			this.third = new TopListItem({});
+			console.log("initialize topListView");
+			this.first = new TopListItemView({});
+			this.second = new TopListItemView({});
+			this.third = new TopListItemView({});
 		}
 	});
 

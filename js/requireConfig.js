@@ -1,7 +1,7 @@
 // Config File
 define(function() {
 	"use strict";
-
+	console.log("starting config");
 	require.config({
 		//baseUrl: 'js',
 
@@ -54,4 +54,5 @@ define(function() {
 
 		}
 	});
+    console.log("done with config")
 });

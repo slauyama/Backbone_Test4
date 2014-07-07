@@ -39,10 +39,6 @@ define(function() {
             floorPlanHeight: 0
         },
 
-        initialize: function(){
-            this.adjustProperties();
-        },
-
         // This will adjust the properties to proper scale
         adjustDefaults: function() {
             this.set('height', this.get('height') * 44.5 / 1000);
@@ -52,7 +48,12 @@ define(function() {
             this.set('heatPlanned', this.get('powerPlanned') * 3.412141633);
             this.set('floorPlanWidth', this.get('floorPlanWidth') / 1000);
             this.set('floorPlanHeight', this.get('floorPlanHeight') / 1000);
+        },
+
+        initialize: function(){
+            this.adjustDefaults();
         }
+
     });
 
     return Rack;

@@ -1,11 +1,11 @@
 // Templating not working
 define([
 	//  CODE REVIEW SA -  Template isn't working because you're overriding render.
-	"text!rackViewTemplate.html" //Trying to pass in a template to the rackView
-], function(RackViewTemplate){
+	/*"rackViewTemplate.html"*/ //Trying to pass in a template to the rackView
+], function(/*RackViewTemplate*/){
 	"use strict";
 
-	console.log(RackViewTemplate);
+	// console.log(RackViewTemplate);
 	var RackView = Backbone.Marionette.ItemView.extend({
 	    // Each rack is the type transform
 	    tagName: 'transform',
