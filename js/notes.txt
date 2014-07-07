@@ -1,0 +1,9 @@
+MAKE SURE YOU ARE WORKING IN TEMPLATING BRANCH
+WILL MERGE AFTER templating is working
+
+NOTES FOR BACKBONE MVC
+view - properties
+    el is the element.
+    ui is marionette
+    	ui allows for binding variables to elements. faster than searching them up all the time
+
