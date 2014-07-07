@@ -6,3 +6,6 @@ view - properties
     el is the element.
     ui is marionette
     	ui allows for binding variables to elements. faster than searching them up all the time
+
+Trying to implement Templates
+	-Can I load a template locally without a server

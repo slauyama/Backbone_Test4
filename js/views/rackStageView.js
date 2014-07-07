@@ -18,9 +18,7 @@ define([
                 collection: collection
             });
 
-			//  CODE REVIEW SA - Use .ui instead of a jQuery selector here.
-            // Will attach the rendered racksView to the #x3dScene
-
+			// Attach's the rendered racksView to the #x3dScene
             $(this.ui.scene).append(racksView.render().el);
             racksView.triggerMethod('show');
         }

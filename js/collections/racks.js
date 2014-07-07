@@ -10,6 +10,7 @@ define([
 		    //  TODO: Ideally just call this.reset w/ server-side array of JSON objects.
 		    initialize: function() {
 		        this.load();
+		        this.findMaxNumber('powerActual', 3);
 		    }, 
 
 		    load: function(){
@@ -1276,6 +1277,33 @@ define([
 		            _.isNumber(rack.get('floorPlanWidth')) &&
 		            _.isNumber(rack.get('floorPlanHeight'));
 		        })); 
+		    },
+
+		    findMaxNumber: function(property, length) {
+	    	    var findMax, iterator, limit, list, that;
+	    		list = [];
+	    		iterator = 0;
+	    		limit = Number.MAX_VALUE;
+	    		that = this;
+
+	    	    findMax = function (limit) {
+	    	        var max = _.max(that.models, function(data) {
+	    	            var value = data.get(property);
+	    	            if (_.isNumber(value) && value < limit) {
+	    	                return value;
+	    	            }
+	    	        }).get(property);
+
+	    	        return max;
+	    	    };
+
+	    	    while (iterator < length) {
+	    	        list[iterator] = findMax(limit);
+	    	        limit = list[iterator];
+	    	        iterator++;
+	    	    }
+	    	    
+	    	    return list;
 		    }
 		});
 

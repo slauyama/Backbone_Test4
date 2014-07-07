@@ -11,7 +11,7 @@ define([
 		render: function(){
 			console.log("rendering TopListItem");
 
-		    this.$el.innerHTML = 'Hello';
+		    this.$el.html('Hello');
 		    return this;
 		}
 
