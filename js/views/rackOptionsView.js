@@ -10,15 +10,17 @@ define([
         el: $('#rack-view-options'),
 
         ui: {
-            viewOptions: '#rack-view-options',
             cameraOptions: '.camera-option',
             colorOptions: '.color-option',
-            formGroup: '.form-group'
+            formGroup: '.form-group',
+            gridMaterial: '#grid-material'
         },
 
         events: {
             'click #view-shuffle' : 'helloSimon',
-            'mouseover this.ui.cameraOptions > .button': 'helloSimon'
+            'click #grid-toggle' : 'toggleGridTransparency',
+            'mouseover .camera-option .button': 'helloSimon',
+            'mouseover .color-option .button': 'helloSimon',
         },
 
         initialize: function(collection){
@@ -28,7 +30,7 @@ define([
         render: function() {
             // Not sure if this is correct or if this should be done in this view
 
-            //Creating Buttons for the camera views
+            // Creating Buttons for the camera views
             $(this.ui.cameraOptions).append(this.createButton("Top View", "button"));
             $(this.ui.cameraOptions).append(this.createButton("Front View", "button"));
             $(this.ui.cameraOptions).append(this.createButton("Left View", "button"));
@@ -36,28 +38,37 @@ define([
             $(this.ui.cameraOptions).append(this.createButton("Back View", "button"));
             $(this.ui.cameraOptions).append(this.createButton("Perspective", "button"));
 
-            //Creating Buttons for the color options
+            // Creating Buttons for the color options
             $(this.ui.colorOptions).append(this.createButton("Power", "button"));
             $(this.ui.colorOptions).append(this.createButton("Weight", "button"));
             $(this.ui.colorOptions).append(this.createButton("Temperature", "button"));
 
-            //Creating two check boxes
+            // Creating two check boxes
             $(this.ui.formGroup).append(this.createCheckBox("Display Grid", "grid-toggle"));
             $(this.ui.formGroup).append(this.createCheckBox("Shuffle Views", "view-shuffle"));
+
         },
 
         createButton: function(title, classNames) {
             return "<input type='button' value='" + title + "' class='" + classNames +"'>";
         },
 
-        createCheckBox: function(title, id) {
-            var label = "<label for='" + id + "'>" + title + ":</label>";
-            var checkbox = "<input type='checkbox' value='" + id + "' class='checkbox'>";
+        createCheckBox: function(title, value) {
+            var label = "<label for='" + value + "'>" + title + ":</label>";
+            var checkbox = "<input type='checkbox' value='" + value + "' id='" + value + "' class='checkbox'>";
             return label + checkbox;
         },
 
         helloSimon: function() {
             console.log('helloSimon');
+        },
+
+        toggleGridTransparency: function() {
+          if (document.getElementById('grid-material').transparency === "1.0") {
+            document.getElementById('grid-material').transparency = ".65";
+          } else {
+            document.getElementById('grid-material').transparency = "1.0";
+          }
         }
     });
 

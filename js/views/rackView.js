@@ -74,7 +74,6 @@ define([
 		//  CODE REVIEW SA - This should be your template code. I can show you how to move it over.
 	    // How the rackView will be rendered
 	    render: function(){
-	    	console.log("rendering RackView");
 	        var shape = "<shape id='" + this.model.get('componentId') + "' class='rack'>";
 	        var appearance = "<appearance sorttype='auto'>";
 	        var material = "<material ambientintensity='0.2'" + 

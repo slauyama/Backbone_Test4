@@ -115,7 +115,8 @@ body {
     background-image: -webkit-linear-gradient(bottom, #efefef, #dedede); }
 
 x3d {
-  position: relative;}
+  position: relative;
+  margin: 10px; }
   x3d canvas {
     width: 700px;
     height: 400px; 

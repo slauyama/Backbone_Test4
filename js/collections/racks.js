@@ -14,7 +14,6 @@ define([
 		    }, 
 
 		    load: function(){
-		    	console.log("loading data into Rack(S)");
 		        this.add({
 		            componentId:1470,
 		            name:"50M",
@@ -1269,7 +1268,6 @@ define([
 
 		    //  Filter out racks which do not have the right properties
 		    sanitize: function(){
-		    	console.log("sanitizing Rack(S)");
 		        this.reset(this.filter(function(rack) {
 		            return rack.get('name').indexOf('Tile') === -1 && 
 		            _.isNumber(rack.get('adjustedXPosition')) &&
