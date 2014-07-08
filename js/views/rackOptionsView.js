@@ -20,7 +20,7 @@ define([
             'click #view-shuffle' : 'helloSimon',
             'click #grid-toggle' : 'toggleGridTransparency',
             'mouseover .camera-option .button': 'toggleCamera',
-            'mouseover .color-option .button': 'helloSimon',
+            'mouseover .color-option .button': 'toggleColor',
         },
 
         initialize: function(collection){
@@ -71,17 +71,18 @@ define([
           }
         },
 
-        toggleCamera: function(event, context) {
-            console.log(event, context);
-            // clearAllSelected('selected-view');
-            // this.className += " selected-view";
+        toggleCamera: function(event) {
+            // Should not be using event.currentTarget but will figure that out later
+            $('.selected-view').removeClass('selected-view');
+            event.currentTarget.className += " selected-view";
 
             /* To activate a viewpoint you set "set_bind" to true */
-            // document.getElementById(this.value).setAttribute('set_bind', 'true');
+            document.getElementById(event.currentTarget.value).setAttribute('set_bind', 'true');
         },
 
-        toggleColor: function() {
+        toggleColor: function(event) {
             $('.selected-color').removeClass('selected-color');
+            event.currentTarget.className += " selected-color";
         }
     });
 

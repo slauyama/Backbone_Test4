@@ -36,7 +36,7 @@ define(function() {
             //adjust the floorplan by a scale of 1000 
             //this is matched with the height 
             floorPlanWidth: 0,
-            floorPlanHeight: 0
+            floorPlanHeight: 0,
         },
 
         // This will adjust the properties to proper scale

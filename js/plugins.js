@@ -9,8 +9,6 @@ define([
 	'x3dom'
 ], function () {
     'use strict';
-    console.log("loading application");
     //  Finally, load the application which will initialize the foreground:
     require(['application']);
-    console.log("finished loading application");
 });

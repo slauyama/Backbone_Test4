@@ -1,7 +1,7 @@
 // Templating not working
 define([
 	//  CODE REVIEW SA -  Template isn't working because you're overriding render.
-	"text!rackViewTemplate.html" //Trying to pass in a template to the rackView
+	"text!templates/rackViewTemplate.html" //Trying to pass in a template to the rackView
 ], function(RackViewTemplate){
 	"use strict";
 
