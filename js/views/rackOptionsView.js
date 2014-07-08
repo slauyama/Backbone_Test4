@@ -19,7 +19,7 @@ define([
         events: {
             'click #view-shuffle' : 'helloSimon',
             'click #grid-toggle' : 'toggleGridTransparency',
-            'mouseover .camera-option .button': 'helloSimon',
+            'mouseover .camera-option .button': 'toggleCamera',
             'mouseover .color-option .button': 'helloSimon',
         },
 
@@ -69,6 +69,19 @@ define([
           } else {
             $(this.ui.gridMaterial).transparency = "1.0";
           }
+        },
+
+        toggleCamera: function(event, context) {
+            console.log(event, context);
+            // clearAllSelected('selected-view');
+            // this.className += " selected-view";
+
+            /* To activate a viewpoint you set "set_bind" to true */
+            // document.getElementById(this.value).setAttribute('set_bind', 'true');
+        },
+
+        toggleColor: function() {
+            $('.selected-color').removeClass('selected-color');
         }
     });
 

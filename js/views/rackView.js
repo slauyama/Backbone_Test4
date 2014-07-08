@@ -1,16 +1,15 @@
 // Templating not working
 define([
 	//  CODE REVIEW SA -  Template isn't working because you're overriding render.
-	/*"rackViewTemplate.html"*/ //Trying to pass in a template to the rackView
-], function(/*RackViewTemplate*/){
+	"text!rackViewTemplate.html" //Trying to pass in a template to the rackView
+], function(RackViewTemplate){
 	"use strict";
 
 	// console.log(RackViewTemplate);
 	var RackView = Backbone.Marionette.ItemView.extend({
 	    // Each rack is the type transform
 	    tagName: 'transform',
-
-	    // template: _.template(RackViewTemplate),
+	    template: _.template(RackViewTemplate),
 	    // console.log(RackViewTemplate);
 
 	    // Get the x and y translation from the model 
@@ -73,21 +72,21 @@ define([
 
 		//  CODE REVIEW SA - This should be your template code. I can show you how to move it over.
 	    // How the rackView will be rendered
-	    render: function(){
-	        var shape = "<shape id='" + this.model.get('componentId') + "' class='rack'>";
-	        var appearance = "<appearance sorttype='auto'>";
-	        var material = "<material ambientintensity='0.2'" + 
-	            " diffusecolor=" + this.getColor('Power') + " shininess='0.2'>";
-	        var closeAppearance = "</material></appearance>";
-	        var box = "<box size='"+ this.model.get('floorPlanWidth') + ' ' +
-	            (this.model.get('floorPlanHeight') - 0.1) + ' ' + 
-	            this.model.get('height') + "'></box>";
-	        var closeTransform = "</shape></transform>";
+	    // render: function(){
+	    //     var shape = "<shape id='" + this.model.get('componentId') + "' class='rack'>";
+	    //     var appearance = "<appearance sorttype='auto'>";
+	    //     var material = "<material ambientintensity='0.2'" + 
+	    //         " diffusecolor=" + this.getColor('Power') + " shininess='0.2'>";
+	    //     var closeAppearance = "</material></appearance>";
+	    //     var box = "<box size='"+ this.model.get('floorPlanWidth') + ' ' +
+	    //         (this.model.get('floorPlanHeight') - 0.1) + ' ' + 
+	    //         this.model.get('height') + "'></box>";
+	    //     var closeTransform = "</shape></transform>";
 
-	        this.$el.html(shape + appearance + material + closeAppearance 
-	            + box + closeTransform);
-	        return this;
-	    }
+	    //     this.$el.html(shape + appearance + material + closeAppearance 
+	    //         + box + closeTransform);
+	    //     return this;
+	    // }
 	});
 
 	return RackView;
