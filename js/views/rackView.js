@@ -63,8 +63,10 @@ define([
 	        greenString = (green < 16 ? "0" : "") + green.toString(16);
 
 	        color = "#" + redString + greenString + "00";
-	        if (badDataFlag) 
+	        
+	        if (badDataFlag) {
 	            color = "steelblue";
+	        }
 	        
 	        return color;
 	    },

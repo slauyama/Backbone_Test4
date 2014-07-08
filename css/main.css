@@ -67,6 +67,36 @@ body {
   font-weight: 300;
   margin: 10px; }
 
+.rack-view-options .buttons {
+  margin: 1% 0px 10px 0px; }
+  .rack-view-options .buttons .button {
+    background-image: linear-gradient(to bottom, #dedede, #efefef);
+    background-image: -o-linear-gradient(bottom, #dedede, #efefef);
+    background-image: -ms-linear-gradient(bottom, #dedede, #efefef);
+    background-image: -moz-linear-gradient(bottom, #dedede, #efefef);
+    background-image: -webkit-linear-gradient(bottom, #dedede, #efefef);
+    display: inline-block;
+    border: 1px solid #999;
+    padding: 1% 10px; }
+    .rack-view-options .buttons .button:hover {
+      background-image: linear-gradient(to bottom, #efefef, #dedede);
+      background-image: -o-linear-gradient(bottom, #efefef, #dedede);
+      background-image: -ms-linear-gradient(bottom, #efefef, #dedede);
+      background-image: -moz-linear-gradient(bottom, #efefef, #dedede);
+      background-image: -webkit-linear-gradient(bottom, #efefef, #dedede); }
+  .rack-view-options .buttons .selected-view, .rack-view-options .buttons .selected-color {
+    background-image: linear-gradient(to bottom, #9090cd, #bcbcde);
+    background-image: -o-linear-gradient(bottom, #9090cd, #bcbcde);
+    background-image: -ms-linear-gradient(bottom, #9090cd, #bcbcde);
+    background-image: -moz-linear-gradient(bottom, #9090cd, #bcbcde);
+    background-image: -webkit-linear-gradient(bottom, #9090cd, #bcbcde); }
+    .rack-view-options .buttons .selected-view:hover, .rack-view-options .buttons .selected-color:hover {
+      background-image: linear-gradient(to bottom, #bcbcde, #9090cd);
+      background-image: -o-linear-gradient(bottom, #bcbcde, #9090cd);
+      background-image: -ms-linear-gradient(bottom, #bcbcde, #9090cd);
+      background-image: -moz-linear-gradient(bottom, #bcbcde, #9090cd);
+      background-image: -webkit-linear-gradient(bottom, #bcbcde, #9090cd); }
+
 x3d {
   position: relative;}
   x3d canvas {
