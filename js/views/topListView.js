@@ -11,7 +11,6 @@ define([
 
 		// Make 3 topListItems per topList
 		initialize: function(options){
-			console.log("initialize topListView");
 	
 			// SEAN LOOK HERE
 			// Not sure if I should be receiving the data from the model here
@@ -32,7 +31,6 @@ define([
 		},
 
 		render: function() {
-			console.log("rendering TopListView");
 		    this.$el.append('<p>' + this.options.header + '</p>');
 		    this.$el.append(this.first.render().el);
 		    this.$el.append(this.second.render().el);

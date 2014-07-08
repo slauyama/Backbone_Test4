@@ -6,6 +6,10 @@ ToDo
 -Add controls for changing views and options
 -Add Color Controls
 
+
+Done
+-Added buttons to the rackStageView
+
 Notes 
 Composite View - has both a model and a collection view used for extra text
 Collection View - only draws item views

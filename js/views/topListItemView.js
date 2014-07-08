@@ -9,8 +9,6 @@ define([
 
 	    // Should be using templating
 		render: function(){
-			console.log("rendering TopListItem");
-
 		    this.$el.html(this.options.value + this.options.units);
 		    return this;
 		}
