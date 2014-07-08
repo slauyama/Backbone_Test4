@@ -3,7 +3,6 @@ define([
 ], function(RackView){
 	var RacksView = Backbone.Marionette.CollectionView.extend({
 	    tagName: 'scene',
-	    itemViewContainer: '#x3dScene',
 
 	    attributes: {
 	    	// Specifically added attributes to ensure loading on

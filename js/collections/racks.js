@@ -1277,6 +1277,7 @@ define([
 		        })); 
 		    },
 
+		    // Returns an array of the highest numbers of a certain property
 		    findMaxNumber: function(property, length) {
 	    	    var findMax, iterator, limit, list, that;
 	    		list = [];
@@ -1284,6 +1285,7 @@ define([
 	    		limit = Number.MAX_VALUE;
 	    		that = this;
 
+	    		// Finds the highest number under the given limit
 	    	    findMax = function (limit) {
 	    	        var max = _.max(that.models, function(data) {
 	    	            var value = data.get(property);

@@ -61,6 +61,26 @@ define([
 		        });
 
 		    },
+
+		    /* Returns the front distance needed for view */
+		    getFrontDistance: function() {
+		      return this.get('boundingBox').minY - this.get('maxHeight') - (this.get('boundingBox').maxY - this.get('boundingBox').minX);
+		    },
+
+		    /* Returns the back distance needed for view */
+		    getBackDistance: function() {
+		      return this.getFrontDistance() * -1;
+		    },
+
+		    /* Returns the front distance needed for view */
+		    getSideDistance: function() {
+		      return this.get('boundingBox').maxX + this.get('maxWidth') + (this.get('boundingBox').maxY - this.get('boundingBox').minY);
+		    },
+
+		    /* Returns the back distance needed for view */
+		    getTopDistance: function() {
+		      return this.get('boundingBox').maxX - this.get('boundingBox').minY + this.get('boundingBox').maxY - this.get('boundingBox').minY;
+		    }
 		});
 
 		return RackFloor;
