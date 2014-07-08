@@ -62,6 +62,11 @@ legend {
 .alignRight {
   text-align: right; }
 
+body {
+  font-family: "Lato" "Open Sans", Arial, sans-serif;
+  font-weight: 300;
+  margin: 10px; }
+
 x3d {
   position: relative;}
   x3d canvas {
@@ -92,4 +97,21 @@ x3d {
 
 #leader-data {
   clear: both;
-}
+  margin: 5px 0px;
+  padding: 10px;
+  width: 760px; }
+  #leader-data #leader-list .topListItem {
+    margin: 10px;
+    width: 225px;
+    float: left;
+    list-style-type: decimal;
+    list-style-position: inside; }
+    #leader-data #leader-list .topListItem {
+      margin-left: 10px;
+      width: 225px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap; }
+      #leader-data #leader-list .topListItem:hover {
+        overflow: visible;
+        white-space: normal; }

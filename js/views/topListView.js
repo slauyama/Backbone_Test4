@@ -6,24 +6,34 @@ define([
 
 	var TopListView = Backbone.Marionette.CompositeView.extend({
 		tagName: 'ul',
+		id: 'leader-data',
 		itemView: TopListItemView,
 
 		// Make 3 topListItems per topList
-		initialize: function(collection){
+		initialize: function(options){
 			console.log("initialize topListView");
 	
 			// SEAN LOOK HERE
 			// Not sure if I should be receiving the data from the model here
 			// Was told that Model should have method and should communicate by event
-			var test = collection.findMaxNumber("powerActual", 3);
-			console.log(test);
-			this.first = new TopListItemView({});
-			this.second = new TopListItemView({});
-			this.third = new TopListItemView({});
+			var list = this.options.collection.findMaxNumber(this.options.type, 3);
+			this.first = new TopListItemView({
+				value: list[0],
+				units: this.options.units
+			});
+			this.second = new TopListItemView({
+				value: list[1],
+				units: this.options.units
+			});
+			this.third = new TopListItemView({
+				value: list[2],
+				units: this.options.units
+			});
 		},
 
 		render: function() {
 			console.log("rendering TopListView");
+		    this.$el.append('<p>' + this.options.header + '</p>');
 		    this.$el.append(this.first.render().el);
 		    this.$el.append(this.second.render().el);
 		    this.$el.append(this.third.render().el);

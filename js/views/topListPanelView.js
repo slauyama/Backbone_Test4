@@ -19,24 +19,60 @@ define([
 		initialize: function(collection){
 			console.log("initialize topListPanel")
 			// I attached all lists to the topListPanel
-		    this.power = new TopListView(collection);
+		    this.powerActual = new TopListView({
+		  		type: "powerActual",
+		  		header: "Power",
+		        collection: collection,
+		        units: "oz"
+		    });
 
-		    this.heat = new TopListView(collection);
+		    this.heatCurrent = new TopListView({
+		        type: "heatCurrent",
+		        header: "Heat",
+		        collection: collection,
+		        units: "oz"
+		    });
 
-		    this.weight = new TopListView(collection);
+		    this.weightCurrent = new TopListView({
+		        type: "weightCurrent",
+		        header: "Weight",
+		        collection: collection,
+		        units: "oz"
+		    });
 
-		    this.usedUnits = new TopListView(collection);
+		    this.usedUnitsCurrent = new TopListView({
+		        type: "usedUnitsCurrent",
+		        header: "Used Units",
+		        collection: collection,
+		        units: "oz"
+		    });
 
-		    this.largestUnitLocation = new TopListView(collection);
+		    this.largestUnitLocation = new TopListView({
+		        type: "largestUnitLocation",
+		        header: "Largest Unit Location",
+		        collection: collection,
+		        units: "oz"
+		    });
 
-		    this.largestUnitSize = new TopListView(collection);
+		    this.largestUnitSize = new TopListView({
+		        type: "largestUnitSize",
+		        header: "Largest Unit Size",
+		        collection: collection,
+		        units: "oz"
+		    });
 
-			//  CODE REVIEW SA - Should be using a Region here.
-		    // I want to append this panel to #leader-data
 		    
 		    // $(this.ui.place).append(this.render().el);
 
-		    $(this.ui.place).append(this.power.render().el);
+		    // Not good practice Dont know how to automatically append it to the section
+		    //
+		    $(this.ui.place).append(this.powerActual.render().el);
+		    $(this.ui.place).append(this.heatCurrent.render().el);
+		    $(this.ui.place).append(this.weightCurrent.render().el);
+		    $(this.ui.place).append(this.usedUnitsCurrent.render().el);
+		    $(this.ui.place).append(this.largestUnitLocation.render().el);
+		    $(this.ui.place).append(this.largestUnitSize.render().el);		    
+
 		    this.triggerMethod('show');
 		}
 	});
