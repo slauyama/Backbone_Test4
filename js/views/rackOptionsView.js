@@ -64,10 +64,10 @@ define([
         },
 
         toggleGridTransparency: function() {
-          if (document.getElementById('grid-material').transparency === "1.0") {
-            document.getElementById('grid-material').transparency = ".65";
+          if ($(this.ui.gridMaterial).transparency === "1.0") {
+            $(this.ui.gridMaterial).transparency = ".65";
           } else {
-            document.getElementById('grid-material').transparency = "1.0";
+            $(this.ui.gridMaterial).transparency = "1.0";
           }
         }
     });

@@ -2,8 +2,9 @@
 
 define([
     'views/racksView',
+    'models/rackFloor',
     'views/rackOptionsView'
-], function(RacksView, RackOptionsView) {
+], function(RacksView, RackFloor, RackOptionsView) {
     "use strict";
 
     var RackStageView = Backbone.View.extend({
@@ -14,7 +15,8 @@ define([
         },
 
         initialize: function(collection){
-				
+			var rackFloor = new RackFloor(collection.models);
+
             //Create a new racksView and pass it the collection
             var racksView = new RacksView({
                 collection: collection
@@ -29,10 +31,10 @@ define([
             var rackOptionsView = new RackOptionsView();
             // $(this.ui.rackOptions).append(rackOptionsView.render().el);
 
-            this.createGrid();
+            this.createGrid(rackFloor);
         },
 
-        createGrid: function(bounds) {
+        createGrid: function(rackFloor) {
             var connections, coordinateConnections, coordinates, grid, gridStart, set, shape;
             
             /* Attach a shape to the scene */
@@ -55,10 +57,10 @@ define([
             connections = 0;
 
             /* rounding to a .6 because that is the standard grid interval */
-            grid.HeightStart = Math.roundTo(Math.ceil((bounds.boundingBox.minY - bounds.maxHeight) / 0.6 - 1) * 0.6, 2);
-            grid.HeightEnd = Math.roundTo(Math.ceil((bounds.boundingBox.maxY + bounds.maxHeight) / 0.6 + 1) * 0.6, 2);
-            grid.WidthStart = Math.roundTo(Math.ceil((bounds.boundingBox.minX - bounds.maxWidth) / 0.6 - 1) * 0.6, 2);
-            grid.WidthEnd = Math.roundTo(Math.ceil((bounds.boundingBox.maxX + bounds.maxWidth) / 0.6 + 1) * 0.6, 2);
+            grid.HeightStart = Math.roundTo(Math.ceil((rackFloor.get('boundingBox').minY - rackFloor.get('maxHeight') ) / 0.6 - 1) * 0.6, 2);
+            grid.HeightEnd = Math.roundTo(Math.ceil((rackFloor.get('boundingBox').maxY + rackFloor.get('maxHeight') ) / 0.6 + 1) * 0.6, 2);
+            grid.WidthStart = Math.roundTo(Math.ceil((rackFloor.get('boundingBox').minX - rackFloor.get('maxWidth') ) / 0.6 - 1) * 0.6, 2);
+            grid.WidthEnd = Math.roundTo(Math.ceil((rackFloor.get('boundingBox').maxX + rackFloor.get('maxWidth') ) / 0.6 + 1) * 0.6, 2);
 
             /* Verticle lines on the Grid */
             gridStart = grid.WidthStart;
