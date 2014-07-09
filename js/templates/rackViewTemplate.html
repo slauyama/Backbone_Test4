@@ -3,7 +3,7 @@
 
 <shape id='<%= componentId %>'  class='rack'>
 	<appearance sorttype='auto'>
-	    <material ambientintensity='0.2' diffusecolor='#FF6666' + shininess='0.2'>
+	    <material ambientintensity='0.2' diffusecolor='<%= getColor("Power") %>' + shininess='0.2'>
 	    </material>
 	</appearance>
 	<box size='<%= floorPlanWidth + " " + (floorPlanHeight - 0.1) + " " + height %>'>

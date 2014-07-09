@@ -1,7 +1,5 @@
-// Templating not working
 define([
-	//  CODE REVIEW SA -  Template isn't working because you're overriding render.
-	"text!templates/rackViewTemplate.html" //Trying to pass in a template to the rackView
+	"text!templates/rackViewTemplate.html"
 ], function(RackViewTemplate){
 	"use strict";
 
@@ -10,7 +8,53 @@ define([
 	    // Each rack is the type transform
 	    tagName: 'transform',
 	    template: _.template(RackViewTemplate),
-	    // console.log(RackViewTemplate);
+	    templateHelpers: {
+    	    // Determine the color of the rack
+    	    getColor: function(colorValue) {
+    	        var badDataFlag = false, value;
+    	        switch (colorValue) {
+    				//  CODE REVIEW SA - Use an enum here instead of comparing to string constant.
+    	            case "Power":
+    	                value = this.powerCurrent / this.powerMax;
+    	                if (!_.isNumber(value))
+    	                    badDataFlag = true;
+    	                break;
+    	            case "Weight":
+    	                value = this.weightCurrent / this.weightMax;
+    	                if (!_.isNumber(value))
+    	                    badDataFlag = true;
+    	                break;
+    	            case "Temperature":
+    	                value = this.heatCurrent / this.coolingMax;
+    	                if (!_.isNumber(value))
+    	                    badDataFlag = true;
+    	                break;
+    	            default:
+    	                badDataFlag = true;
+    	                break;
+    	        }
+
+    	        var red, green, redString, greenString, color; 
+    	        if (value < 0.5) {
+    	            red = Math.floor(value * 255);
+    	            green = 200;
+    	        } else {
+    	            red = 255;
+    	            green = Math.floor((1 - value) * 255);
+    	        }
+
+    	        redString = (red < 16 ? "0" : "") + red.toString(16);
+    	        greenString = (green < 16 ? "0" : "") + green.toString(16);
+
+    	        color = "#" + redString + greenString + "00";
+    	        
+    	        if (badDataFlag) {
+    	            color = "steelblue";
+    	        }
+    	        
+    	        return color;
+    	    }
+	    },
 
 	    // Get the x and y translation from the model 
 	    attributes: function() {
@@ -19,74 +63,8 @@ define([
 	        };
 	    },
 
-	    initialize: function() {
-	        //_.bindAll(this, 'render');
-	    },
 
-	    // Determine the color of the rack
-	    getColor: function(colorValue) {
-	        var badDataFlag = false, value;
-	        
-	        switch (colorValue) {
-				//  CODE REVIEW SA - Use an enum here instead of comparing to string constant.
-	            case "Power":
-	                value = this.model.get('powerCurrent') / this.model.get('powerMax');
-	                if (!_.isNumber(value))
-	                    badDataFlag = true;
-	                break;
-	            case "Weight":
-	                value = this.model.get('weightCurrent') / this.model.get('weightMax');
-	                if (!_.isNumber(value))
-	                    badDataFlag = true;
-	                break;
-	            case "Temperature":
-	                value = this.model.get('heatCurrent') / this.model.get('coolingMax');
-	                if (!_.isNumber(value))
-	                    badDataFlag = true;
-	                break;
-	            default:
-	                badDataFlag = true;
-	                break;
-	        }
-
-	        var red, green, redString, greenString, color; 
-	        if (value < 0.5) {
-	            red = Math.floor(value * 255);
-	            green = 200;
-	        } else {
-	            red = 255;
-	            green = Math.floor((1 - value) * 255);
-	        }
-
-	        redString = (red < 16 ? "0" : "") + red.toString(16);
-	        greenString = (green < 16 ? "0" : "") + green.toString(16);
-
-	        color = "#" + redString + greenString + "00";
-	        
-	        if (badDataFlag) {
-	            color = "steelblue";
-	        }
-	        
-	        return color;
-	    },
-
-		//  CODE REVIEW SA - This should be your template code. I can show you how to move it over.
-	    // How the rackView will be rendered
-	    // render: function(){
-	    //     var shape = "<shape id='" + this.model.get('componentId') + "' class='rack'>";
-	    //     var appearance = "<appearance sorttype='auto'>";
-	    //     var material = "<material ambientintensity='0.2'" + 
-	    //         " diffusecolor=" + this.getColor('Power') + " shininess='0.2'>";
-	    //     var closeAppearance = "</material></appearance>";
-	    //     var box = "<box size='"+ this.model.get('floorPlanWidth') + ' ' +
-	    //         (this.model.get('floorPlanHeight') - 0.1) + ' ' + 
-	    //         this.model.get('height') + "'></box>";
-	    //     var closeTransform = "</shape></transform>";
-
-	    //     this.$el.html(shape + appearance + material + closeAppearance 
-	    //         + box + closeTransform);
-	    //     return this;
-	    // }
+	   
 	});
 
 	return RackView;

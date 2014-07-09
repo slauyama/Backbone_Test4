@@ -17,7 +17,7 @@ define([
         },
 
         events: {
-            'click #view-shuffle' : 'helloSimon',
+            // 'click #view-shuffle' : '',
             'click #grid-toggle' : 'toggleGridTransparency',
             'mouseover .camera-option .button': 'toggleCamera',
             'mouseover .color-option .button': 'toggleColor',
@@ -28,20 +28,22 @@ define([
         },
 
         render: function() {
+            var that = this;
             // Not sure if this is correct or if this should be done in this view
 
             // Creating Buttons for the camera views
-            $(this.ui.cameraOptions).append(this.createButton("Top View", "button"));
-            $(this.ui.cameraOptions).append(this.createButton("Front View", "button"));
-            $(this.ui.cameraOptions).append(this.createButton("Left View", "button"));
-            $(this.ui.cameraOptions).append(this.createButton("Right View", "button"));
-            $(this.ui.cameraOptions).append(this.createButton("Back View", "button"));
-            $(this.ui.cameraOptions).append(this.createButton("Perspective", "button"));
+            this.allViewButtons = ["Top View", "Front View", "Left View", "Right View", "Back View", "Perspective"];
 
+            this.allViewButtons.forEach(function(viewButton) {
+                $(that.ui.cameraOptions).append(that.createButton(viewButton));
+            });
+            
             // Creating Buttons for the color options
-            $(this.ui.colorOptions).append(this.createButton("Power", "button"));
-            $(this.ui.colorOptions).append(this.createButton("Weight", "button"));
-            $(this.ui.colorOptions).append(this.createButton("Temperature", "button"));
+            this.allColorButtons = ["Power", "Weight", "Temperature"];
+
+            this.allColorButtons.forEach(function(colorButton) {
+                $(that.ui.colorOptions).append(that.createButton(colorButton));
+            });
 
             // Creating two check boxes
             $(this.ui.formGroup).append(this.createCheckBox("Display Grid", "grid-toggle"));
@@ -49,18 +51,14 @@ define([
 
         },
 
-        createButton: function(title, classNames) {
-            return "<input type='button' value='" + title + "' class='" + classNames +"'>";
+        createButton: function(title) {
+            return "<input type='button' value='" + title + "' class='button'>";
         },
 
         createCheckBox: function(title, value) {
             var label = "<label for='" + value + "'>" + title + ":</label>";
             var checkbox = "<input type='checkbox' value='" + value + "' id='" + value + "' class='checkbox'>";
             return label + checkbox;
-        },
-
-        helloSimon: function() {
-            console.log('helloSimon');
         },
 
         toggleGridTransparency: function() {
@@ -77,7 +75,12 @@ define([
             event.currentTarget.className += " selected-view";
 
             /* To activate a viewpoint you set "set_bind" to true */
-            document.getElementById(event.currentTarget.value).setAttribute('set_bind', 'true');
+            try {
+                document.getElementById(event.currentTarget.value).setAttribute('set_bind', 'true');
+            } catch(exception) {
+                console.log("Cannot find event.currentTarget.value '" + exception + "'")
+            }
+            
         },
 
         toggleColor: function(event) {
