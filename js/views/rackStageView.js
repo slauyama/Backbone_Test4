@@ -36,7 +36,10 @@ define([
 
             // Does not append the html elements but rather just text
             // this.createGrid(rackFloor);
-
+            this.listenTo(rackOptionsView, 'changingColor', function() {
+                console.log("Yay I was able to listen to the ChangeColor Event")
+                racksView.render();
+            })
 
         },
 
@@ -97,13 +100,6 @@ define([
 
     return RackStageView;
 });
-
-// Transform
-//     shape
-//         appearance
-//         material
-//         indexedLineSet
-//         coordinate
 
         
 // <Transform render="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" center="0,0,0" translation="0,0,0" rotation="0,0,0,0" scale="1,1,1" scaleorientation="0,0,0,0">

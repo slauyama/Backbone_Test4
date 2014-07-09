@@ -9,3 +9,6 @@ view - properties
 
 Trying to implement Templates
 	-Can I load a template locally without a server
+		-Fixed BY changing the settings on Chrome shortcut you can bypass the security
+
+How do i avoid appending all elements manually

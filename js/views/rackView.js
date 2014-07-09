@@ -1,5 +1,5 @@
 define([
-	"text!templates/rackViewTemplate.html"
+	"text!templates/rackViewTemplate.html",
 ], function(RackViewTemplate){
 	"use strict";
 
@@ -8,12 +8,28 @@ define([
 	    // Each rack is the type transform
 	    tagName: 'transform',
 	    template: _.template(RackViewTemplate),
+	    ui: {
+
+	    },
+
 	    templateHelpers: {
     	    // Determine the color of the rack
     	    getColor: function(colorValue) {
+    	    	var colorOptionEnum = Object.freeze({
+
+    	    	})
+
+    	    	try {
+	    	    	colorValue = document.getElementsByClassName('selected-color')[0].value;
+    	    	} catch (exception) {
+    	    		console.log(exception);
+    	    		colorValue = "Power";
+    	    	}
+
     	        var badDataFlag = false, value;
     	        switch (colorValue) {
-    				//  CODE REVIEW SA - Use an enum here instead of comparing to string constant.
+    				// CODE REVIEW SA - Use an enum here instead of comparing to string constant.
+    				// How do I use an enum here?
     	            case "Power":
     	                value = this.powerCurrent / this.powerMax;
     	                if (!_.isNumber(value))
@@ -53,7 +69,8 @@ define([
     	        }
     	        
     	        return color;
-    	    }
+    	    },
+
 	    },
 
 	    // Get the x and y translation from the model 

@@ -1,4 +1,7 @@
 // RackStage requires a racks view and will also require a rackFloorView
+// I might want to change how the buttons by making them with a template
+// Not sure if making a button is too small for a view
+
 
 define([
     
@@ -25,6 +28,13 @@ define([
 
         initialize: function(collection){
             this.render();
+        
+            // Select the first element in each category
+            $(this.ui.cameraOptions).children()[0].className += " selected-view";
+            $(this.ui.colorOptions).children()[0].className += " selected-color";
+            console.log("just gave the first element the selected class ")
+            // Call the first view in the list of views
+            document.getElementById($(this.ui.cameraOptions).children()[0].value).setAttribute('set_bind', 'true');
         },
 
         render: function() {
@@ -86,7 +96,10 @@ define([
         toggleColor: function(event) {
             $('.selected-color').removeClass('selected-color');
             event.currentTarget.className += " selected-color";
+            this.trigger('changingColor')
         }
+
+
     });
 
     return RackOptionsView;
