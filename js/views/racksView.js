@@ -130,10 +130,6 @@ define([
 	    },
 
         addLights2: function() {
-        	var that = this;
-
-            /* Create a Right and Left point Light */
-
             this.allLights = new RackPointlightView(
             	new RackPointlights(this.rackFloor)
     	    );
