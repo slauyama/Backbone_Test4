@@ -4,7 +4,6 @@ require([
 	'requireConfig'
 ], function() {
 	'use strict';
-	console.log('main');
 	//  Load all of the plugins needed by the foreground:
 	require(['plugins']);
 });

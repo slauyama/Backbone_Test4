@@ -36,14 +36,11 @@ define(function() {
             //adjust the floorplan by a scale of 1000 
             //this is matched with the height 
             floorPlanWidth: 0,
-            floorPlanHeight: 0
+            floorPlanHeight: 0,
         },
 
-        initialize: function(){
-            this.adjustProperties();
-        },
-
-        adjustProperties: function() {
+        // This will adjust the properties to proper scale
+        adjustDefaults: function() {
             this.set('height', this.get('height') * 44.5 / 1000);
             this.set('adjustedXPosition', (this.get('adjustedXPosition') - this.get('floorPlanWidth') / 2) / 1000);
             this.set('adjustedYPosition', (this.get('adjustedYPosition') - this.get('floorPlanHeight') / 2) / 1000);
@@ -51,7 +48,58 @@ define(function() {
             this.set('heatPlanned', this.get('powerPlanned') * 3.412141633);
             this.set('floorPlanWidth', this.get('floorPlanWidth') / 1000);
             this.set('floorPlanHeight', this.get('floorPlanHeight') / 1000);
+        },
+
+        initialize: function(){
+            this.adjustDefaults();
+        },
+
+        getColor: function(colorValue) {
+            var badDataFlag = false, value;
+            
+            switch (colorValue) {
+                //  CODE REVIEW SA - Use an enum here instead of comparing to string constant.
+                case "Power":
+                    value = this.get('powerCurrent') / this.get('powerMax');
+                    if (!_.isNumber(value))
+                        badDataFlag = true;
+                    break;
+                case "Weight":
+                    value = this.get('weightCurrent') / this.get('weightMax');
+                    if (!_.isNumber(value))
+                        badDataFlag = true;
+                    break;
+                case "Temperature":
+                    value = this.get('heatCurrent') / this.get('coolingMax');
+                    if (!_.isNumber(value))
+                        badDataFlag = true;
+                    break;
+                default:
+                    badDataFlag = true;
+                    break;
+            }
+
+            var red, green, redString, greenString, color; 
+            if (value < 0.5) {
+                red = Math.floor(value * 255);
+                green = 200;
+            } else {
+                red = 255;
+                green = Math.floor((1 - value) * 255);
+            }
+
+            redString = (red < 16 ? "0" : "") + red.toString(16);
+            greenString = (green < 16 ? "0" : "") + green.toString(16);
+
+            color = "#" + redString + greenString + "00";
+            
+            if (badDataFlag) {
+                color = "steelblue";
+            }
+            
+            return color;
         }
+
     });
 
     return Rack;

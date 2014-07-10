@@ -1,0 +1,15 @@
+ToDo
+-Figure out if you can add an external path for require js
+-Add lights and grid to my design.
+-Add tooltip
+-Add top leaders racks
+-Add controls for changing views and options
+-Add Color Controls
+
+
+Done
+-Added buttons to the rackStageView
+
+Notes 
+Composite View - has both a model and a collection view used for extra text
+Collection View - only draws item views
