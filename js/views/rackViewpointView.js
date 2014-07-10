@@ -4,9 +4,14 @@ define([
 	"use strict";
 
 	// console.log(RackViewTemplate);
-	var RackViewpointView = Backbone.Marionette.ItemView.extend({
+	var RackViewpointView = Backbone.Marionette.CollectionView.extend({
 	    tagName: 'viewpoint',
-	    template: _.RackViewpointTemplate,
+	    template: _.template(RackViewpointTemplate),
+
+	    initialize: function(options) {
+	    	this.id = this.options.id;
+	    	console.log(this);
+	    }
 	});
 
 	return RackViewpointView;

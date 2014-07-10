@@ -22,7 +22,7 @@ define([
     	    	try {
 	    	    	colorValue = document.getElementsByClassName('selected-color')[0].value;
     	    	} catch (exception) {
-    	    		console.log(exception);
+    	    		console.log(exception.message);
     	    		colorValue = "Power";
     	    	}
 

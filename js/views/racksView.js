@@ -11,16 +11,11 @@ define([
 	var RacksView = Backbone.Marionette.CollectionView.extend({
 	    tagName: 'scene',
 
-	    attributes: {
-	    	// Specifically added attributes to ensure loading on
-	        render: true
-	    },
-
 	    //itemview is marionette
 	    itemView: RackView,
 
-	    initialize: function() {
-	    	this.rackFloor = this.options.rackFloor;
+	    initialize: function(options) {
+	    	this.rackFloor = options.rackFloor;
 
 	    	this.addViews();
 	    	this.addLights();
@@ -89,6 +84,8 @@ define([
 	        	})
 	        );
 
+	        console.log(this.topView.render());
+
 	        this.allViews = [this.topView, this.frontView, this.leftView, this.rightView, this.backView, this.perspectiveView];
 
 	        this.allViews.forEach(function (view) {
@@ -100,6 +97,7 @@ define([
 	    	var that = this;
 
 	        /* Create a Right and Left point Light */
+
 	        this.rightPointLight = new RackPointlightView(
 	        	new RackPointlight({
 		        	intensity: '.50',
@@ -121,11 +119,38 @@ define([
 	        );
 
 	        this.allLights = [this.rightPointLight, this.leftPointLight];
-	    
+			
+			// When I manually append the light to the element
+			// you do no require a template. There is only one elemnet
+			// I think that this element is automatically given the 
+			// properties
 	        this.allLights.forEach(function (light) {
-	            that.$el.append(light.render().el);
+	            that.$el.append(light.el);
 	        });
-	    }
+	    },
+
+        addLights2: function() {
+        	var that = this;
+
+            /* Create a Right and Left point Light */
+
+            this.allLights = new RackPointlightView(
+            	new RackPointlights(this.rackFloor)
+    	    );
+    		
+    		// When I manually append the light to the element
+    		// you do no require a template. There is only one elemnet
+    		// I think that this element is automatically given the 
+    		// properties
+            // this.allLights.forEach(function (light) {
+            //     that.$el.append(light.el);
+            // });
+
+			// Apparently this works now. Not too confident about it
+			this.allLights.render();
+        }
+
+
 
 	});
 

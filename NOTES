@@ -1,0 +1,30 @@
+Notes for GITHUB
+To merge a branch into another.
+	-Be in the branch you want to change
+	-git merge <branch you want to merge with>
+
+To delete a branch
+	- git branch  -D <name of branch> // local branch removal
+	- git push origin --delete <branch name> // remote branch
+
+
+Notes for BACKBONE MVC
+view - properties
+    el - the element.
+    ui - marionette
+    	ui allows for binding variables to elements. 
+    	faster than searching them up all the time
+    templateHelpers - functions that can be used in your template
+    attributes - can pass in attributes in the form of an object {}
+
+    -most views are passed in a set of options. 
+    	you can set it as a parameter in your initialize function
+    	or you can access it through this.options
+
+
+Trying to implement Templates
+	-Can I load a template locally without a server
+		-Fixed by changing the settings on Chrome shortcut you can bypass the security
+
+Composite View - has both a model and a collection view used for extra text
+Collection View - only draws item views

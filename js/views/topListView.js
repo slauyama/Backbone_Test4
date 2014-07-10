@@ -1,42 +1,44 @@
 // Not used yet. Will be used to for the 
 
 define([
-	'views/topListItemView'
-], function(TopListItemView){
+	'views/topListItemView',
+	'text!templates/topListViewTemplate.html'
+], function(TopListItemView, TopListViewTemplate){
 
 	var TopListView = Backbone.Marionette.CompositeView.extend({
-		tagName: 'ul',
-		id: 'leader-data',
+		// id: this.options.type,
+		itemViewContainer: '.leader',
 		itemView: TopListItemView,
+		template: _.template(TopListViewTemplate),
 
 		// Make 3 topListItems per topList
 		initialize: function(options){
-	
 			// SEAN LOOK HERE
 			// Not sure if I should be receiving the data from the model here
 			// Was told that Model should have method and should communicate by event
-			var list = this.options.collection.findMaxNumber(this.options.type, 3);
-			this.first = new TopListItemView({
-				value: list[0],
-				units: this.options.units
+			
+			// need another collection to topListItem
+			console.log(this.collection);
+
+			this.model = new Backbone.Model({
+				type: options.header,
 			});
-			this.second = new TopListItemView({
-				value: list[1],
-				units: this.options.units
-			});
-			this.third = new TopListItemView({
-				value: list[2],
-				units: this.options.units
-			});
+
 		},
 
-		render: function() {
-		    this.$el.append('<p>' + this.options.header + '</p>');
-		    this.$el.append(this.first.render().el);
-		    this.$el.append(this.second.render().el);
-		    this.$el.append(this.third.render().el);
-		    return this;
+		onRender: function() {
+			console.log(this);
 		},
+
+		// render: function() {
+		// 	var that = this;
+		//     this.$el.append('<p>' + this.options.header + '</p>');
+		//     // For each list item append it to the el
+		//     this.allListItems.forEach(function(listItem) {
+		//     	that.$el.append(listItem.render().el);
+		//     });
+		//     return this;
+		// },
 
 		getTopThreeValues: function (data, property, className, units) {
 			var counter, dataSubset, datum, filterData, maxValueList, stringValues, target, _i, _len;
@@ -92,35 +94,3 @@ define([
 
 	return TopListView;
 });
-
-// getTopThreeValues = (data, property, className, units) ->
-//   maxValueList = findMaxNumbers(data, property, 3)
-//   stringValues = []
-
-//   ### Dummy Function used to avoid making function in loop ###
-//   ### Filters all data that match the same property ###
-//   filterData = (datum[property] is maxValueList[counter] for datum in data)
- 
-//   counter = 0
-//   while counter < maxValueList.length
-//     ### filter out all data with a particular value ###
-//     dataSubset = filterData
-//     console.log dataSubset
-//     ### change value to a string and add the units###
-//     stringValues[counter] = maxValueList[counter] + units +
-//       " rack" + (if dataSubset.length > 1 then "s:" else ":")
-   
-//     ### add the names of the rack to the string ###
-//     stringValues[counter] += " " + datum.name for datum in dataSubset
-//     ### add the number of rack to the string ###
-//     stringValues[counter] += " (#{dataSubset.length} total)"
-//     counter++
-
-//   counter = 0
-//   ### write the string into the innerHTML ###
-//   while counter < maxValueList.length
-//     target = className + (counter + 1)
-//     document.getElementsByClassName(target)[0].innerHTML = stringValues[counter]
-//     counter++
-   
-//   return

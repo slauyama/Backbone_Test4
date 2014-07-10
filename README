@@ -1,15 +1,13 @@
 ToDo
--Figure out if you can add an external path for require js
--Add lights and grid to my design.
 -Add tooltip
 -Add top leaders racks
 -Add controls for changing views and options
--Add Color Controls
-
+-Need to give delay between changing colors
 
 Done
+-Add Color Controls
+-Add lights and grid to my design.
 -Added buttons to the rackStageView
 
-Notes 
-Composite View - has both a model and a collection view used for extra text
-Collection View - only draws item views
+Things to ask
+How do i avoid appending all elements manually

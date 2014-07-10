@@ -1,18 +1,19 @@
 // Individual Item for a todo list
 define([
-], function(){
+	'text!templates/topListItemTemplate.html',
+	'models/topListItem'
+], function(TopListItemTemplate, TopListItem){
 	"use strict";
 
 	var TopListItemView = Backbone.Marionette.ItemView.extend({
 		tagName: 'li',
-		className: 'topListItem',
+		classNames: 'topListItem',
+		template: _.template(TopListItemTemplate),
 
-	    // Should be using templating
-		render: function(){
-		    this.$el.html(this.options.value + this.options.units);
-		    return this;
+		initialize: function(options) {
+			// Can i just declare a new Backbone model for simple things
+			// this.model = new Backbone.Model ({
 		}
-
 	});
 
 	return TopListItemView;
