@@ -14,11 +14,13 @@ define([
 	RackPointlights,
 	RackPointlightsView
 ){
-	var RacksView = Backbone.Marionette.CompositeView.extend({
+	// Change Type of View to Item View
+	var RacksView = Backbone.Marionette.CollectionView.extend({
 	    tagName: 'scene',
 	    id: 'innerScene',
-	    itemViewContainer: '#x3dScene',
 	    itemView: RackView,
+
+
 
 	    initialize: function(options) {
 	    	this.rackFloor = options.rackFloor;
@@ -28,7 +30,6 @@ define([
 	    },
 
 	    addViews: function() {
-	    	var that = this;
 		    /* Create some views */
 		    var rackViewpoints = new RackViewpoints();
         	rackViewpoints.load(this.rackFloor);
@@ -36,7 +37,6 @@ define([
         	this.allViews = new RackViewpointsView({
         		collection: rackViewpoints
         	});
-
 
         	this.$el.append(this.allViews.render().el.innerHTML);
 	    },

@@ -7,8 +7,7 @@ define([
 	"use strict";
 
 	var RackPointlightsView = Backbone.Marionette.CollectionView.extend({
-		itemView: RackPointlightView,
-		itemViewContainer: '#innerScene'
+		itemView: RackPointlightView
 	});
 
 	return RackPointlightsView;

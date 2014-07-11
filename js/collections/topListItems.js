@@ -7,5 +7,4 @@ define([
 	});
 
 	return TopListItems;
-
 });

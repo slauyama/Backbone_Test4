@@ -2,26 +2,29 @@
 
 define([
 	'views/topListItemView',
-	'text!templates/topListViewTemplate.html'
-], function(TopListItemView, TopListViewTemplate){
+/*	'text!templates/topListViewTemplate.html'*/
+], function(TopListItemView){
 
-	var TopListView = Backbone.Marionette.CompositeView.extend({
+	var TopListView = Backbone.Marionette.ItemView.extend({
 		// id: this.options.type,
-		itemViewContainer: '.leader',
-		itemView: TopListItemView,
-		template: _.template(TopListViewTemplate),
-
+		//itemViewContainer: '.leader',
+		//itemView: TopListItemView,
+		template: _.template(''),
+		
 		// Make 3 topListItems per topList
 		initialize: function(options){
+
+			console.log("TopListView This:", this.options);
+
 			// SEAN LOOK HERE
 			// Not sure if I should be receiving the data from the model here
 			// Was told that Model should have method and should communicate by event
 			
 			// need another collection to topListItem
 
-			this.model = new Backbone.Model({
-				type: options.header,
-			});
+			// this.model = new Backbone.Model({
+			// 	type: options.header,
+			// });
 
 		},
 

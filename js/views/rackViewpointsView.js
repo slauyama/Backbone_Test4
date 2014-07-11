@@ -5,9 +5,7 @@ define([
 
 	// console.log(RackViewTemplate);
 	var RackViewpointsViews = Backbone.Marionette.CollectionView.extend({
-	    itemView: RackViewpointView,
-	    itemViewContainer: '#innerScene'
-
+	    itemView: RackViewpointView
 	});
 
 	return RackViewpointsViews;

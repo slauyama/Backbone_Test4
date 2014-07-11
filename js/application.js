@@ -2,9 +2,11 @@
 // Took this from https://github.com/MeoMix/StreamusChromeExtension/blob/master/src/js/foreground/application.js
 define([
     'collections/racks',
+    'collections/topListItemDatas',
+    'collections/topListItems',
     'views/rackStageView',
     'views/topListPanelView' 
-], function(Racks, RackStageView, TopPanelList) {
+], function(Racks, TopListItemDatas, TopListItems, RackStageView, TopListPanelView) {
     'use strict';
     var Application = new Backbone.Marionette.Application();
 
@@ -15,7 +17,44 @@ define([
 
         // Pass in the racks collection to the rackStage and the topPanelList
         var rackStage = new RackStageView(racks);
-        var topPanelList = new TopPanelList(racks);
+
+        var bogus = new TopListItemDatas();
+        bogus.add({
+         value: "t",
+         units: "t",
+         racks: "t",
+        });
+        
+        bogus.add({
+         value: "st",
+         units: "st",
+         racks: "st",
+        });
+        
+        bogus.add({
+         value: "sta",
+         units: "sta",
+         racks: "sta",
+        });
+
+        var topListItems = new TopListItems({
+            type: "powerActual",
+/*            header: "Power",
+            maxNumbers: racks.findMaxNumber("powerActual", 3),
+            units: "oz"*/
+            data: bogus
+        });
+
+        var topListPanelView = new TopListPanelView({
+            collection: topListItems
+        });
+
+        var leaderDataRegion = this.getRegion('leaderDataRegion');
+        leaderDataRegion.show(topListPanelView);
+    });
+
+    Application.addRegions({
+        leaderDataRegion: '#leader-data-region'
     });
 
     Application.start();

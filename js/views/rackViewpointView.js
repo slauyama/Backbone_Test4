@@ -1,20 +1,18 @@
-define([
-	"text!templates/rackViewpointTemplate.html" 
-], function(RackViewpointTemplate){
+define(function(){
 	"use strict";
 
 	// console.log(RackViewTemplate);
 	var RackViewpointView = Backbone.Marionette.ItemView.extend({
-	    template: _.template(RackViewpointTemplate),
-
-	    onRender: function() {
-	    	// Get rid of that pesky wrapping-div.
-	    	// Assumes 1 child element present in template.
-	    	this.$el = this.$el.children();
-	    	// Unwrap the element to prevent infinitely 
-	    	// nesting elements during re-render.
-	    	this.$el.unwrap();
-	    	this.setElement(this.$el);
+	    tagName: 'viewpoint',
+	    template: _.template(''),
+	    attributes: function() {
+	    	return {
+	    		id: this.model.get('id'),
+	    		centerOfRotation: this.model.get('centerOfRotation'),
+	    		position: this.model.get('position'),
+	    		orientation: this.model.get('orientation'),
+	    		fieldOfView: this.model.get('fieldOfView')
+	    	};
 	    }
 
 	});

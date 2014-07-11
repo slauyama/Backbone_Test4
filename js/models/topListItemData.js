@@ -1,10 +1,11 @@
-define([
-], function(){
-	'use strict';
+define(function(){
+	"use strict";
 
 	var TopListItem = Backbone.Model.extend({
 		defaults: {
-			type: ''
+			value: "",
+			units: "",
+			racks: ""
 		}
 	});
 

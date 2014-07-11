@@ -6,102 +6,81 @@
 
 define([
 	"collections/racks",
-	"views/topListView",
+	"views/topListItemView",
 	"collections/topListItems"
-], function(Racks, TopListView, TopListItems) {
+], function(Racks, TopListItemView, TopListItems) {
 	"use strict";
 
-	var TopListPanel = Backbone.Marionette.ItemView.extend({
-		itemView: TopListView,
-		ui: {
-            place: '#leader-data'
-        },
+	var TopListPanelView = Backbone.Marionette.CollectionView.extend({
+		id: 'leader-data',
+		itemView: TopListItemView,
 
 		// Create 6 topLists and pass them the collection
-		initialize: function(collection){
+		initialize: function(){
 			var that = this;
-
-			var bogus = new TopListItems();
-			bogus.add({
-				value: "t",
-				units: "t",
-				racks: "t",
-			});
 			
-			bogus.add({
-				value: "st",
-				units: "st",
-				racks: "st",
-			});
-			
-			bogus.add({
-				value: "sta",
-				units: "sta",
-				racks: "sta",
-			});
-
 			// I attached all lists to the topListPanel
-		    this.powerActual = new TopListView({
-		  		type: "powerActual",
-		  		header: "Power",
-		        maxNumbers: collection.findMaxNumber("powerActual", 3),
-		        units: "oz",
-		        collection: bogus
-		    });
+		    // this.powerActual = new TopListView({
+		  		// type: "powerActual",
+		  		// header: "Power",
+		    //     maxNumbers: this.collection.findMaxNumber("powerActual", 3),
+		    //     units: "oz",
+		    //     collection: bogus
+		    // });
 
-		    this.heatCurrent = new TopListView({
-		        type: "heatCurrent",
-		        header: "Heat",
-		        maxNumbers: collection.findMaxNumber("heatCurrent", 3),
-		        units: "oz",
-		        collection: bogus
-		    });
+		    // this.heatCurrent = new TopListView({
+		    //     type: "heatCurrent",
+		    //     header: "Heat",
+		    //     maxNumbers: this.collection.findMaxNumber("heatCurrent", 3),
+		    //     units: "oz",
+		    //     collection: bogus
+		    // });
 
-		    this.weightCurrent = new TopListView({
-		        type: "weightCurrent",
-		        header: "Weight",
-		        maxNumbers: collection.findMaxNumber("weightCurrent", 3),
-		        units: "oz",
-		        collection: bogus
-		    });
+		    // this.weightCurrent = new TopListView({
+		    //     type: "weightCurrent",
+		    //     header: "Weight",
+		    //     maxNumbers: this.collection.findMaxNumber("weightCurrent", 3),
+		    //     units: "oz",
+		    //     collection: bogus
+		    // });
 
-		    this.usedUnitsCurrent = new TopListView({
-		        type: "usedUnitsCurrent",
-		        header: "Used Units",
-		        maxNumbers: collection.findMaxNumber("usedUnitsCurrent", 3),
-		        units: "oz",
-		        collection: bogus
-		    });
+		    // this.usedUnitsCurrent = new TopListView({
+		    //     type: "usedUnitsCurrent",
+		    //     header: "Used Units",
+		    //     maxNumbers: this.collection.findMaxNumber("usedUnitsCurrent", 3),
+		    //     units: "oz",
+		    //     collection: bogus
+		    // });
 
-		    this.largestUnitLocation = new TopListView({
-		        type: "largestUnitLocation",
-		        header: "Largest Unit Location",
-		        maxNumbers: collection.findMaxNumber("largestUnitLocation", 3),
-		        units: "oz",
-		        collection: bogus
-		    });
+		    // this.largestUnitLocation = new TopListView({
+		    //     type: "largestUnitLocation",
+		    //     header: "Largest Unit Location",
+		    //     maxNumbers: this.collection.findMaxNumber("largestUnitLocation", 3),
+		    //     units: "oz",
+		    //     collection: bogus
+		    // });
 
-		    this.largestUnitSize = new TopListView({
-		        type: "largestUnitSize",
-		        header: "Largest Unit Size",
-		        maxNumbers: collection.findMaxNumber("largestUnitSize", 3),
-		        units: "oz",
-		        collection: bogus
-		    });
+		    // this.largestUnitSize = new TopListView({
+		    //     type: "largestUnitSize",
+		    //     header: "Largest Unit Size",
+		    //     maxNumbers: this.collection.findMaxNumber("largestUnitSize", 3),
+		    //     units: "oz",
+		    //     collection: bogus
+		    // });
 
 		    
 		    // $(this.ui.place).append(this.render().el);
 
 		    // Not good practice Dont know how to automatically append it to the section
-		    this.allTopLists = [this.powerActual, this.heatCurrent, this.weightCurrent, this.usedUnitsCurrent, this.largestUnitLocation, this.largestUnitSize];
+		    // this.allTopLists = [this.powerActual, this.heatCurrent, this.weightCurrent, this.usedUnitsCurrent, this.largestUnitLocation, this.largestUnitSize];
 		    
-		    this.allTopLists.forEach(function(topList) {
-		    	$(that.ui.place).append(topList.render().el);
-		    });    
+		    // this.allTopLists.forEach(function(topList) {
+		    // 	this.$el.append(topList.render().el);
+		    // }.bind(this));    
 
-		    this.triggerMethod('show');
+		    // this.triggerMethod('show');
 		}
 	});
 
-	return TopListPanel;
+	return TopListPanelView;
 });
