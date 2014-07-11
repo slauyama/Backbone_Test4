@@ -25,8 +25,10 @@ define([
             });
 
 			// Attach's the rendered racksView to the #x3dScene
-            $(this.ui.scene).append(racksView.render().el);
-            // Not sure what this does.
+            // $(this.ui.scene).append(racksView.render().el);
+            racksView.render();
+           
+           // Not sure what this does.
             // I think it triggers the show method and its event
             // I am not sure what the show method does or if it is needed
             racksView.triggerMethod('show');
@@ -37,7 +39,7 @@ define([
             // Does not append the html elements but rather just text
             // this.createGrid(rackFloor);
             this.listenTo(rackOptionsView, 'changingColor', function() {
-                console.log("Yay I was able to listen to the ChangeColor Event")
+                console.log("I listened to the ChangeColor Event")
                 racksView.render();
             })
 

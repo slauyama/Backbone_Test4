@@ -14,11 +14,10 @@ define([
 	RackPointlights,
 	RackPointlightsView
 ){
-	var RacksView = Backbone.Marionette.CollectionView.extend({
+	var RacksView = Backbone.Marionette.CompositeView.extend({
 	    tagName: 'scene',
 	    id: 'innerScene',
-
-	    //itemview is marionette
+	    itemViewContainer: '#x3dScene',
 	    itemView: RackView,
 
 	    initialize: function(options) {
