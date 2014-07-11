@@ -8,10 +8,6 @@ define(function(){
 		    attenuation: "",
 		    location: "",
 		    radius: ""
-		},
-
-		initialize: function() {
-			console.log("initialize RackPointlight")
 		}
 	});
 

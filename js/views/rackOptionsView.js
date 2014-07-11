@@ -34,7 +34,11 @@ define([
             $(this.ui.colorOptions).children()[0].className += " selected-color";
             console.log("just gave the first element the selected class ")
             // Call the first view in the list of views
-            document.getElementById($(this.ui.cameraOptions).children()[0].value).setAttribute('set_bind', 'true');
+            try {
+                document.getElementById($(this.ui.cameraOptions).children()[0].value).setAttribute('set_bind', 'true');
+            } catch(exception) {
+                return "Cannot call the first view";
+            }
         },
 
         render: function() {
