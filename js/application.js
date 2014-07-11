@@ -6,7 +6,6 @@ define([
     'views/topListPanelView' 
 ], function(Racks, RackStageView, TopPanelList) {
     'use strict';
-    console.log('creating new Application');
     var Application = new Backbone.Marionette.Application();
 
     Application.addInitializer(function(){

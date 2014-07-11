@@ -18,7 +18,6 @@ define([
 			// Was told that Model should have method and should communicate by event
 			
 			// need another collection to topListItem
-			console.log(this.collection);
 
 			this.model = new Backbone.Model({
 				type: options.header,
@@ -27,7 +26,6 @@ define([
 		},
 
 		onRender: function() {
-			console.log(this);
 		},
 
 		// render: function() {

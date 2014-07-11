@@ -5,12 +5,22 @@ define([
 	'views/rackView',
 	'models/rackViewpoint',
 	'views/rackViewpointView',
-	'models/rackPointlight',
+	// 'models/rackPointlight',
 	'collections/rackPointlights',
-	'views/rackPointlightView'
-], function(RackView, RackViewpoint, RackViewpointView, RackPointlight, RackPointlights, RackPointlightView){
+	// 'views/rackPointlightView',
+	'views/rackPointlightsView'
+], function(
+	RackView, 
+	RackViewpoint,
+	RackViewpointView,
+	// RackPointlight,
+	RackPointlights,
+	// RackPointlightView,
+	RackPointlightsView
+){
 	var RacksView = Backbone.Marionette.CollectionView.extend({
 	    tagName: 'scene',
+	    id: 'innerScene',
 
 	    //itemview is marionette
 	    itemView: RackView,
@@ -132,28 +142,17 @@ define([
 
         addLights: function() {
             
-            var rackPointlights = new RackPointlights({
-        		rackFloor: this.rackFloor
-        	});
+            var rackPointlights = new RackPointlights();
+        	rackPointlights.load(this.rackFloor);
 
-            this.allLights = new RackPointlightView({
+            this.allLights = new RackPointlightsView({
             	collection: rackPointlights
             });
-    		
-    		// When I manually append the light to the element
-    		// you do no require a template. There is only one elemnet
-    		// I think that this element is automatically given the 
-    		// properties
-            // this.allLights.forEach(function (light) {
-            //     that.$el.append(light.el);
-            // });
 
-			// Apparently this works now. Not too confident about it
-			console.log(this.allLights.render());
-			this.$el.append(this.allLights.render());
+			// Appending the innerHTML to avoid adding on the outer div
+			// Probably not the right way to do this
+			this.$el.append(this.allLights.render().el.innerHTML);
         }
-
-
 
 	});
 

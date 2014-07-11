@@ -1,5 +1,3 @@
-console.log("test");
-
 /** X3DOM Runtime, http://www.x3dom.org/ 2.0.0-dev - cb39eb8ab8e18f73d1a80eccc942cc6311e4fea2 - Wed Jun 11 12:02:40 2014 +0200 */
 if (!Array.forEach) {
     Array.forEach = function (array, fun, thisp) {
