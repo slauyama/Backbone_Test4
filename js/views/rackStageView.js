@@ -17,7 +17,7 @@ define([
 
         initialize: function(collection){
 			var rackFloor = new RackFloor(collection.models);
-
+            
             //Create a new racksView and pass it the collection
             var racksView = new RacksView({
                 collection: collection,

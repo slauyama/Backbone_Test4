@@ -3,11 +3,12 @@
 
 define([
 	'views/rackView',
-	'models/RackViewpoint',
+	'models/rackViewpoint',
 	'views/rackViewpointView',
-	'models/RackPointlight',
+	'models/rackPointlight',
+	'collections/rackPointlights',
 	'views/rackPointlightView'
-], function(RackView, RackViewpoint, RackViewpointView, RackPointlight, RackPointlightView){
+], function(RackView, RackViewpoint, RackViewpointView, RackPointlight, RackPointlights, RackPointlightView){
 	var RacksView = Backbone.Marionette.CollectionView.extend({
 	    tagName: 'scene',
 
@@ -93,7 +94,7 @@ define([
 	        });
 	    },
 
-	    addLights: function() {
+	    addLights2: function() {
 	    	var that = this;
 
 	        /* Create a Right and Left point Light */
@@ -129,10 +130,15 @@ define([
 	        });
 	    },
 
-        addLights2: function() {
-            this.allLights = new RackPointlightView(
-            	new RackPointlights(this.rackFloor)
-    	    );
+        addLights: function() {
+            
+            var rackPointlights = new RackPointlights({
+        		rackFloor: this.rackFloor
+        	});
+
+            this.allLights = new RackPointlightView({
+            	collection: rackPointlights
+            });
     		
     		// When I manually append the light to the element
     		// you do no require a template. There is only one elemnet
@@ -143,7 +149,8 @@ define([
             // });
 
 			// Apparently this works now. Not too confident about it
-			this.allLights.render();
+			console.log(this.allLights.render());
+			this.$el.append(this.allLights.render());
         }
 
 

@@ -10,7 +10,6 @@ define([
 
 	    initialize: function(options) {
 	    	this.id = this.options.id;
-	    	console.log(this);
 	    }
 	});
 
