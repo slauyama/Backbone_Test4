@@ -17,7 +17,6 @@ define([
 
 		// Create 6 topLists and pass them the collection
 		initialize: function(){
-			var that = this;
 			
 			// I attached all lists to the topListPanel
 		    // this.powerActual = new TopListView({

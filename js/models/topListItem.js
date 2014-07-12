@@ -4,7 +4,7 @@ define([
 
 	var TopListItem = Backbone.Model.extend({
 		defaults: {
-			type: ''
+			header: ''
 		}
 	});
 
