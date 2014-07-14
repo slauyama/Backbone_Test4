@@ -5,6 +5,8 @@ define([
 	var RackViewpoints = Backbone.Collection.extend({
 		model: RackViewpoint,
 
+		// Need to update these views. 
+		// I want to change the Back Left and Right views to raise them a bit
 		load: function(rackFloor) {
 			this.add({
 				id: "Top View",
@@ -17,8 +19,8 @@ define([
 			this.add({
 				id: "Front View",
 				centerOfRotation: "0 0 0",
-				position: "0 " + rackFloor.getFrontDistance() + " 0",
-				orientation: "1.0 0.0 0.0 1.570",
+				position: "0 " + rackFloor.getFrontDistance() + " " + (rackFloor.getTopDistance() / 3),
+				orientation: "1.0 0.0 0.0 1.25",
 				fieldOfView: '0.95'
 			});
 
@@ -34,14 +36,14 @@ define([
 	        	id: "Right View",
 	        	centerOfRotation: "0 0 0",
 	        	position: "" + rackFloor.getSideDistance() + " 0 0",
-	        	orientation: "0.50 0.50 0.70 2.093",
+	        	orientation: "0.50 0.50 0.50 2.093",
 	        	fieldOfView: '0.75'
         	});
 	    
 	        this.add({
 	        	id: "Back View",
 	        	centerOfRotation: "0 0 0",
-	        	position: "0 " + rackFloor.getBackDistance() + " -.5",
+	        	position: "0 " + rackFloor.getBackDistance() + " 0",
 	        	orientation: "0.0 0.75 0.65 3.14",
 	        	fieldOfView: '0.95'
         	});

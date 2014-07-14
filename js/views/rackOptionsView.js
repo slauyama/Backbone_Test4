@@ -4,11 +4,12 @@
 
 
 define([
+    "text!templates/rackOptionButton.html",
+    "text!templates/rackOptionCheckbox.html"
+], function(RackOptionButton, RackOptionCheckbox) {
+    "use strict";
 
-    ], function() {
-        "use strict";
-
-        var RackOptionsView = Backbone.View.extend({
+    var RackOptionsView = Backbone.View.extend({
         // RackStageView will be passed a collection from the rackProgram
         el: $('#rack-view-options'),
 
@@ -19,8 +20,9 @@ define([
             gridMaterial: '#grid-material'
         },
 
+
         events: {
-            // 'click #view-shuffle' : '',
+            'click #view-shuffle' : 'shuffleView',
             'click #grid-toggle' : 'toggleGridTransparency',
             'mouseover .camera-option .button': 'toggleCamera',
             'mouseover .color-option .button': 'toggleColor',
@@ -66,21 +68,28 @@ define([
         },
 
         createButton: function(title) {
-            return "<input type='button' value='" + title + "' class='button'>";
+            return _.template(RackOptionButton, {
+                title: title
+            });
         },
 
         createCheckBox: function(title, value, property) {
-            var label = "<label for='" + value + "'>" + title + ":</label>";
-            var checkbox = "<input type='checkbox' value='" + value + "' id='" + value + "' " + property + " class='checkbox'>";
-            return label + checkbox;
+            return _.template(RackOptionCheckbox, {
+                title: title,
+                value: value,
+                property: property
+            });
+        },
+
+        shuffleView: function() {
+
         },
 
         toggleGridTransparency: function() {
-            console.log($(this.ui.gridMaterial)[0].transparency)
             if ($(this.ui.gridMaterial)[0].transparency === "1.0") {
-                $(this.ui.gridMaterial)[0].transparency = ".65";
+                $(this.ui.gridMaterial)[0].setAttribute("transparency", ".65");
             } else {
-                $(this.ui.gridMaterial)[0].transparency = "1.0";
+                $(this.ui.gridMaterial)[0].setAttribute("transparency", "1.0");
             }
         },
 
@@ -103,9 +112,7 @@ define([
             event.currentTarget.className += " selected-color";
             this.trigger('changingColor')
         }
-
-
     });
 
-return RackOptionsView;
+    return RackOptionsView;
 });
