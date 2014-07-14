@@ -154,12 +154,12 @@ x3d {
     float: left;
     list-style-type: decimal;
     list-style-position: inside; }
-    #leader-data .leader {
+    #leader-data .leader li{
       margin-left: 10px;
       width: 225px;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap; }
-      #leader-data .leader:hover {
+/*      #leader-data .leader li:hover {
         overflow: visible;
-        white-space: normal; }
+        white-space: normal; }*/
