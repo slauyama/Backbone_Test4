@@ -12,9 +12,6 @@ define([
 				return Utility.roundTo(value, 2);
 			}
 		}
-		// initialize: function() {
-		// 	console.log(this);
-		// }
 	});
 
 	return TopListItemDataView;

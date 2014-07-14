@@ -33,8 +33,8 @@ define([
 	        this.add({
 	        	id: "Right View",
 	        	centerOfRotation: "0 0 0",
-	        	position: "" + rackFloor.getSideDistance() + " 0 0.25",
-	        	orientation: "0.50 0.50 0.50 2.093",
+	        	position: "" + rackFloor.getSideDistance() + " 0 0",
+	        	orientation: "0.50 0.50 0.70 2.093",
 	        	fieldOfView: '0.75'
         	});
 	    

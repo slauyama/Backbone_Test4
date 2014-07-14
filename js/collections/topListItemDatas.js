@@ -10,7 +10,6 @@ define([
 		},
 
 		load: function(options) {
-			console.log(options);
 			this.maxValueList = options.racks.findMaxNumber(options.type, 3);
 			this.units = options.units;
 

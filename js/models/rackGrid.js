@@ -12,9 +12,9 @@ define([
 		},
 
 		createGrid: function(rackFloor) {
-		    var connections, coordinateConnections, coordinates, grid, gridStart, color, transparency;
-		    this.color = '0.8, 0.8, 0.8';
-		    this.transparency = '0.65';
+		    var coordinateConnections, coordinates, connections, grid, gridStart, color, transparency;
+		    this.set('color', '0.8, 0.8, 0.8');
+		    this.set('transparency', '0.65');
 
 		    /* coordinateConnections: string representing connection of coordinates
 		    all coordinates are connected until it reaches a -1
@@ -55,6 +55,10 @@ define([
 		        gridStart = Utility.roundTo(gridStart + 0.6, 2);
 		        connections += 2;
 		    }
+
+			this.set('coordinateConnections', coordinateConnections);
+		    this.set('coordinates', coordinates);
+
 		}
 	});
 

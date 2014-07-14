@@ -4,11 +4,11 @@
 
 
 define([
-    
-], function() {
-    "use strict";
 
-    var RackOptionsView = Backbone.View.extend({
+    ], function() {
+        "use strict";
+
+        var RackOptionsView = Backbone.View.extend({
         // RackStageView will be passed a collection from the rackProgram
         el: $('#rack-view-options'),
 
@@ -28,7 +28,7 @@ define([
 
         initialize: function(collection){
             this.render();
-        
+
             // Select the first element in each category
             $(this.ui.cameraOptions).children()[0].className += " selected-view";
             $(this.ui.colorOptions).children()[0].className += " selected-color";
@@ -60,7 +60,7 @@ define([
             });
 
             // Creating two check boxes
-            $(this.ui.formGroup).append(this.createCheckBox("Display Grid", "grid-toggle"));
+            $(this.ui.formGroup).append(this.createCheckBox("Display Grid", "grid-toggle", "checked"));
             $(this.ui.formGroup).append(this.createCheckBox("Shuffle Views", "view-shuffle"));
 
         },
@@ -69,18 +69,19 @@ define([
             return "<input type='button' value='" + title + "' class='button'>";
         },
 
-        createCheckBox: function(title, value) {
+        createCheckBox: function(title, value, property) {
             var label = "<label for='" + value + "'>" + title + ":</label>";
-            var checkbox = "<input type='checkbox' value='" + value + "' id='" + value + "' class='checkbox'>";
+            var checkbox = "<input type='checkbox' value='" + value + "' id='" + value + "' " + property + " class='checkbox'>";
             return label + checkbox;
         },
 
         toggleGridTransparency: function() {
-          if ($(this.ui.gridMaterial).transparency === "1.0") {
-            $(this.ui.gridMaterial).transparency = ".65";
-          } else {
-            $(this.ui.gridMaterial).transparency = "1.0";
-          }
+            console.log($(this.ui.gridMaterial)[0].transparency)
+            if ($(this.ui.gridMaterial)[0].transparency === "1.0") {
+                $(this.ui.gridMaterial)[0].transparency = ".65";
+            } else {
+                $(this.ui.gridMaterial)[0].transparency = "1.0";
+            }
         },
 
         toggleCamera: function(event) {
@@ -106,5 +107,5 @@ define([
 
     });
 
-    return RackOptionsView;
+return RackOptionsView;
 });

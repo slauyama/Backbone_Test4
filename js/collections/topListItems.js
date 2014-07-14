@@ -41,7 +41,6 @@ define([
 				header: "Largest Unit Size",
 			    data: this.largestUnitSizeDatas
 			});
-			console.log("TopListItems", this)
 		},
 
 		createItemDatas: function (racks) {
