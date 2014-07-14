@@ -6,40 +6,47 @@ define([
 	var TopListItemDatas = Backbone.Collection.extend({
 		model: TopListItemData,
 
-		initialize: function(options) {
+		initialize: function() {
+		},
+
+		load: function(options) {
+			console.log(options);
 			this.maxValueList = options.racks.findMaxNumber(options.type, 3);
 			this.units = options.units;
 
-			this.load();
-			this.getTopThreeValues(options.racks.models, options.type, this.maxValueList);
-		},
+			this.racks = this.getTopThreeValues(options.racks.models, options.type, this.maxValueList);
 
-		load: function() {
-			console.log(this.maxValueList);
+			var rackValues, i;
+
+			rackValues = [];
+			for (i = 0; i < this.racks.length; i++) {
+				rackValues[i] = "";
+				this.racks[i].forEach(function(rack){
+					rackValues[i] += " " + rack.attributes.name;
+				});
+			}
 
 			this.add({
 	            value: this.maxValueList[0],
 	            units: this.units,
-	            racks: 42
+	            racks: rackValues[0]
 	        });
+
 	        this.add({
 	            value: this.maxValueList[1],
 	            units: this.units,
-	            racks: 42
+	            racks: rackValues[1]
 	        });
+
 	        this.add({
 	            value: this.maxValueList[2],
 	            units: this.units,
-	            racks: 42
+	            racks: rackValues[2]
 	        });
 		},
 
 		getTopThreeValues: function (racks, property, maxValueList) {
-			var counter, dataSubset, datum, filterData, stringValues, target, i, _len;
-			stringValues = [];
-			console.log(racks);
-
-			/* Dummy Function used to avoid making function in loop */
+			var filterData;
 
 			/* Filters all data that match the same property */
 			filterData = (function() {
@@ -52,11 +59,10 @@ define([
 					});
 				}
 
-				console.log(results);
-
 			    return results;
 			})();
-			console.log(filterData);
+
+			return filterData;
 		}
 	});
 

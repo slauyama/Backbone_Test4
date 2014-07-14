@@ -4,7 +4,11 @@ define([
 	'use strict';
 
 	var TopListItemDataView = Backbone.Marionette.ItemView.extend({
-		template: _.template(TopListItemDataTemplate)
+		tagName: 'li',
+		template: _.template(TopListItemDataTemplate),
+		// initialize: function() {
+		// 	console.log(this);
+		// }
 	});
 
 	return TopListItemDataView;

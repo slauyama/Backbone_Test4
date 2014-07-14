@@ -18,36 +18,8 @@ define([
         // Pass in the racks collection to the rackStage and the topPanelList
         var rackStage = new RackStageView(racks);
 
-        var topListItemDatas = new TopListItemDatas({
-            racks: racks,
-            type: "powerActual",
-            units: "oz"
-        });
-        // bogus.add({
-        //  value: "t",
-        //  units: "t",
-        //  racks: "t",
-        // });
-        
-        // bogus.add({
-        //  value: "st",
-        //  units: "st",
-        //  racks: "st",
-        // });
-        
-        // bogus.add({
-        //  value: "sta",
-        //  units: "sta",
-        //  racks: "sta",
-        // });
-
-        var topListItems = new TopListItems({
-            type: "powerActual",
-/*            header: "Power",
-            maxNumbers: racks.findMaxNumber("powerActual", 3),
-            units: "oz"*/
-            data: topListItemDatas
-        });
+        var topListItems = new TopListItems();
+        topListItems.load(racks);
 
         var topListPanelView = new TopListPanelView({
             collection: topListItems

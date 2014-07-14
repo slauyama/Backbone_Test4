@@ -146,20 +146,20 @@ x3d {
 #leader-data {
   clear: both;
   margin: 5px 0px;
-  padding: 10px;
+  padding: 5px;
   width: 760px; }
-  #leader-data #leader-list .topListItem {
+  #leader-data div {
     margin: 10px;
     width: 225px;
     float: left;
     list-style-type: decimal;
     list-style-position: inside; }
-    #leader-data #leader-list .topListItem {
+    #leader-data .leader {
       margin-left: 10px;
       width: 225px;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap; }
-      #leader-data #leader-list .topListItem:hover {
+      #leader-data .leader:hover {
         overflow: visible;
         white-space: normal; }
