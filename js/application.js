@@ -51,7 +51,7 @@ define([
     });
 
     Application.addRegions({
-        rackViewOptions: 'rack-view-options',
+        rackViewOptions: '#rack-view-options',
         x3dScene: '#x3dScene',
         leaderDataRegion: '#leader-data-region'
     });

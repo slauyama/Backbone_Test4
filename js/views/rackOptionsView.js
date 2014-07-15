@@ -4,14 +4,55 @@
 
 
 define([
-    "text!templates/rackOptionButton.html",
-    "text!templates/rackOptionCheckbox.html",
     "text!templates/rackOptionsTemplate.html"
-], function(RackOptionButton, RackOptionCheckbox, RackOptionsTemplate) {
+], function(RackOptionsTemplate) {
     "use strict";
 
-    var RackOptionsView = Backbone.Marionette.Layout.extend({
+    var RackOptionsView = Backbone.Marionette.ItemView.extend({
         template: _.template(RackOptionsTemplate),
+        templateHelpers: {
+            viewButtons: [
+                {
+                    title:"Top View", className: "viewButton"
+                },
+                {
+                    title:"Front View", className: "viewButton"
+                },
+                {
+                    title:"Left View", className: "viewButton"
+                },
+                {
+                    title:"Right View", className: "viewButton"
+                },
+                {
+                    title:"Back View", className: "viewButton"
+                },
+                {
+                    title: "Perspective", className: "viewButton"
+                }
+            ],
+            
+            colorButtons: [
+                {
+                    title:"Power", className: "colorButton"
+                },
+                {
+                    title:"Weight", className: "colorButton"
+                },
+                {
+                    title:"Temperature", className: "colorButton"
+                }
+            ],
+
+            checkboxes: [
+                {
+                    title:"Display Grid", value:"grid-toggle", property: "checked"
+                },
+                {
+                    title:"Shuffle Views", value:"view-shuffle"
+                }
+            ]
+        },
 
         ui: {
             cameraOptions: '.camera-option',
@@ -27,33 +68,8 @@ define([
             'mouseover .color-option .button': 'toggleColor',
         },
 
-        render: function() {
-            console.log("Rendering Now");
-            var that = this;
-            // Not sure if this is correct or if this should be done in this view
-
-            // Creating Buttons for the camera views
-            this.allViewButtons = ["Top View", "Front View", "Left View", "Right View", "Back View", "Perspective"];
-
-            this.allViewButtons.forEach(function(viewButton) {
-                $(this.ui.cameraOptions).append(this.createButton(viewButton, "viewButton"));
-            }.bind(this));
-            
-            // Creating Buttons for the color options
-            this.allColorButtons = ["Power", "Weight", "Temperature"];
-
-            this.allColorButtons.forEach(function(colorButton) {
-                $(this.ui.colorOptions).append(this.createButton(colorButton, "colorButton"));
-            }.bind(this));
-
-            // Creating two check boxes
-            $(this.ui.formGroup).append(this.createCheckBox("Display Grid", "grid-toggle", "checked"));
-            $(this.ui.formGroup).append(this.createCheckBox("Shuffle Views", "view-shuffle"));
-            this.afterRender();
-        },
-
         // Marionette's onRender was not working for me
-        afterRender: function() {
+        onRender: function() {
             // Select the first element in each category
             $(this.ui.cameraOptions).children()[0].className += " selected-view";
             $(this.ui.colorOptions).children()[0].className += " selected-color";
@@ -64,21 +80,6 @@ define([
             } catch(exception) {
                 return "Cannot call the first view";
             }
-        },
-
-        createButton: function(title, className) {
-            return _.template(RackOptionButton, {
-                title: title,
-                className: className
-            });
-        },
-
-        createCheckBox: function(title, value, property) {
-            return _.template(RackOptionCheckbox, {
-                title: title,
-                value: value,
-                property: property
-            });
         },
 
         shuffleView: function(event) {

@@ -69,6 +69,9 @@ body {
 
 #rack-view-options .buttons {
   margin: 1% 0px 10px 0px; }
+  #rack-view-options h3 {
+    margin: 1% 0px 10px 0px; 
+    font-size: 20px;  }
   #rack-view-options .buttons .button {
     background-image: linear-gradient(to bottom, #dedede, #efefef);
     background-image: -o-linear-gradient(bottom, #dedede, #efefef);

@@ -1,21 +1,21 @@
-<div>
-	<h3>View Options </h3>
-	<% _.each(viewButtons, function(view, className) { %>
-		<input type='button' value='<%= title %>' class='<%= className + " button" %>'>
+<h3>View Options </h3>
+<div class="buttons camera-option">
+	<% _.each(viewButtons, function(view) { %>
+		<input type='button' value='<%= view.title %>' class='<%= view.className + " button" %>'>
 	<% }); %>
 </div>
 
-<div>
-	<h3>Color Options </h3>
-	<% _.each(colorButtons, function(color, className) { %>
-		<input type='button' value='<%= title %>' class='<%= className + " button" %>'>
+<h3>Color Options </h3>
+<div class="buttons color-option">
+	<% _.each(colorButtons, function(view) { %>
+		<input type='button' value='<%= view.title %>' class='<%= view.className + " button" %>'>
 	<% }); %>
 </div>
 
+<h3>Other Options </h3>
 <div>
-	<h3>Other Options </h3>
-	<% _.each(colorButtons, function(color, className) { %>
-	<label for='<%= value %>'><%= title + ":"%></label>
-	<input type='checkbox' value='<%= value %>' id='<%= value %>' <%= property %> class='checkbox'>
+	<% _.each(checkboxes, function(checkbox) { %>
+	<label for='<%= checkbox.value %>'><%= checkbox.title + ":"%></label>
+	<input type='checkbox' value='<%= checkbox.value %>' id='<%= checkbox.value %>' <%= checkbox.property %> class='checkbox'>
 	<% }); %>
 </div>
