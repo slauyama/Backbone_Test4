@@ -24,7 +24,7 @@ define([
         events: {
             'click #view-shuffle' : 'shuffleView',
             'click #grid-toggle' : 'toggleGridTransparency',
-            'mouseover .camera-option .button': 'toggleCamera',
+            'mouseover .camera-option .button': 'throttledToggleCamera',
             'mouseover .color-option .button': 'toggleColor',
         },
 
@@ -86,6 +86,7 @@ define([
         },
 
         toggleGridTransparency: function() {
+            console.log("Toggling Grid toggleGridTransparency");
             if ($(this.ui.gridMaterial)[0].transparency === "1.0") {
                 $(this.ui.gridMaterial)[0].setAttribute("transparency", ".65");
             } else {
@@ -105,6 +106,15 @@ define([
                 console.log("Cannot find event.currentTarget.value '" + exception + "'")
             }
             
+        },
+
+        throttledToggleCamera: function(event) {
+            this.throttledToggleCamera = _.throttle(this.toggleCamera, 10000);
+        },
+
+        callThrottleToggleCamera: function(event) {
+            console.log("throttledToggleCamera",throttledToggleCamera);
+            this.throttledToggleCamera(event);
         },
 
         toggleColor: function(event) {

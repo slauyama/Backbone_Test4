@@ -9,8 +9,8 @@ define([
 ], function(RackFloor, RackOptionsView, RacksView) {
     "use strict";
 
-    var RackStageView = Backbone.Marionette.LayoutView.extend({
-        template: _.template()
+    var RackStageView = Backbone.Marionette.Layout.extend({
+        template: _.template(''),
 
         // RackStageView will be passed a collection from the rackProgram
         ui: {
