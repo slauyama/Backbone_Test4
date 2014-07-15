@@ -24,7 +24,7 @@ define([
         events: {
             'click #view-shuffle' : 'shuffleView',
             'click #grid-toggle' : 'toggleGridTransparency',
-            'mouseover .camera-option .button': 'throttledToggleCamera',
+            'mouseover .camera-option .button': 'toggleCamera',
             'mouseover .color-option .button': 'toggleColor',
         },
 
@@ -94,7 +94,7 @@ define([
             }
         },
 
-        toggleCamera: function(event) {
+        toggleCamera: _.throttle(function(event) {
             // Should not be using event.currentTarget but will figure that out later
             $('.selected-view').removeClass('selected-view');
             event.currentTarget.className += " selected-view";
@@ -106,16 +106,7 @@ define([
                 console.log("Cannot find event.currentTarget.value '" + exception + "'")
             }
             
-        },
-
-        throttledToggleCamera: function(event) {
-            this.throttledToggleCamera = _.throttle(this.toggleCamera, 10000);
-        },
-
-        callThrottleToggleCamera: function(event) {
-            console.log("throttledToggleCamera",throttledToggleCamera);
-            this.throttledToggleCamera(event);
-        },
+        }, 1000),
 
         toggleColor: function(event) {
             $('.selected-color').removeClass('selected-color');
