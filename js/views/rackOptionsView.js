@@ -89,6 +89,7 @@ define([
         },
 
         toggleGridTransparency: function() {
+            console.log($(this.ui.gridMaterial))
             if ($(this.ui.gridMaterial)[0].transparency === "1.0") {
                 $(this.ui.gridMaterial)[0].setAttribute("transparency", ".65");
             } else {

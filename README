@@ -1,10 +1,16 @@
 ToDo
 -Add tooltip
 -Add top leaders racks
--Add controls for changing views and options
 -Need to give delay between changing colors
+-Want to build buttons within the scene
+
+Issues
+-Color Options button not registering with scene
+-Display grid not currently working
 
 Done
+-Figured out how to throttle
+-Add controls for changing views and options
 -Add Color Controls
 -Add lights and grid to my design.
 -Added buttons to the rackStageView
