@@ -1,13 +1,17 @@
 // RackStage requires a racks view and will also require a rackFloorView
+// Want to convert this view into a layout view
 
 define([
     'models/rackFloor',
+    // 'templates/rackStageLayoutView'
     'views/rackOptionsView',
     'views/racksView',
 ], function(RackFloor, RackOptionsView, RacksView) {
     "use strict";
 
-    var RackStageView = Backbone.View.extend({
+    var RackStageView = Backbone.Marionette.LayoutView.extend({
+        template: _.template()
+
         // RackStageView will be passed a collection from the rackProgram
         ui: {
             scene: '#x3dScene',
