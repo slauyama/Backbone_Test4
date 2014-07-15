@@ -105,7 +105,7 @@ define([
             try {
                 document.getElementById(event.currentTarget.value).setAttribute('set_bind', 'true');
             } catch(exception) {
-                console.log("Cannot find event.currentTarget.value '" + exception + "'")
+                console.log("Cannot find " + event.currentTarget.value + " '" + exception + "'")
             }
             
         }, 1500),

@@ -19,25 +19,23 @@ define([
     var Application = new Backbone.Marionette.Application();
 
     Application.addInitializer(function(){
-        
+        // Create three different regions
+
+        // Create a rackOptionsView and bind it to its region
         var rackOptionsView = new RackOptionsView();
-        this.listenTo(rackOptionsView, 'changingColor', function() {
-            console.log("I listened to the ChangeColor Event")
-            // racksView.render();
-        });
 
         var rackViewOptionsRegion = this.getRegion('rackViewOptions');
         rackViewOptionsRegion.show(rackOptionsView);
 
         // Create a new racks. Racks automatically has the data
-        // This should change in the future
+        // Pass in the racks collection to the rackStage and the topPanelList
         var racks = new Racks();
 
-        // Pass in the racks collection to the rackStage and the topPanelList
-        var rackStage = new RackStageView(racks);
+        // Create a rackOptionsView and bind it to its region
+        var rackStageView = new RackStageView(racks);
 
-        
-
+        // var rackStageRegion = this.getRegion('x3dScene');
+        // rackStageRegion.show(rackStageView);
 
         var topListItems = new TopListItems();
         topListItems.load(racks);
@@ -48,6 +46,12 @@ define([
 
         var leaderDataRegion = this.getRegion('leaderDataRegion');
         leaderDataRegion.show(topListPanelView);
+        
+
+        this.listenTo(rackOptionsView, 'changingColor', function() {
+            console.log("I listened to the ChangeColor Event")
+            rackStageView.render();
+        });
     });
 
     Application.addRegions({
