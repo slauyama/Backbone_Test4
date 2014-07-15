@@ -1,0 +1,21 @@
+<div>
+	<h3>View Options </h3>
+	<% _.each(viewButtons, function(view, className) { %>
+		<input type='button' value='<%= title %>' class='<%= className + " button" %>'>
+	<% }); %>
+</div>
+
+<div>
+	<h3>Color Options </h3>
+	<% _.each(colorButtons, function(color, className) { %>
+		<input type='button' value='<%= title %>' class='<%= className + " button" %>'>
+	<% }); %>
+</div>
+
+<div>
+	<h3>Other Options </h3>
+	<% _.each(colorButtons, function(color, className) { %>
+	<label for='<%= value %>'><%= title + ":"%></label>
+	<input type='checkbox' value='<%= value %>' id='<%= value %>' <%= property %> class='checkbox'>
+	<% }); %>
+</div>

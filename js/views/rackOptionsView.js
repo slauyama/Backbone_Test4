@@ -5,13 +5,13 @@
 
 define([
     "text!templates/rackOptionButton.html",
-    "text!templates/rackOptionCheckbox.html"
-], function(RackOptionButton, RackOptionCheckbox) {
+    "text!templates/rackOptionCheckbox.html",
+    "text!templates/rackOptionsTemplate.html"
+], function(RackOptionButton, RackOptionCheckbox, RackOptionsTemplate) {
     "use strict";
 
-    var RackOptionsView = Backbone.View.extend({
-        // RackStageView will be passed a collection from the rackProgram
-        el: $('#rack-view-options'),
+    var RackOptionsView = Backbone.Marionette.Layout.extend({
+        template: _.template(RackOptionsTemplate),
 
         ui: {
             cameraOptions: '.camera-option',
@@ -20,7 +20,6 @@ define([
             gridMaterial: '#grid-material'
         },
 
-
         events: {
             'click #view-shuffle' : 'shuffleView',
             'click #grid-toggle' : 'toggleGridTransparency',
@@ -28,13 +27,37 @@ define([
             'mouseover .color-option .button': 'toggleColor',
         },
 
-        initialize: function(collection){
-            this.render();
+        render: function() {
+            console.log("Rendering Now");
+            var that = this;
+            // Not sure if this is correct or if this should be done in this view
 
+            // Creating Buttons for the camera views
+            this.allViewButtons = ["Top View", "Front View", "Left View", "Right View", "Back View", "Perspective"];
+
+            this.allViewButtons.forEach(function(viewButton) {
+                $(this.ui.cameraOptions).append(this.createButton(viewButton, "viewButton"));
+            }.bind(this));
+            
+            // Creating Buttons for the color options
+            this.allColorButtons = ["Power", "Weight", "Temperature"];
+
+            this.allColorButtons.forEach(function(colorButton) {
+                $(this.ui.colorOptions).append(this.createButton(colorButton, "colorButton"));
+            }.bind(this));
+
+            // Creating two check boxes
+            $(this.ui.formGroup).append(this.createCheckBox("Display Grid", "grid-toggle", "checked"));
+            $(this.ui.formGroup).append(this.createCheckBox("Shuffle Views", "view-shuffle"));
+            this.afterRender();
+        },
+
+        // Marionette's onRender was not working for me
+        afterRender: function() {
             // Select the first element in each category
             $(this.ui.cameraOptions).children()[0].className += " selected-view";
             $(this.ui.colorOptions).children()[0].className += " selected-color";
-            console.log("just gave the first element the selected class ")
+            
             // Call the first view in the list of views
             try {
                 document.getElementById($(this.ui.cameraOptions).children()[0].value).setAttribute('set_bind', 'true');
@@ -43,33 +66,10 @@ define([
             }
         },
 
-        render: function() {
-            var that = this;
-            // Not sure if this is correct or if this should be done in this view
-
-            // Creating Buttons for the camera views
-            this.allViewButtons = ["Top View", "Front View", "Left View", "Right View", "Back View", "Perspective"];
-
-            this.allViewButtons.forEach(function(viewButton) {
-                $(that.ui.cameraOptions).append(that.createButton(viewButton));
-            });
-            
-            // Creating Buttons for the color options
-            this.allColorButtons = ["Power", "Weight", "Temperature"];
-
-            this.allColorButtons.forEach(function(colorButton) {
-                $(that.ui.colorOptions).append(that.createButton(colorButton));
-            });
-
-            // Creating two check boxes
-            $(this.ui.formGroup).append(this.createCheckBox("Display Grid", "grid-toggle", "checked"));
-            $(this.ui.formGroup).append(this.createCheckBox("Shuffle Views", "view-shuffle"));
-
-        },
-
-        createButton: function(title) {
+        createButton: function(title, className) {
             return _.template(RackOptionButton, {
-                title: title
+                title: title,
+                className: className
             });
         },
 
@@ -81,12 +81,13 @@ define([
             });
         },
 
-        shuffleView: function() {
+        shuffleView: function(event) {
+            console.log("shuffleView", event);
+
 
         },
 
         toggleGridTransparency: function() {
-            console.log("Toggling Grid toggleGridTransparency");
             if ($(this.ui.gridMaterial)[0].transparency === "1.0") {
                 $(this.ui.gridMaterial)[0].setAttribute("transparency", ".65");
             } else {
@@ -106,7 +107,7 @@ define([
                 console.log("Cannot find event.currentTarget.value '" + exception + "'")
             }
             
-        }, 1000),
+        }, 1500),
 
         toggleColor: function(event) {
             $('.selected-color').removeClass('selected-color');

@@ -4,18 +4,16 @@
 define([
     'models/rackFloor',
     // 'templates/rackStageLayoutView'
-    'views/rackOptionsView',
     'views/racksView',
-], function(RackFloor, RackOptionsView, RacksView) {
+], function(RackFloor, RacksView) {
     "use strict";
 
-    var RackStageView = Backbone.Marionette.Layout.extend({
+    var RackStageView = Backbone.View.extend({
         template: _.template(''),
 
         // RackStageView will be passed a collection from the rackProgram
         ui: {
             scene: '#x3dScene',
-            rackOptions: '#rack-view-options',
         },
 
         initialize: function(collection){
@@ -36,11 +34,7 @@ define([
             // I am not sure what the show method does or if it is needed
             racksView.triggerMethod('show');
 
-            var rackOptionsView = new RackOptionsView();
-            this.listenTo(rackOptionsView, 'changingColor', function() {
-                console.log("I listened to the ChangeColor Event")
-                racksView.render();
-            });
+            
         }
         
     });

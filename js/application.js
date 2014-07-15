@@ -4,19 +4,40 @@ define([
     'collections/racks',
     'collections/topListItemDatas',
     'collections/topListItems',
+    'views/rackOptionsView',
     'views/rackStageView',
     'views/topListPanelView' 
-], function(Racks, TopListItemDatas, TopListItems, RackStageView, TopListPanelView) {
+], function(
+    Racks,
+    TopListItemDatas, 
+    TopListItems,
+    RackOptionsView,
+    RackStageView,
+    TopListPanelView
+) {
     'use strict';
     var Application = new Backbone.Marionette.Application();
 
     Application.addInitializer(function(){
+        
+        var rackOptionsView = new RackOptionsView();
+        this.listenTo(rackOptionsView, 'changingColor', function() {
+            console.log("I listened to the ChangeColor Event")
+            // racksView.render();
+        });
+
+        var rackViewOptionsRegion = this.getRegion('rackViewOptions');
+        rackViewOptionsRegion.show(rackOptionsView);
+
         // Create a new racks. Racks automatically has the data
         // This should change in the future
         var racks = new Racks();
 
         // Pass in the racks collection to the rackStage and the topPanelList
         var rackStage = new RackStageView(racks);
+
+        
+
 
         var topListItems = new TopListItems();
         topListItems.load(racks);
@@ -30,6 +51,8 @@ define([
     });
 
     Application.addRegions({
+        rackViewOptions: 'rack-view-options',
+        x3dScene: '#x3dScene',
         leaderDataRegion: '#leader-data-region'
     });
 
