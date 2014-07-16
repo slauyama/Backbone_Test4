@@ -19,10 +19,14 @@ define([
 
 			rackValues = [];
 			for (i = 0; i < this.racks.length; i++) {
-				rackValues[i] = "";
+				rackValues[i] = "Rack" + (this.racks[i].length > 1 ? "s": "") + ": ";
+
 				this.racks[i].forEach(function(rack){
-					rackValues[i] += " " + rack.attributes.name;
+					rackValues[i] += rack.attributes.name + ", ";
 				});
+
+				// Removes the last comma and space added to the string
+				rackValues[i] = rackValues[i].slice(0, -2);
 			}
 
 			this.add({
@@ -45,23 +49,18 @@ define([
 		},
 
 		getTopThreeValues: function (racks, property, maxValueList) {
-			var filterData;
 
 			/* Filters all data that match the same property */
-			filterData = (function() {
-			    var j, results;
-			    results = [];
-				
-				for (j = 0; j < maxValueList.length; j++) {
-				    results[j] = racks.filter(function(rack){
-						return maxValueList[j] === rack.get(property);
-					});
-				}
+			var j, results;
+		    results = [];
+			
+			for (j = 0; j < maxValueList.length; j++) {
+			    results[j] = racks.filter(function(rack){
+					return maxValueList[j] === rack.get(property);
+				});
+			}
 
-			    return results;
-			})();
-
-			return filterData;
+			return results;
 		}
 	});
 

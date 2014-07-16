@@ -80,6 +80,8 @@ define([
             } catch(exception) {
                 return "Cannot call the first view";
             }
+
+            $('h3[title!=""]').qtip();
         },
 
         shuffleView: function(event) {

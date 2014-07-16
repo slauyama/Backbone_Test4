@@ -11,6 +11,10 @@ define([
 			roundToHelper: function(value) {
 				return Utility.roundTo(value, 2);
 			}
+		},
+
+		onRender: function() {
+			console.log("TopListItemDataView is rendering", this.$el);
 		}
 	});
 

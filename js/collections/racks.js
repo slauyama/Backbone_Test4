@@ -11,6 +11,7 @@ define([
 		    initialize: function() {
 		        this.load();
 		        this.findMaxNumber('powerActual', 3);
+		        // Not sure if I should put this here
 		    }, 
 
 		    load: function(){
