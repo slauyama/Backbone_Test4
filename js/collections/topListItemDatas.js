@@ -15,19 +15,18 @@ define([
 
 			this.racks = this.getTopThreeValues(options.racks.models, options.type, this.maxValueList);
 
-			var rackValues, i;
+			var rackValues;
 
-			rackValues = [];
-			for (i = 0; i < this.racks.length; i++) {
-				rackValues[i] = "Rack" + (this.racks[i].length > 1 ? "s": "") + ": ";
+			rackValues = _.map(this.racks, function(rack) {
+				var string = "Rack" + (rack.length > 1 ? "s": "") + ": ";
 
-				this.racks[i].forEach(function(rack){
-					rackValues[i] += rack.attributes.name + ", ";
+				rack.forEach(function(rackData){
+					string += rackData.attributes.name + ", ";
 				});
 
 				// Removes the last comma and space added to the string
-				rackValues[i] = rackValues[i].slice(0, -2);
-			}
+				return string.slice(0, -2);
+			});
 
 			this.add({
 	            value: this.maxValueList[0],
@@ -49,18 +48,13 @@ define([
 		},
 
 		getTopThreeValues: function (racks, property, maxValueList) {
-
-			/* Filters all data that match the same property */
-			var j, results;
-		    results = [];
-			
-			for (j = 0; j < maxValueList.length; j++) {
-			    results[j] = racks.filter(function(rack){
-					return maxValueList[j] === rack.get(property);
+			// mapped maxValueList into the return value.
+			// The return value is all the racks that match the maxValueList value
+			return _.map(maxValueList, function(maxValue){
+				return racks.filter(function(rack){
+					return maxValue === rack.get(property);
 				});
-			}
-
-			return results;
+			});
 		}
 	});
 

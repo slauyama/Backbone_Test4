@@ -12,7 +12,10 @@ define([
 
 	var TopListPanelView = Backbone.Marionette.CollectionView.extend({
 		id: 'leader-data',
-		itemView: TopListItemView
+		itemView: TopListItemView,
+
+		onRender: function() {
+		}
 	});
 
 	return TopListPanelView;

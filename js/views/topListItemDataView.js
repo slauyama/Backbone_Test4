@@ -18,6 +18,7 @@ define([
 			// With the width properties I could detect if there is overflow or not
 			// Then I will use qtip to make a tool tip
 
+			// Problem is that item is not fully rendered. Is rendered but is not on page
 		}
 	});
 

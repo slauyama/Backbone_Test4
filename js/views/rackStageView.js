@@ -41,19 +41,20 @@ define([
         },
 
         initialize: function(options){
-            this.rackFloor = new RackFloor(options.collection.models);
-
-            //Create a new racksView and pass the collection to it
-            this.racksView = new RacksView({
-                collection: options.collection,
-                rackFloor: this.rackFloor
-            });
+            this.collection = options.collection
+            this.rackFloor = new RackFloor(this.collection.models);
         },
 
         onRender: function() {
-            
-            
-            this.racksGroup.show(this.racksView); 
+            //Create a new racksView and pass the collection to it
+            var racksView = new RacksView({
+                collection: this.collection,
+                rackFloor: this.rackFloor
+            });
+
+            console.log(racksView, this.racksGroup)
+
+            this.racksGroup.show(racksView); 
 
             this.addLights();
             this.addViews();
