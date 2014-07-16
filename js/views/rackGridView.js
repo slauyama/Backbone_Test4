@@ -4,7 +4,7 @@ define([
 ], function(RackGrid, RackGridTemplate) {
 
 	var RackGridView = Backbone.View.extend({
-		tagName: 'group',
+		tagName: 'transform',
 		template: _.template(RackGridTemplate),
 
 		render: function() {

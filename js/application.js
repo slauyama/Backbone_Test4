@@ -16,26 +16,28 @@ define([
     TopListPanelView
 ) {
     'use strict';
-    var Application = new Backbone.Marionette.Application();
+    var RackApplication = new Backbone.Marionette.Application();
 
-    Application.addInitializer(function(){
-        // Create three different regions
+    RackApplication.addInitializer(function(){
+        // Create three different regions - rackOptions, rackStage, topListPanel
 
         // Create a rackOptionsView and bind it to its region
         var rackOptionsView = new RackOptionsView();
 
         var rackViewOptionsRegion = this.getRegion('rackViewOptions');
-        rackViewOptionsRegion.show(rackOptionsView);
+        rackViewOptionsRegion.show(new RackOptionsView);
+
 
         // Create a new racks. Racks automatically has the data
         // Pass in the racks collection to the rackStage and the topPanelList
         var racks = new Racks();
 
         // Create a rackOptionsView and bind it to its region
-        var rackStageView = new RackStageView(racks);
+        var rackStageView = new RackStageView({collection: racks});
 
-        // var rackStageRegion = this.getRegion('x3dScene');
-        // rackStageRegion.show(rackStageView);
+        var rackStageRegion = this.getRegion('x3dScene');
+        rackStageRegion.show(rackStageView);
+
 
         var topListItems = new TopListItems();
         topListItems.load(racks);
@@ -47,21 +49,21 @@ define([
         var leaderDataRegion = this.getRegion('leaderDataRegion');
         leaderDataRegion.show(topListPanelView);
         
-
+        // Can you listen to a region? 
         this.listenTo(rackOptionsView, 'changingColor', function() {
             console.log("I listened to the ChangeColor Event")
             rackStageView.render();
         });
     });
 
-    Application.addRegions({
+    RackApplication.addRegions({
         rackViewOptions: '#rack-view-options',
         x3dScene: '#x3dScene',
         leaderDataRegion: '#leader-data-region'
     });
 
-    Application.start();
+    RackApplication.start();
 
     //  Expose Application globally for referencing EventAggregator, etc. without incurring circular reference in requireJS.
-    window.Application = Application;
+    window.Application = RackApplication;
 });

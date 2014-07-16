@@ -1507,6 +1507,7 @@ Marionette.View = Backbone.View.extend({
 // A single item view implementation that contains code for rendering
 // with underscore.js templates, serializing the view's model or collection,
 // and calling several methods on extended views, such as `onRender`.
+  console.log("What is this? ", this)
 Marionette.ItemView = Marionette.View.extend({
 
   // Setting up the inheritance chain which allows changes to
@@ -1514,7 +1515,6 @@ Marionette.ItemView = Marionette.View.extend({
   constructor: function(){
     Marionette.View.prototype.constructor.apply(this, arguments);
   },
-
   // Serialize the model or collection for the view. If a model is
   // found, `.toJSON()` is called. If a collection is found, `.toJSON()`
   // is also called, but is used to populate an `items` array in the
