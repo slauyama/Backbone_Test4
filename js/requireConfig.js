@@ -9,6 +9,7 @@ define(function() {
 			'd3': 'bower_components/d3/d3',
 			'jquery': 'bower_components/jquery/dist/jquery',
 			'marionette': 'bower_components/marionette/lib/core/backbone.marionette',
+			'qtip2': 'bower_components/qTip2/jquery.qtip',
 			// Had to change the pathway of this module.
 			// Must be a sibling to your "data-main" main.js script
 			// http://requirejs.org/docs/download.html
@@ -36,13 +37,18 @@ define(function() {
 				exports: 'Backbone.Marionette'
 			},
 
+			'qtip2': {
+				deps: ['jquery'],
+				exports: 'qtip2'
+			},
+
 			'underscore': {
 				deps: ['jquery'],
 				exports: '_'
 			},
 
 			// Not sure if this is correct
-			// Is there any dependencies on require
+			// Is there any dependencies on require?
 			'text': {
 				exports: 'text'
 			},

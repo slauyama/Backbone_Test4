@@ -4,6 +4,7 @@ define([
     'd3',
     'jquery',
 	'marionette',
+    'qtip2',
 	'text',
 	'underscore',
 	'x3dom'
