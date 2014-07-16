@@ -14,7 +14,10 @@ define([
 		},
 
 		onRender: function() {
-			console.log("TopListItemDataView is rendering", this.$el);
+			// Cannot figure out for all my life how to access the width properties
+			// With the width properties I could detect if there is overflow or not
+			// Then I will use qtip to make a tool tip
+
 		}
 	});
 

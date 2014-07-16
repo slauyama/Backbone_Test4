@@ -3,11 +3,11 @@
 // Want to convert this view into a layout view
 
 define([
-    // 'templates/rackStageLayoutView'
     'collections/rackPointlights',
     'collections/rackViewpoints',
     'models/rackFloor',
     'models/rackGrid',
+    'text!templates/rackStageTemplate.html',
     'views/rackGridView',
     'views/rackPointlightsView',
     'views/racksView',
@@ -17,6 +17,7 @@ define([
     RackViewpoints,
     RackFloor, 
     RackGrid,
+    RackStageTemplate,
     RackGridView,
     RackPointlightsView,
     RacksView,
@@ -24,11 +25,17 @@ define([
 ) {
     "use strict";
 
-    var RackStageView = Backbone.View.extend({
-        tagName: 'group',
-        template: _.template(''),
+    var RackStageView = Backbone.Marionette.Layout.extend({
+        el: '#x3dscene',
+        template: _.template(RackStageTemplate),
 
-        // RackStageView will be passed a collection from the rackProgram
+        regions: {
+            pointLightGroup:"#pointlights-group-region",
+            viewpointsGroup:"#viewpoints-group-region",
+            gridGroup:"#grid-group-region",
+            racksGroup:"#racks-group-region"
+        },
+
         ui: {
             scene: '#x3dScene',
         },
@@ -45,12 +52,9 @@ define([
 
 			// Attach's the rendered racksView to the #x3dScene
             // I would like something like this in the future racksView.render();
-            $(this.ui.scene).append(racksView.render().el);
-           
-           // Not sure what this does.
-            // I think it triggers the show method and its event
-            // I am not sure what the show method does or if it is needed
-            racksView.triggerMethod('show'); 
+            // $(this.ui.scene).append(racksView.render().el);
+
+            this.racksGroup.show(racksView); 
             
             this.addLights();
             this.addViews();
@@ -70,7 +74,12 @@ define([
 
             // Appending the innerHTML to avoid adding on the outer div
             // Probably not the right way to do this
-            $(this.ui.scene).append(this.allLights.render().el.innerHTML);
+            // $(this.ui.scene).append(this.allLights.render().el.innerHTML);
+            this.pointLightGroup.show(
+                new RackPointlightsView({
+                    collection: rackPointlights
+                })
+            );
         },
 
         // Create some viewpoints for the scene

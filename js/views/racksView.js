@@ -9,9 +9,9 @@ define([
 ){
 	// Change Type of View to Item View
 	var RacksView = Backbone.Marionette.CollectionView.extend({
-	    tagName: 'group',
-	    id: 'innerScene',
-	    itemView: RackView
+	    id: 'rackGroup',
+	    itemView: RackView,
+	    tagName: 'group'
 	});
 
 	return RacksView;
