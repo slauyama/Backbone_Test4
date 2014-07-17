@@ -12,22 +12,8 @@ define([
 	    itemView: RackView,
 	    tagName: 'group',
 
-	    handleRackClick: function() {
-            console.log("I handled the rack click");
-        },
-
 	    onRender: function() {
-	    	// Not correct. Just a hack
-            // Me and Russ Cannot figure out why d3 isnt correctly loading
-            var d3 = require('d3');
-            
-            _.defer(function() {
-                console.log("defering function", d3.selectAll('.rack').node());
-                _.each(d3.selectAll('.rack'), function(rack) {
-                	console.log(rack.node());
-                	rack.node().addEventListener('click', this.handleRackClick);
-                });
-            });
+	    	
 	    } 	
 	});
 

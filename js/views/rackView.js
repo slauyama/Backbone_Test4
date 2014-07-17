@@ -74,8 +74,24 @@ define([
 
         },
 
+        handleRackClick: function(view) {
+            console.log("I handled the rack click", view);
+            $('#' + this.model.get("componentId")).qtip();
+            // qtip();
+        },
+
         onRender: function() {
+            // Not correct. Just a hack
+            // Me and Russ Cannot figure out why d3 isnt correctly loading
+            var d3 = require('d3');
             
+            // Another hack. This will defer till all other calls on the stack are finished.
+            // This allows the html elements to be rendered AND appended to the page
+            _.defer(function() {
+                d3.select($('#' + this.model.get("componentId"))).node()[0]
+                    .addEventListener('click', function(){this.handleRackClick(this)}.bind(this));
+               
+            }.bind(this));
         }
 
 	   
