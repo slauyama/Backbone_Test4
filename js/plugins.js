@@ -1,7 +1,6 @@
 //Plugins All the plugins I will be using
 define([
 	'backbone',
-    'd3',
     'jquery',
 	'marionette',
     'qtip2',

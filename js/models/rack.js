@@ -52,52 +52,6 @@ define(function() {
 
         initialize: function(){
             this.adjustDefaults();
-        },
-
-        getColor: function(colorValue) {
-            var badDataFlag = false, value;
-            
-            switch (colorValue) {
-                //  CODE REVIEW SA - Use an enum here instead of comparing to string constant.
-                case "Power":
-                    value = this.get('powerCurrent') / this.get('powerMax');
-                    if (!_.isNumber(value))
-                        badDataFlag = true;
-                    break;
-                case "Weight":
-                    value = this.get('weightCurrent') / this.get('weightMax');
-                    if (!_.isNumber(value))
-                        badDataFlag = true;
-                    break;
-                case "Temperature":
-                    value = this.get('heatCurrent') / this.get('coolingMax');
-                    if (!_.isNumber(value))
-                        badDataFlag = true;
-                    break;
-                default:
-                    badDataFlag = true;
-                    break;
-            }
-
-            var red, green, redString, greenString, color; 
-            if (value < 0.5) {
-                red = Math.floor(value * 255);
-                green = 200;
-            } else {
-                red = 255;
-                green = Math.floor((1 - value) * 255);
-            }
-
-            redString = (red < 16 ? "0" : "") + red.toString(16);
-            greenString = (green < 16 ? "0" : "") + green.toString(16);
-
-            color = "#" + redString + greenString + "00";
-            
-            if (badDataFlag) {
-                color = "steelblue";
-            }
-            
-            return color;
         }
 
     });

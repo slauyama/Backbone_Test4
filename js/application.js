@@ -48,6 +48,8 @@ define([
 
         var leaderDataRegion = this.getRegion('leaderDataRegion');
         leaderDataRegion.show(topListPanelView);
+
+        this.trigger("DOMReady");
         
         // Can you listen to a region? 
         this.listenTo(rackOptionsView, 'changingColor', function() {

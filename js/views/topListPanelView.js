@@ -15,6 +15,7 @@ define([
 		itemView: TopListItemView,
 
 		onRender: function() {
+
 		}
 	});
 

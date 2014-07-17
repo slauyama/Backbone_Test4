@@ -8,71 +8,7 @@ define([
 	    // Each rack is the type transform
 	    tagName: 'transform',
 	    template: _.template(RackViewTemplate),
-	    ui: {
-
-	    },
-
-	    templateHelpers: {
-    	    // Determine the color of the rack
-    	    getColor: function(colorValue) {
-    	    	var colorOptionEnum = Object.freeze({
-
-    	    	})
-
-    	    	try {
-	    	    	colorValue = document.getElementsByClassName('selected-color')[0].value;
-    	    	} catch (exception) {
-    	    		console.log(exception.message);
-    	    		colorValue = "Power";
-    	    	}
-
-    	        var badDataFlag = false, value;
-    	        switch (colorValue) {
-    				// CODE REVIEW SA - Use an enum here instead of comparing to string constant.
-    				// How do I use an enum here?
-    	            case "Power":
-    	                value = this.powerCurrent / this.powerMax;
-    	                if (!_.isNumber(value))
-    	                    badDataFlag = true;
-    	                break;
-    	            case "Weight":
-    	                value = this.weightCurrent / this.weightMax;
-    	                if (!_.isNumber(value))
-    	                    badDataFlag = true;
-    	                break;
-    	            case "Temperature":
-    	                value = this.heatCurrent / this.coolingMax;
-    	                if (!_.isNumber(value))
-    	                    badDataFlag = true;
-    	                break;
-    	            default:
-    	                badDataFlag = true;
-    	                break;
-    	        }
-
-    	        var red, green, redString, greenString, color; 
-    	        if (value < 0.5) {
-    	            red = Math.floor(value * 255);
-    	            green = 200;
-    	        } else {
-    	            red = 255;
-    	            green = Math.floor((1 - value) * 255);
-    	        }
-
-    	        redString = (red < 16 ? "0" : "") + red.toString(16);
-    	        greenString = (green < 16 ? "0" : "") + green.toString(16);
-
-    	        color = "#" + redString + greenString + "00";
-    	        
-    	        if (badDataFlag) {
-    	            color = "steelblue";
-    	        }
-    	        
-    	        return color;
-    	    },
-
-	    },
-
+	 
 	    // Get the x and y translation from the model 
 	    attributes: function() {
 		    return {
@@ -80,6 +16,77 @@ define([
 	        };
 	    },
 
+        templateHelpers: {
+            // Determine the color of the rack
+            getColor: function(colorValue) {
+                try {
+                    colorValue = document.getElementsByClassName('selected-color')[0].value;
+                } catch (exception) {
+                    console.log(exception.message);
+                    colorValue = "Power";
+                }
+
+                var badDataFlag = false, value;
+                switch (colorValue) {
+                    // CODE REVIEW SA - Use an enum here instead of comparing to string constant.
+                    // How do I use an enum here?
+                    case "Power":
+                        value = this.powerCurrent / this.powerMax;
+                        if (!_.isNumber(value))
+                            badDataFlag = true;
+                        break;
+                    case "Weight":
+                        value = this.weightCurrent / this.weightMax;
+                        if (!_.isNumber(value))
+                            badDataFlag = true;
+                        break;
+                    case "Temperature":
+                        value = this.heatCurrent / this.coolingMax;
+                        if (!_.isNumber(value))
+                            badDataFlag = true;
+                        break;
+                    default:
+                        badDataFlag = true;
+                        break;
+                }
+
+                var red, green, redString, greenString, color; 
+                if (value < 0.5) {
+                    red = Math.floor(value * 255);
+                    green = 200;
+                } else {
+                    red = 255;
+                    green = Math.floor((1 - value) * 255);
+                }
+
+                redString = (red < 16 ? "0" : "") + red.toString(16);
+                greenString = (green < 16 ? "0" : "") + green.toString(16);
+
+                color = "#" + redString + greenString + "00";
+                
+                if (badDataFlag) {
+                    color = "steelblue";
+                }
+                
+                return color;
+            },
+
+
+        },
+
+        handleRackClick: function() {
+            console.log("I handled the rack click");
+        },
+
+        onRender: function() {
+            // debugger;
+            // $(document).ready(function(){
+                //Add a onclick callback to every shape
+            // this.$('shape').each(function() {
+            //     $(this).click(that.handleSingleClick);
+            // });
+            // });
+        }
 
 	   
 	});
