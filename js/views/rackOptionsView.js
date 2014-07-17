@@ -61,14 +61,15 @@ define([
             cameraOptions: '.camera-option',
             colorOptions: '.color-option',
             formGroup: '.form-group',
-            gridMaterial: '#grid-material'
+            // gridMaterial: '#grid-material'
         },
 
         events: {
-            'click #view-shuffle' : 'shuffleView',
-            'click #grid-toggle' : 'toggleGridTransparency',
             'mouseover .camera-option .button': 'toggleCamera',
             'mouseover .color-option .button': 'toggleColor',
+            'click #grid-toggle' : 'toggleGridTransparency',
+            'click #view-shuffle' : 'shuffleView',
+            'click #names-toggle' : 'toggleNames'
         },
 
         // Marionette's onRender was not working for me
@@ -93,12 +94,17 @@ define([
 
         },
 
+        toggleNames: function() {
+
+        },
+
         toggleGridTransparency: function() {
-            console.log($(this.ui.gridMaterial))
-            if ($(this.ui.gridMaterial)[0].transparency === "1.0") {
-                $(this.ui.gridMaterial)[0].setAttribute("transparency", ".65");
+            // Can't use a ui element because the grid is not loaded yet
+            var gridMaterial = $('#grid-material')[0];
+            if (gridMaterial.transparency === "1.0") {
+                gridMaterial.setAttribute("transparency", ".65");
             } else {
-                $(this.ui.gridMaterial)[0].setAttribute("transparency", "1.0");
+                gridMaterial.setAttribute("transparency", "1.0");
             }
         },
 
