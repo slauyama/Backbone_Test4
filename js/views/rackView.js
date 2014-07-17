@@ -1,5 +1,5 @@
 define([
-	"text!templates/rackViewTemplate.html",
+	"text!templates/rackViewTemplate.html"
 ], function(RackViewTemplate){
 	"use strict";
 
@@ -74,18 +74,8 @@ define([
 
         },
 
-        handleRackClick: function() {
-            console.log("I handled the rack click");
-        },
-
         onRender: function() {
-            // debugger;
-            // $(document).ready(function(){
-                //Add a onclick callback to every shape
-            // this.$('shape').each(function() {
-            //     $(this).click(that.handleSingleClick);
-            // });
-            // });
+            
         }
 
 	   

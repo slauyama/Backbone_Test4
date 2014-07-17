@@ -6,6 +6,7 @@ define(function() {
 
 		paths: {
 			'backbone': 'bower_components/backbone/backbone',
+			'd3': 'bower_components/d3/d3',
 			'jquery': 'bower_components/jquery/dist/jquery',
 			'marionette': 'bower_components/marionette/lib/core/backbone.marionette',
 			'qtip2': 'bower_components/qTip2/jquery.qtip',
@@ -21,6 +22,10 @@ define(function() {
 			'backbone': {
 				deps: ['jquery', 'underscore'],
 				exports: 'Backbone'
+			},
+			
+			'd3': {
+				exports: 'd3'
 			},
 			
 			'jquery': {
