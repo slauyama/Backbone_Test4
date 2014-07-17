@@ -46,7 +46,6 @@ define([
         },
 
         onRender: function() {
-
             this.addLights();
             this.addViews();
             this.addGrid(); 
@@ -91,12 +90,6 @@ define([
         },
 
         addRacks: function() {
-            //Create a new racksView and pass the collection to it
-            // var racksView = new RacksView({
-            //     collection: this.collection,
-            //     rackFloor: this.rackFloor
-            // });
-
             this.racksGroup.show(
                 new RacksView({
                     collection: this.collection,

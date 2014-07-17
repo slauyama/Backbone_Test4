@@ -3,14 +3,9 @@ define([
 	"text!templates/rackGridTemplate.html"
 ], function(RackGrid, RackGridTemplate) {
 
-	var RackGridView = Backbone.View.extend({
+	var RackGridView = Backbone.Marionette.ItemView.extend({
 		tagName: 'transform',
-		template: _.template(RackGridTemplate),
-
-		render: function() {
-			this.$el.html(this.template(this.model.toJSON()));
-			return this;			
-		}
+		template: _.template(RackGridTemplate)
 	});
 
 	return RackGridView
