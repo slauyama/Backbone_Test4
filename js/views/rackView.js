@@ -74,9 +74,20 @@ define([
 
         },
 
-        handleRackClick: function(view) {
-            console.log("I handled the rack click", view);
-            $('#' + this.model.get("componentId")).qtip();
+        handleRackClick: function() {
+            console.log("I handled the rack click", this);
+
+            document.getElementById("ComponentID-Data").innerHTML = this.model.get('componentId');
+            document.getElementById("Name-Data").innerHTML = this.model.get('name');
+            document.getElementById("Power-Data").innerHTML = this.model.get('powerCurrent') + "/" + this.model.get('powerPlanned') + "/" + this.model.get('powerMax');
+            document.getElementById("Heat-Data").innerHTML = this.model.get('heatCurrent') + "/" + this.model.get('heatPlanned') + "/" + this.model.get('coolingMax');
+            document.getElementById("Weight-Data").innerHTML = this.model.get('weightCurrent') + "/" + this.model.get('weightPlanned') + "/" + this.model.get('weightMax');
+            document.getElementById("UsedUnits-Data").innerHTML = this.model.get('usedUnitsCurrent') + "/" + this.model.get('usedUnitsPlanned');
+            document.getElementById("UnitLocation-Data").innerHTML = this.model.get('largestUnitLocation');
+            document.getElementById("UnitSize-Data").innerHTML = this.model.get('largestUnitSize');
+            // document.getElementById("PowerAD-Data").innerHTML = this.model.get('powerActualDerivation');
+    
+            // console.log($('#' + this.model.get("componentId")));//.qtip();
             // qtip();
         },
 
@@ -88,9 +99,10 @@ define([
             // Another hack. This will defer till all other calls on the stack are finished.
             // This allows the html elements to be rendered AND appended to the page
             _.defer(function() {
-                d3.select($('#' + this.model.get("componentId"))).node()[0]
-                    .addEventListener('click', function(){this.handleRackClick(this)}.bind(this));
-               
+                d3.select('#rack' + this.model.get("componentId")).node()
+                    .addEventListener('click', function(){
+                        this.handleRackClick()
+                    }.bind(this));
             }.bind(this));
         }
 

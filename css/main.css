@@ -123,18 +123,26 @@ x3d {
   x3d canvas {
     width: 700px;
     height: 400px; 
-    border: 1px solid black 
-  }
-  x3d button {
+    border: 1px solid black; }
+  x3d > .controls {
     position: absolute;
-    z-index: 1;
-    width: 70px;
-    height: 24px;
-    border: none;
-    background-color: #fff;
-    color: #202021; }
-    x3d button:hover {
-      background-color: #ebebeb; }
+    z-index: 1;  
+    color: #202021;
+    margin: 1px;
+    padding: 5px; }
+    x3d > .controls > button{
+      display: block;
+      width: 70px;
+      height: 24px; 
+      background-color: #fff;
+      border: none; }
+      x3d > .controls > button:hover {
+        background-color: #ebebeb; }
+    x3d > .controls > ul {
+      font-size: 12px; }
+    x3d > .controls {
+      font-size:  12px;}
+
 
 #zoom-in {
   top: 1px;
@@ -163,6 +171,3 @@ x3d {
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap; }
-/*      #leader-data .leader li:hover {
-        overflow: visible;
-        white-space: normal; }*/

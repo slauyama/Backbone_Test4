@@ -1,4 +1,6 @@
-define(function() {
+define([
+    "utility"
+], function(Utility) {
     "use strict";
 
     var Rack = Backbone.Model.extend({
@@ -44,8 +46,8 @@ define(function() {
             this.set('height', this.get('height') * 44.5 / 1000);
             this.set('adjustedXPosition', (this.get('adjustedXPosition') - this.get('floorPlanWidth') / 2) / 1000);
             this.set('adjustedYPosition', (this.get('adjustedYPosition') - this.get('floorPlanHeight') / 2) / 1000);
-            this.set('heatCurrent', this.get('powerCurrent') * 3.412141633);
-            this.set('heatPlanned', this.get('powerPlanned') * 3.412141633);
+            this.set('heatCurrent', Utility.roundTo(this.get('powerCurrent') * 3.412141633, 2));
+            this.set('heatPlanned', Utility.roundTo(this.get('powerPlanned') * 3.412141633, 2));
             this.set('floorPlanWidth', this.get('floorPlanWidth') / 1000);
             this.set('floorPlanHeight', this.get('floorPlanHeight') / 1000);
         },
