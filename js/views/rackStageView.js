@@ -46,19 +46,11 @@ define([
         },
 
         onRender: function() {
-            //Create a new racksView and pass the collection to it
-            var racksView = new RacksView({
-                collection: this.collection,
-                rackFloor: this.rackFloor
-            });
-
-            console.log(racksView, this.racksGroup)
-
-            this.racksGroup.show(racksView); 
 
             this.addLights();
             this.addViews();
             this.addGrid(); 
+            this.addRacks();
         },
 
         // Create some lights for the scene
@@ -96,6 +88,22 @@ define([
                     model: rackGrid
                 })
             );
+        },
+
+        addRacks: function() {
+            //Create a new racksView and pass the collection to it
+            // var racksView = new RacksView({
+            //     collection: this.collection,
+            //     rackFloor: this.rackFloor
+            // });
+
+            this.racksGroup.show(
+                new RacksView({
+                    collection: this.collection,
+                    rackFloor: this.rackFloor
+                })
+            ); 
+            
         }
         
     });
