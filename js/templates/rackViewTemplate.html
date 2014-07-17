@@ -1,4 +1,3 @@
-<% /* Having an issue on scoping. onclick needs a global function */ %>
 <shape id='<%="rack"+ componentId %>'  class='rack' >
 	<appearance sorttype='auto'>
 	    <material ambientintensity='0.2' diffusecolor='<%= getColor() %>' shininess='0.2'>
@@ -7,3 +6,14 @@
 	<box size='<%= floorPlanWidth + " " + (floorPlanHeight - 0.1) + " " + height %>'>
 	</box>
 </shape>
+<transform translation="0 <%= -(floorPlanHeight / 2) %> <%= 1.0 %>">
+	<shape>
+		<appearance>
+			<material ambientintensity='0.0' diffusecolor='#204254' shininess='0.0'>
+			</material>
+		</appearance>
+		<text string="<%= name %>">
+			<fontstyle family="'Helvetica'" size="<%= .75 * (floorPlanHeight - 0.1)%>" ></fontstyle>
+		</text>
+	</shape>
+</transform>

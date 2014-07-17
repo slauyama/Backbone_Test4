@@ -50,6 +50,9 @@ define([
                 },
                 {
                     title:"Shuffle Views", value:"view-shuffle"
+                },
+                {
+                    title:"Display Names", value:"names-toggle"
                 }
             ]
         },
