@@ -3,12 +3,20 @@ ToDo
 -Add top leaders racks
 -Need to give delay between changing colors
 -Want to build buttons within the scene
+-Use qtip for displaying tool tips
+-Hover over top leader board gives you the racks
+-Hover over rack in view gives racks
+-Maybe search and or dropdown for finding racks
+-Fixed the top leaders with issue on overflow
+-Add a shuffle view
+-Fix color change in terms of transitions
 
 Issues
 -Color Options button not registering with scene
 -Display grid not currently working
 
 Done
+-Added names on rack
 -Figured out how to throttle
 -Add controls for changing views and options
 -Add Color Controls

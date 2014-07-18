@@ -107,23 +107,28 @@ define([
         },
 
         toggleCamera: _.throttle(function(event) {
-            // Should not be using event.currentTarget but will figure that out later
-            $('.selected-view').removeClass('selected-view');
-            event.currentTarget.className += " selected-view";
+            if (event.currentTarget.className.lastIndexOf("selected-view") === -1) {
+                // Should not be using event.currentTarget but will figure that out later
+                $('.selected-view').removeClass('selected-view');
+                event.currentTarget.className += " selected-view";
 
-            /* To activate a viewpoint you set "set_bind" to true */
-            try {
-                document.getElementById(event.currentTarget.value).setAttribute('set_bind', 'true');
-            } catch(exception) {
-                console.log("Cannot find " + event.currentTarget.value + " '" + exception + "'")
+                /* To activate a viewpoint you set "set_bind" to true */
+                try {
+                    document.getElementById(event.currentTarget.value).setAttribute('set_bind', 'true');
+                } catch(exception) {
+                    console.log("Cannot find " + event.currentTarget.value + " '" + exception + "'")
+                }
             }
             
         }, 1500),
 
         toggleColor: function(event) {
-            $('.selected-color').removeClass('selected-color');
-            event.currentTarget.className += " selected-color";
-            this.trigger('changingColor')
+            if (event.currentTarget.className.lastIndexOf("selected-color") === -1) {
+                console.log("just checking");
+                $('.selected-color').removeClass('selected-color');
+                event.currentTarget.className += " selected-color";
+                this.trigger('changingColor')
+            }
         }
     });
 

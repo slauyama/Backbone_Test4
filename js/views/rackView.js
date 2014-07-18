@@ -20,6 +20,7 @@ define([
         templateHelpers: {
             // Determine the color of the rack
             getColor: function(colorValue) {
+                console.log(document.getElementsByClassName('selected-color')[0].value);
                 try {
                     colorValue = document.getElementsByClassName('selected-color')[0].value;
                 } catch (exception) {
@@ -76,8 +77,9 @@ define([
         },
 
         handleRackClick: function() {
-            console.log("I handled the rack click", this);
-
+            // Not sure if i can use a qtip while using the canvas.
+            // Atleast I could use a model and view. '
+            // Not sure how i want the data displayed
             document.getElementById("ComponentID-Data").innerHTML = this.model.get('componentId');
             document.getElementById("Name-Data").innerHTML = this.model.get('name');
             document.getElementById("Power-Data").innerHTML = Utility.roundTo(this.model.get('powerCurrent')) + "/" + Utility.roundTo(this.model.get('powerPlanned')) + "/" + Utility.roundTo(this.model.get('powerMax'));
@@ -87,9 +89,6 @@ define([
             document.getElementById("UnitLocation-Data").innerHTML = this.model.get('largestUnitLocation');
             document.getElementById("UnitSize-Data").innerHTML = this.model.get('largestUnitSize');
             // document.getElementById("PowerAD-Data").innerHTML = this.model.get('powerActualDerivation');
-    
-            // console.log($('#' + this.model.get("componentId")));//.qtip();
-            // qtip();
         },
 
         onRender: function() {
