@@ -17,6 +17,11 @@ define([
 	        };
 	    },
 
+        // Might want to use something like this in the future not sure about using it now.
+        modelEvents: {
+            "change:transparency": 'render'
+        },
+
         templateHelpers: {
             // Determine the color of the rack
             getColor: function(colorValue) {
@@ -75,7 +80,7 @@ define([
 
         },
 
-        handleRackClick: function() {
+        handleRackHover: function() {
             // Not sure if i can use a qtip while using the canvas.
             // Atleast I could use a model and view. '
             // Not sure how i want the data displayed
@@ -88,6 +93,16 @@ define([
             document.getElementById("UnitLocation-Data").innerHTML = this.model.get('largestUnitLocation');
             document.getElementById("UnitSize-Data").innerHTML = this.model.get('largestUnitSize');
             // document.getElementById("PowerAD-Data").innerHTML = this.model.get('powerActualDerivation');
+
+            $('.opaque').each(function() {
+                console.log($(this).__hasAttribute('translation'));
+            });
+
+            $('.opaque').removeClass('opaque');
+
+            this.model.set('transparency', '0.0');
+            this.$el.addClass('opaque');
+
         },
 
         onRender: function() {
@@ -100,7 +115,7 @@ define([
             _.defer(function() {
                 d3.select('#rack' + this.model.get("componentId")).node()
                     .addEventListener('mouseover', function(){
-                        this.handleRackClick()
+                        this.handleRackHover()
                     }.bind(this));
             }.bind(this));
         }

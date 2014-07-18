@@ -39,6 +39,9 @@ define([
             //this is matched with the height 
             floorPlanWidth: 0,
             floorPlanHeight: 0,
+
+            // Set it to -1 before initialized will change it in adjustingDefaults
+            transparency: -1
         },
 
         // This will adjust the properties to proper scale
@@ -50,6 +53,7 @@ define([
             this.set('heatPlanned', Utility.roundTo(this.get('powerPlanned') * 3.412141633, 2));
             this.set('floorPlanWidth', this.get('floorPlanWidth') / 1000);
             this.set('floorPlanHeight', this.get('floorPlanHeight') / 1000);
+            this.set('transparency', '0.2');
         },
 
         initialize: function(){

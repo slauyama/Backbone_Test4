@@ -65,8 +65,8 @@ define([
         },
 
         events: {
-            'mouseover .camera-option .button': 'toggleCamera',
-            'mouseover .color-option .button': 'toggleColor',
+            'click .camera-option .button': 'toggleCamera',
+            'click .color-option .button': 'toggleColor',
             'click #grid-toggle' : 'toggleGridTransparency',
             'click #view-shuffle' : 'shuffleViewActivated',
             'click #names-toggle' : 'toggleNames'

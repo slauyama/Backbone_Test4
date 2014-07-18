@@ -8,6 +8,7 @@ Enhancements
 -Maybe search and or dropdown for finding racks
 -Fixed the top leaders with issue on overflow
 -Fix the views to make them a bit more elevated
+-For the controls use a template.
 
 Issues / Bugs
 -Color Options button not registering with scene
