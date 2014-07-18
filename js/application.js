@@ -50,7 +50,6 @@ define([
         leaderDataRegion.show(topListPanelView);
 
         // Can you listen to a region? 
-        console.log(rackOptionsView);
         rackOptionsView.on('changingColor', function() {
             console.log("I listened to the ChangeColor Event");
             rackStageView.render();

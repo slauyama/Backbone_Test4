@@ -20,7 +20,6 @@ define([
         templateHelpers: {
             // Determine the color of the rack
             getColor: function(colorValue) {
-                console.log(document.getElementsByClassName('selected-color')[0].value);
                 try {
                     colorValue = document.getElementsByClassName('selected-color')[0].value;
                 } catch (exception) {
