@@ -15,6 +15,23 @@ define([
 			// Then I will use qtip to make a tool tip
 
 			// Problem is that item is not fully rendered. Is rendered but is not on page
+			_.defer(function() {
+                // console.log(this, this.el.clientWidth, this.el.scrollWidth);
+                if (this.el.scrollWidth > this.el.clientWidth){
+                	this.$el.qtip({
+                		content: {
+				        	text: this.model.get('racks')
+    					},
+    					style: {
+    						width: 175
+    					},
+    					position: {
+                            my: 'bottom left',
+                            at: 'right top'
+                        }
+    				});
+                }
+            }.bind(this));
 			
 		}
 	});

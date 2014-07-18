@@ -94,14 +94,9 @@ define([
             document.getElementById("UnitSize-Data").innerHTML = this.model.get('largestUnitSize');
             // document.getElementById("PowerAD-Data").innerHTML = this.model.get('powerActualDerivation');
 
-            $('.opaque').each(function() {
-                console.log($(this).__hasAttribute('translation'));
-            });
+            // Just toggles between different opacities
+           this.model.set('transparency', /*this.model.get('transparency') === '0.0' ? '0.2' :*/ '0.0');
 
-            $('.opaque').removeClass('opaque');
-
-            this.model.set('transparency', '0.0');
-            this.$el.addClass('opaque');
 
         },
 
