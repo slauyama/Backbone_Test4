@@ -99,7 +99,7 @@ define([
             // This allows the html elements to be rendered AND appended to the page
             _.defer(function() {
                 d3.select('#rack' + this.model.get("componentId")).node()
-                    .addEventListener('click', function(){
+                    .addEventListener('mouseover', function(){
                         this.handleRackClick()
                     }.bind(this));
             }.bind(this));
