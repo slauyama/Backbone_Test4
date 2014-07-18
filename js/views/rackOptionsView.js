@@ -95,17 +95,15 @@ define([
         },
 
         toggleNames: function() {
-
+            _.each($('.rack-text'), function(material) {
+                material.setAttribute("transparency", material.transparency === "0" ? "1.0" : "0");
+            });   
         },
 
         toggleGridTransparency: function() {
             // Can't use a ui element because the grid is not loaded yet
-            var gridMaterial = $('#grid-material')[0];
-            if (gridMaterial.transparency === "1.0") {
-                gridMaterial.setAttribute("transparency", ".65");
-            } else {
-                gridMaterial.setAttribute("transparency", "1.0");
-            }
+            var material = $('#grid-material')[0];   
+            material.setAttribute("transparency", material.transparency === "1.0" ? ".65" : "1.0");    
         },
 
         toggleCamera: _.throttle(function(event) {

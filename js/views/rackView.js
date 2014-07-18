@@ -1,6 +1,7 @@
 define([
-	"text!templates/rackViewTemplate.html"
-], function(RackViewTemplate){
+	"text!templates/rackViewTemplate.html",
+    "utility"
+], function(RackViewTemplate, Utility){
 	"use strict";
 
 	// console.log(RackViewTemplate);
@@ -79,9 +80,9 @@ define([
 
             document.getElementById("ComponentID-Data").innerHTML = this.model.get('componentId');
             document.getElementById("Name-Data").innerHTML = this.model.get('name');
-            document.getElementById("Power-Data").innerHTML = this.model.get('powerCurrent') + "/" + this.model.get('powerPlanned') + "/" + this.model.get('powerMax');
-            document.getElementById("Heat-Data").innerHTML = this.model.get('heatCurrent') + "/" + this.model.get('heatPlanned') + "/" + this.model.get('coolingMax');
-            document.getElementById("Weight-Data").innerHTML = this.model.get('weightCurrent') + "/" + this.model.get('weightPlanned') + "/" + this.model.get('weightMax');
+            document.getElementById("Power-Data").innerHTML = Utility.roundTo(this.model.get('powerCurrent')) + "/" + Utility.roundTo(this.model.get('powerPlanned')) + "/" + Utility.roundTo(this.model.get('powerMax'));
+            document.getElementById("Heat-Data").innerHTML = Utility.roundTo(this.model.get('heatCurrent')) + "/" + Utility.roundTo(this.model.get('heatPlanned')) + "/" + Utility.roundTo(this.model.get('coolingMax'));
+            document.getElementById("Weight-Data").innerHTML = Utility.roundTo(this.model.get('weightCurrent')) + "/" + Utility.roundTo(this.model.get('weightPlanned')) + "/" + Utility.roundTo(this.model.get('weightMax'));
             document.getElementById("UsedUnits-Data").innerHTML = this.model.get('usedUnitsCurrent') + "/" + this.model.get('usedUnitsPlanned');
             document.getElementById("UnitLocation-Data").innerHTML = this.model.get('largestUnitLocation');
             document.getElementById("UnitSize-Data").innerHTML = this.model.get('largestUnitSize');
