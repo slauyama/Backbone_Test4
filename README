@@ -6,14 +6,16 @@ Enhancements
 	-Add tooltip
 -Hover over top leader board gives you the racks
 -Maybe search and or dropdown for finding racks
--Fixed the top leaders with issue on overflow
 -Fix the views to make them a bit more elevated
 -For the controls use a template.
+
+Hoveroff Event
 
 Issues / Bugs
 -Color Options button not registering with scene
 
 Done
+-Fixed the top leaders with issue on overflow
 -Display grid working
 -Add top leaders racks
 -Add a shuffle view
