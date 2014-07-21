@@ -53,7 +53,7 @@ define([
             this.set('heatPlanned', Utility.roundTo(this.get('powerPlanned') * 3.412141633, 2));
             this.set('floorPlanWidth', this.get('floorPlanWidth') / 1000);
             this.set('floorPlanHeight', this.get('floorPlanHeight') / 1000);
-            this.set('transparency', '0.2');
+            this.set('transparency', '0.3');
         },
 
         initialize: function(){

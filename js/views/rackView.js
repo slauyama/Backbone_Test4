@@ -79,7 +79,7 @@ define([
 
         },
 
-        handleRackHover: function() {
+        handleRackMouseover: function() {
             // Not sure if i can use a qtip while using the canvas.
             // Atleast I could use a model and view. '
             // Not sure how i want the data displayed
@@ -93,10 +93,18 @@ define([
             document.getElementById("UnitSize-Data").innerHTML = this.model.get('largestUnitSize');
             // document.getElementById("PowerAD-Data").innerHTML = this.model.get('powerActualDerivation');
 
-            // Just toggles between different opacities
-           this.model.set('transparency', /*this.model.get('transparency') === '0.0' ? '0.2' :*/ '0.0');
+            this.transparencyMouseover();
+            
+        },
 
+        transparencyMouseover: function() {
+            console.log('mouseover');
+            this.model.set('transparency', '0.0');
+        }
 
+        transparencyMouseout: function() {
+            console.log('mouseout');
+            this.model.set('transparency', '0.3' );
         },
 
         onRender: function() {
@@ -112,11 +120,15 @@ define([
             _.defer(function() {
                 d3.select('#rack' + this.model.get("componentId")).node()
                     .addEventListener('mouseover', function(){
-                        this.handleRackHover()
+                        this.handleRackMouseover();
+                    }.bind(this));
+
+                d3.select('#rack' + this.model.get("componentId")).node()
+                    .addEventListener('mouseout', function(){
+                        this.handleRackMouseout();
                     }.bind(this));
             }.bind(this));
-        }
-	   
+        }	   
 	});
 
 	return RackView;
