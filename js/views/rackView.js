@@ -105,40 +105,33 @@ define([
             // Me and Russ Cannot figure out why d3 isnt correctly loading
             var d3 = require('d3');
             
-            // console.log( d3.select('#rack' + this.model.get("componentId")).node() );
-            // // Another hack. This will defer till all other calls on the stack are finished.
-            // // This allows the html elements to be rendered AND appended to the page
+            // Another hack. This will defer till all other calls on the stack are finished.
+            // This allows the html elements to be rendered AND appended to the page
+
+            // Tried to use onShow but did not run as smoothly. Not sure what the issue is.
+            _.defer(function() {
+                d3.select('#rack' + this.model.get("componentId")).node()
+                    .addEventListener('mouseover', function(){
+                        this.handleRackHover()
+                    }.bind(this));
+            }.bind(this));
+        },
+
+        // onShow: function() {
+            // Not correct. Just a hack
+            // Me and Russ Cannot figure out why d3 isnt correctly loading
+            // var d3 = require('d3');
+
+            // Still am using defer but am using it in onShow.
+            // Hopefully this will be less prone to bad things
+            // I still want to remove defer but can't figure out a way just yet
             // _.defer(function() {
             //     d3.select('#rack' + this.model.get("componentId")).node()
             //         .addEventListener('mouseover', function(){
             //             this.handleRackHover()
             //         }.bind(this));
             // }.bind(this));
-        },
-
-        onShow: function() {
-            // Not correct. Just a hack
-            // Me and Russ Cannot figure out why d3 isnt correctly loading
-            var d3 = require('d3');
-
-            d3.select('#rack' + this.model.get("componentId")).node()
-                .addEventListener('mouseover', function(){
-                    this.handleRackHover();
-                }.bind(this));
-            // d3.select('#rack' + this.model.get("componentId")).node()
-            // // console.log( $('#rack' + this.model.get("componentId")) );
-            //     // .addEventListener('mouseover', function(){
-            //     //     this.handleRackHover();
-            //     // }.bind(this));
-            // // console.log(this.$el[0].setAttribute);
-
-            // // setAttribute('onmouseover', function() {
-            // //     console.log("Am i working")
-            // //     this.handleRackHover();
-            // // }.bind(this));
-            // console.log(this.el);
-            // console.log(this);
-        }
+        // }
 
 	   
 	});

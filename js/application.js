@@ -21,13 +21,6 @@ define([
     RackApplication.addInitializer(function(){
         // Create three different regions - rackOptions, rackStage, topListPanel
 
-        // Create a rackOptionsView and bind it to its region
-        var rackOptionsView = new RackOptionsView();
-
-        var rackViewOptionsRegion = this.getRegion('rackViewOptions');
-        rackViewOptionsRegion.show(new RackOptionsView);
-
-
         // Create a new racks. Racks automatically has the data
         // Pass in the racks collection to the rackStage and the topPanelList
         var racks = new Racks();
@@ -46,14 +39,23 @@ define([
             collection: topListItems
         });
 
+
         var leaderDataRegion = this.getRegion('leaderDataRegion');
         leaderDataRegion.show(topListPanelView);
 
-        // Can you listen to a region? 
-        rackOptionsView.on('changingColor', function() {
-            console.log("I listened to the ChangeColor Event");
-            rackStageView.render();
-        });
+        // Create a rackOptionsView and bind it to its region
+        var rackOptionsView = new RackOptionsView();
+
+        var rackViewOptionsRegion = this.getRegion('rackViewOptions');
+        rackViewOptionsRegion.show(new RackOptionsView);
+
+        // Have to use the regions current view in order to access the custom event
+        // Simply reshowing the current view onto the region
+        rackStageRegion.currentView
+            .listenTo(rackViewOptionsRegion.currentView, 'changingColor', function() {
+                this.show(this.currentView);
+            }.bind(rackStageRegion));
+
     });
 
     RackApplication.addRegions({

@@ -72,8 +72,7 @@ define([
             'click #names-toggle' : 'toggleNames'
         },
 
-        // Marionette's onRender was not working for me
-        onRender: function() {
+        onShow: function() {
             // Select the first element in each category
             $(this.ui.cameraOptions).children()[0].className += " selected-view";
             $(this.ui.colorOptions).children()[0].className += " selected-color";
@@ -150,6 +149,8 @@ define([
                 console.log("just checking");
                 $('.selected-color').removeClass('selected-color');
                 event.currentTarget.className += " selected-color";
+                // Not sure how to trigger an event so that Application.js can listen to it.
+                // Or have rackOptionsView in the application.js listen to itself.
                 this.trigger('changingColor')
             }
         }
