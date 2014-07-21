@@ -45,7 +45,9 @@ define([
             this.rackFloor = new RackFloor(this.collection.models);
         },
 
-        onRender: function() {
+        // Changed from onRender to onShow. 
+        // This means the stage will render first then the child elements after
+        onShow: function() {
             this.addLights();
             this.addViews();
             this.addGrid(); 

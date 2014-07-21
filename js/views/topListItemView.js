@@ -17,11 +17,7 @@ define([
 			// This file is only getting one model from the Collection View
 			// This hack allows you to specify what the collection is
 			this.collection = this.model.get('data');
-		},
-
-		onRender: function() {
-			// debugger;
-		},
+		}
 	});
 
 	return TopListItemView;
