@@ -115,24 +115,7 @@ define([
                         this.handleRackHover()
                     }.bind(this));
             }.bind(this));
-        },
-
-        // onShow: function() {
-            // Not correct. Just a hack
-            // Me and Russ Cannot figure out why d3 isnt correctly loading
-            // var d3 = require('d3');
-
-            // Still am using defer but am using it in onShow.
-            // Hopefully this will be less prone to bad things
-            // I still want to remove defer but can't figure out a way just yet
-            // _.defer(function() {
-            //     d3.select('#rack' + this.model.get("componentId")).node()
-            //         .addEventListener('mouseover', function(){
-            //             this.handleRackHover()
-            //         }.bind(this));
-            // }.bind(this));
-        // }
-
+        }
 	   
 	});
 
