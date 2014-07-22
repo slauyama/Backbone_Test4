@@ -60,9 +60,8 @@ define([
         ui: {
             cameraOptions: '.camera-option',
             colorOptions: '.color-option',
-            formGroup: '.form-group',
-            viewShuffle: '#view-shuffle'
-
+            viewShuffle: '#view-shuffle',
+            selectedColor: '.selected-color'
         },
 
         events: {
@@ -74,14 +73,13 @@ define([
         },
 
         onShow: function() {
-            this.bindUIElements();
             // Select the first element in each category
-            $(this.ui.cameraOptions).children()[0].className += " selected-view";
-            $(this.ui.colorOptions).children()[0].className += " selected-color";
+            this.ui.cameraOptions.children()[0].className += " selected-view";
+            this.ui.colorOptions.children()[0].className += " selected-color";
             
             // Call the first view in the list of views
             try {
-                document.getElementById($(this.ui.cameraOptions).children()[0].value).setAttribute('set_bind', 'true');
+                document.getElementById(this.ui.cameraOptions.children()[0].value).setAttribute('set_bind', 'true');
             } catch(exception) {
                 return "Cannot call the first view";
             }
@@ -121,17 +119,20 @@ define([
         toggleNames: function() {
             _.each($('.rack-text'), function(material) {
                 material.setAttribute("transparency", material.transparency === "0" ? "1.0" : "0");
-            });   
+            });
+            // Toggle Text Transparency
+            // Backbone.Wreqr.radio.channel('rack-options').vent.trigger('toggleTextTransparency');
         },
 
         toggleGridTransparency: function() {
             // Using the radio channel to trigger an event.
-            Backbone.Wreqr.radio.channel('grid-options').vent.trigger('gridClicked');    
+            Backbone.Wreqr.radio.channel('rack-options').vent.trigger('gridClicked');    
         },
 
         toggleCamera: _.throttle(function(event) {
             if (event.currentTarget.className.lastIndexOf("selected-view") === -1) {
                 // Should not be using event.currentTarget but will figure that out later
+                // Should be setting up click events and looking at where it click (not sure)
                 $('.selected-view').removeClass('selected-view');
                 event.currentTarget.className += " selected-view";
 
@@ -147,14 +148,12 @@ define([
 
         toggleColor: function(event) {
             if (event.currentTarget.className.lastIndexOf("selected-color") === -1) {
-                console.log("just checking");
+                // Removing all instances of selected-color and only adding it to the current target
                 $('.selected-color').removeClass('selected-color');
                 event.currentTarget.className += " selected-color";
-                // Not sure how to trigger an event so that Application.js can listen to it.
-                // Or have rackOptionsView in the application.js listen to itself.
-                //this.trigger('changingColor');
-
-                Backbone.Wreqr.radio.channel('color-options').vent.trigger('changeColor', event.currentTarget.value);
+                
+                // Sending a signal into the rack-options channel
+                Backbone.Wreqr.radio.channel('rack-options').vent.trigger('changeColor', event.currentTarget.value);
             }
         }
     });

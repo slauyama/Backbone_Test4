@@ -1,6 +1,6 @@
 <shape  class='rack' >
 	<appearance sorttype='auto'>
-	    <material class='rack-material' ambientintensity='0.2' diffusecolor='<%= getColor() %>' shininess='0.2' transparency='<%= transparency%>'>
+	    <material class='rack-material' ambientintensity='0.2' diffusecolor='<%= getColor() %>' shininess='0.2' transparency='<%= rackTransparency %>'>
 	    </material>
 	</appearance>
 	<box size='<%= floorPlanWidth + " " + (floorPlanHeight - 0.1) + " " + height %>'>
@@ -9,7 +9,7 @@
 <transform translation="0 <%= -(floorPlanHeight / 2) %> <%= 1.0 %>">
 	<shape>
 		<appearance>
-			<material class="rack-text" ambientintensity='0.0' diffusecolor='#203234' shininess='0.0' transparency='1.0'>
+			<material ambientintensity='0.0' diffusecolor='#203234' shininess='0.0' transparency='<%= textTransparency %>'>
 			</material>
 		</appearance>
 		<text string="<%= name %>">

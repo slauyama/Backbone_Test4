@@ -20,7 +20,8 @@ define([
 
         // When the models property changes run the private function
         modelEvents: {
-            "change:transparency": '_onChangeTransparency'
+            'change:rackTransparency': '_onChangeRackTransparency',
+            'change:textTransparency': 'render'
         },
 
         templateHelpers: {
@@ -91,23 +92,16 @@ define([
                 powerADData: this.model.get('powerActualDerivation')
             });
             
-            if(this.model.get('transparency') === '0.3')
-                this.model.set('transparency', '0.0');   
+            if(this.model.get('rackTransparency') === '0.3')
+                this.model.set('rackTransparency', '0.0');   
         },
 
         handleRackMouseout: function() {
             // I think i want to hide all elements when you mouse out but I am not sure yet
-            this.model.set('transparency', '0.3' ); 
+            this.model.set('rackTransparency', '0.3' ); 
         },
         
-        
-        _onChangeTransparency: function(model, transparency){
-            this.ui.rackMaterial.attr('transparency', transparency)
-        },
-
         onShow: function() {
-            //this.bindUIElements();
-
             // Apparently D3 will not export a global when using requirejs
             // "D3 does not export the global d3 when AMD is detected because that kind of defeats the purpose of using a JavaScript module loader."
             // https://github.com/mbostock/d3/issues/1693
@@ -121,6 +115,9 @@ define([
             
         },
 
+        _onChangeRackTransparency: function(model, rackTransparency){
+            this.ui.rackMaterial.attr('transparency', rackTransparency)
+        }
     });
 
     return RackView;

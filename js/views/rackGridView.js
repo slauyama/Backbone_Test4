@@ -13,7 +13,7 @@ define([
 
 		// Listens to the channel for the "gridClicked" event 
 		initialize: function() {
-			this.listenTo(Backbone.Wreqr.radio.channel('grid-options').vent, "gridClicked", this._toggleTransparency)
+			this.listenTo(Backbone.Wreqr.radio.channel('rack-options').vent, "gridClicked", this._toggleTransparency)
 		},
 
 		_toggleTransparency: function() {

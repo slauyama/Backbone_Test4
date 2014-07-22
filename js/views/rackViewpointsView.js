@@ -6,7 +6,11 @@ define([
 	// console.log(RackViewTemplate);
 	var RackViewpointsViews = Backbone.Marionette.CollectionView.extend({
 	    childView: RackViewpointView,
-	    tagName: 'group'
+	    tagName: 'group',
+
+	    initialize: function() {
+	    	
+	    }
 	});
 
 	return RackViewpointsViews;

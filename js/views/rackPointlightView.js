@@ -9,7 +9,13 @@ define(function(){
 		tagName: 'pointlight',
 		template: _.template(''),
 		attributes: function(){
-			return this.model.attributes;
+			return {
+				intensity: this.model.get('intensity'),
+	            color: this.model.get('color'),
+	            attenuation: this.model.get('attenuation'),
+	            location: this.model.get('location'),
+	            radius: this.model.get('radius')
+			}
 		}
 	});
 

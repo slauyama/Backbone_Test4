@@ -92,7 +92,6 @@ define([
         },
 
         addRacks: function() {
-
             this.racksGroup.show(
                 new RacksView({
                     collection: this.collection,
