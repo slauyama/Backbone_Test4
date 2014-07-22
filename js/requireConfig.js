@@ -2,13 +2,12 @@
 define(function() {
 	"use strict";
 	require.config({
-		//baseUrl: 'js',
 
 		paths: {
 			'backbone': 'bower_components/backbone/backbone',
 			'd3': 'bower_components/d3/d3',
 			'jquery': 'bower_components/jquery/dist/jquery',
-			'marionette': 'bower_components/marionette/lib/core/backbone.marionette',
+			'marionette': 'bower_components/marionette/lib/backbone.marionette',
 			'qtip2': 'bower_components/qTip2/jquery.qtip',
 			// Had to change the pathway of this module.
 			// Must be a sibling to your "data-main" main.js script

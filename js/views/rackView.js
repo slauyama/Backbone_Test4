@@ -100,7 +100,7 @@ define([
         transparencyMouseover: function() {
             console.log('mouseover');
             this.model.set('transparency', '0.0');
-        }
+        },
 
         transparencyMouseout: function() {
             console.log('mouseout');

@@ -25,7 +25,7 @@ define([
 ) {
     "use strict";
 
-    var RackStageView = Backbone.Marionette.Layout.extend({
+    var RackStageView = Backbone.Marionette.LayoutView.extend({
         tagName: 'group',
         template: _.template(RackStageTemplate),
 
