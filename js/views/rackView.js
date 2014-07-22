@@ -1,7 +1,8 @@
 define([
+    'enums/colorValue',
 	"text!templates/rackViewTemplate.html",
     "utility"
-], function(RackViewTemplate, Utility){
+], function(ColorValue, RackViewTemplate, Utility){
 	"use strict";
 
 	var RackView = Backbone.Marionette.ItemView.extend({
@@ -16,9 +17,13 @@ define([
 	        };
 	    },
 
+        ui: {
+            rackMaterial: '.rack-material'
+        },
+
         // Might want to use something like this in the future not sure about using it now.
         modelEvents: {
-            "change:transparency": 'render'
+            "change:transparency": '_onChangeTransparency'
         },
 
         templateHelpers: {
@@ -28,24 +33,22 @@ define([
                     colorValue = document.getElementsByClassName('selected-color')[0].value;
                 } catch (exception) {
                     console.log(exception.message);
-                    colorValue = "Power";
+                    colorValue = ColorValue.Power;
                 }
 
                 var badDataFlag = false, value;
                 switch (colorValue) {
-                    // CODE REVIEW SA - Use an enum here instead of comparing to string constant.
-                    // How do I use an enum here?
-                    case "Power":
+                    case ColorValue.Power:
                         value = this.powerCurrent / this.powerMax;
                         if (!_.isNumber(value))
                             badDataFlag = true;
                         break;
-                    case "Weight":
+                    case ColorValue.Weight:
                         value = this.weightCurrent / this.weightMax;
                         if (!_.isNumber(value))
                             badDataFlag = true;
                         break;
-                    case "Temperature":
+                    case ColorValue.Temperature:
                         value = this.heatCurrent / this.coolingMax;
                         if (!_.isNumber(value))
                             badDataFlag = true;
@@ -74,9 +77,7 @@ define([
                 }
                 
                 return color;
-            },
-
-
+            }
         },
 
         handleRackMouseover: function() {
@@ -95,41 +96,31 @@ define([
             
             if(this.model.get('transparency') === '0.3')
                 this.transparencyMouseover();   
-            
         },
 
-        transparencyMouseover: _.throttle(function() {
-            console.log('mouseover');
+        transparencyMouseover: function() {
             this.model.set('transparency', '0.0');
-        }, 1000),
+        },
 
         transparencyMouseout: function() {
-            console.log('mouseout');
             this.model.set('transparency', '0.3' );
         },
 
-        onRender: function() {
-            
+        onShow: function() {
             // Not correct. Just a hack
             // Me and Russ Cannot figure out why d3 isnt correctly loading
             var d3 = require('d3');
-            
-            // Another hack. This will defer till all other calls on the stack are finished.
-            // This allows the html elements to be rendered AND appended to the page
 
-            // Tried to use onShow but did not run as smoothly. Not sure what the issue is.
-            _.defer(function() {
-                d3.select('#rack' + this.model.get("componentId")).node()
-                    .addEventListener('mouseover', function(){
-                        this.handleRackMouseover();
-                    }.bind(this));
+            var componentId = this.model.get('componentId');
+            var rackNode = d3.select('#rack' + componentId).node();
 
-                d3.select('#rack' + this.model.get("componentId")).node()
-                    .addEventListener('mouseout', function(){
-                        this.transparencyMouseout();
-                    }.bind(this));
-            }.bind(this));
-        }	   
+            rackNode.addEventListener('mouseover', this.handleRackMouseover.bind(this));
+            rackNode.addEventListener('mouseout', this.transparencyMouseout.bind(this));
+        },
+
+        _onChangeTransparency: function(model, transparency){
+            this.ui.rackMaterial.attr('transparency', transparency)
+        }
 	});
 
 	return RackView;
