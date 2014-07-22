@@ -7,7 +7,7 @@ define([
 	"use strict";
 
 	var RackPointlightsView = Backbone.Marionette.CollectionView.extend({
-		itemView: RackPointlightView,
+		childView: RackPointlightView,
 		tagName: 'group'
 	});
 

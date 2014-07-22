@@ -9,7 +9,7 @@ define([
 ){
 	// Change Type of View to Item View
 	var RacksView = Backbone.Marionette.CollectionView.extend({
-	    itemView: RackView,
+	    childView: RackView,
 	    tagName: 'group'
 	});
 

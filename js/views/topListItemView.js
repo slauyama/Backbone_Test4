@@ -9,7 +9,7 @@ define([
 	var TopListItemView = Backbone.Marionette.CompositeView.extend({
 		classNames: 'topListItem',
 		template: _.template(TopListItemTemplate),
-		itemView: TopListItemDataView,
+		childView: TopListItemDataView,
 		itemViewContainer: '.leader',
 
 		initialize: function(){
