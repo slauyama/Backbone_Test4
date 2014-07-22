@@ -14,7 +14,6 @@ define(function(){
 	    		fieldOfView: this.model.get('fieldOfView')
 	    	};
 	    }
-
 	});
 
 	return RackViewpointView;

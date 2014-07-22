@@ -151,7 +151,9 @@ define([
                 event.currentTarget.className += " selected-color";
                 // Not sure how to trigger an event so that Application.js can listen to it.
                 // Or have rackOptionsView in the application.js listen to itself.
-                this.trigger('changingColor')
+                //this.trigger('changingColor');
+
+                Backbone.Wreqr.radio.channel('color-options').vent.trigger('changeColor', event.currentTarget.value);
             }
         }
     });

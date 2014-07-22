@@ -18,14 +18,9 @@ define([
             };
         },
 
-        ui: {
-            rackMaterial: '.rack-material',
-            componentId: 'ComponentID-Data'
-        },
-
-        // Might want to use something like this in the future not sure about using it now.
+        // When the models property changes run the private function
         modelEvents: {
-            "change:transparency": 'onChangeTransparency'
+            "change:transparency": '_onChangeTransparency'
         },
 
         templateHelpers: {
@@ -50,7 +45,7 @@ define([
                         if (!_.isNumber(value))
                             badDataFlag = true;
                         break;
-                    case ColorValue.Temperature:
+                    case ColorValue.Heat:
                         value = this.heatCurrent / this.coolingMax;
                         if (!_.isNumber(value))
                             badDataFlag = true;
@@ -77,51 +72,47 @@ define([
             }
         },
 
+        ui: {
+            rackMaterial: '.rack-material',
+            componentId: '#ComponentID-Data'
+        },
+
         handleRackMouseover: function() {
-            // Not sure if i can use a qtip while using the canvas.
-            // Atleast I could use a model and view. '
-            // Not sure how i want the data displayed
-            document.getElementById("ComponentID-Data").innerHTML = this.model.get('componentId');
-            document.getElementById("Name-Data").innerHTML = this.model.get('name');
-            document.getElementById("Power-Data").innerHTML = Utility.roundTo(this.model.get('powerCurrent')) + "/" + Utility.roundTo(this.model.get('powerPlanned')) + "/" + Utility.roundTo(this.model.get('powerMax'));
-            document.getElementById("Heat-Data").innerHTML = Utility.roundTo(this.model.get('heatCurrent')) + "/" + Utility.roundTo(this.model.get('heatPlanned')) + "/" + Utility.roundTo(this.model.get('coolingMax'));
-            document.getElementById("Weight-Data").innerHTML = Utility.roundTo(this.model.get('weightCurrent')) + "/" + Utility.roundTo(this.model.get('weightPlanned')) + "/" + Utility.roundTo(this.model.get('weightMax'));
-            document.getElementById("UsedUnits-Data").innerHTML = this.model.get('usedUnitsCurrent') + "/" + this.model.get('usedUnitsPlanned');
-            document.getElementById("UnitLocation-Data").innerHTML = this.model.get('largestUnitLocation');
-            document.getElementById("UnitSize-Data").innerHTML = this.model.get('largestUnitSize');
-            // document.getElementById("PowerAD-Data").innerHTML = this.model.get('powerActualDerivation');
+            var obj = {
+                componentIDData: this.model.get('componentId'),
+                nameData: this.model.get('name'),
+                powerData: Utility.roundTo(this.model.get('powerCurrent')) + "/" + Utility.roundTo(this.model.get('powerPlanned')) + "/" + Utility.roundTo(this.model.get('powerMax')),
+                heatData: Utility.roundTo(this.model.get('heatCurrent')) + "/" + Utility.roundTo(this.model.get('heatPlanned')) + "/" + Utility.roundTo(this.model.get('coolingMax')),
+                weightData: Utility.roundTo(this.model.get('weightCurrent')) + "/" + Utility.roundTo(this.model.get('weightPlanned')) + "/" + Utility.roundTo(this.model.get('weightMax')),
+                usedUnitsData: this.model.get('usedUnitsCurrent') + "/" + this.model.get('usedUnitsPlanned'),
+                unitLocationData: this.model.get('largestUnitLocation'),
+                unitSizeData: this.model.get('largestUnitSize'),
+                powerADData: this.model.get('powerActualDerivation')
+            };
+            // console.log(obj);
+
+            Backbone.Wreqr.radio.channel('hover-rack').vent.trigger('hoverRack', obj);
             
             if(this.model.get('transparency') === '0.3')
                 this.model.set('transparency', '0.0');   
         },
 
         handleRackMouseout: function() {
-            // Not sure if i can use a qtip while using the canvas.
-            // Atleast I could use a model and view. '
-            // Not sure how i want the data displayed
-            console.log($('#ComponentID-Data'), this.ui.componentId);
-            document.getElementById("ComponentID-Data").innerHTML = "";
-            document.getElementById("Name-Data").innerHTML = "";
-            document.getElementById("Power-Data").innerHTML = "";
-            document.getElementById("Heat-Data").innerHTML = "";
-            document.getElementById("Weight-Data").innerHTML = "";
-            document.getElementById("UsedUnits-Data").innerHTML = "";
-            document.getElementById("UnitLocation-Data").innerHTML = "";
-            document.getElementById("UnitSize-Data").innerHTML = "";
-            // document.getElementById("PowerAD-Data").innerHTML = "";
-            
-
+            // I think i want to hide all elements when you mouse out but I am not sure yet
             this.model.set('transparency', '0.3' ); 
         },
         
         
-        onChangeTransparency: function(model, transparency){
+        _onChangeTransparency: function(model, transparency){
             this.ui.rackMaterial.attr('transparency', transparency)
         },
 
         onShow: function() {
-            // Not correct. Just a hack
-            // Me and Russ Cannot figure out why d3 isnt correctly loading
+            //this.bindUIElements();
+
+            // Apparently D3 will not export a global when using requirejs
+            // "D3 does not export the global d3 when AMD is detected because that kind of defeats the purpose of using a JavaScript module loader."
+            // https://github.com/mbostock/d3/issues/1693
             var d3 = require('d3');
 
             var componentId = this.model.get('componentId');
@@ -129,6 +120,7 @@ define([
 
             rackNode.addEventListener('mouseover', this.handleRackMouseover.bind(this));
             rackNode.addEventListener('mouseout', this.handleRackMouseout.bind(this));
+            
         },
 
     });

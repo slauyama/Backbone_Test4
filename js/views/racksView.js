@@ -10,7 +10,11 @@ define([
 	// Change Type of View to Item View
 	var RacksView = Backbone.Marionette.CollectionView.extend({
 	    childView: RackView,
-	    tagName: 'group'
+	    tagName: 'group',
+
+	    initialize: function() {
+	    	this.listenTo(Backbone.Wreqr.radio.channel('color-options').vent, 'changeColor', this.render);
+	    }
 	});
 
 	return RacksView;

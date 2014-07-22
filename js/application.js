@@ -4,19 +4,27 @@ define([
     'collections/racks',
     'collections/topListItemDatas',
     'collections/topListItems',
+    'models/rackToolTip',
     'views/rackOptionsView',
     'views/rackStageView',
+    'views/rackToolTipView',
     'views/topListPanelView' 
 ], function(
     Racks,
     TopListItemDatas, 
     TopListItems,
+    RackToolTip,
     RackOptionsView,
     RackStageView,
+    RackToolTipView,
     TopListPanelView
 ) {
     'use strict';
-    var RackApplication = new Backbone.Marionette.Application();
+    var RackApplication = new (Backbone.Marionette.Application.extend({
+        _doStuff: function(){
+
+        }
+    }))();
 
     RackApplication.addInitializer(function(){
         // Create three different regions - rackOptions, rackStage, topListPanel
@@ -25,12 +33,10 @@ define([
         // Pass in the racks collection to the rackStage and the topPanelList
         var racks = new Racks();
 
-        // Create a rackOptionsView and bind it to its region
         var rackStageView = new RackStageView({collection: racks});
 
         var rackStageRegion = this.getRegion('x3dScene');
         rackStageRegion.show(rackStageView);
-
 
         var topListItems = new TopListItems();
         topListItems.load(racks);
@@ -39,7 +45,6 @@ define([
             collection: topListItems
         });
 
-
         var leaderDataRegion = this.getRegion('leaderDataRegion');
         leaderDataRegion.show(topListPanelView);
 
@@ -47,24 +52,31 @@ define([
         var rackOptionsView = new RackOptionsView();
 
         var rackViewOptionsRegion = this.getRegion('rackViewOptions');
-        rackViewOptionsRegion.show(new RackOptionsView);
+        rackViewOptionsRegion.show(rackOptionsView);
 
-        // Have to use the regions current view in order to access the custom event
-        // Simply reshowing the current view onto the region
-        rackStageRegion.currentView
-            .listenTo(rackViewOptionsRegion.currentView, 'changingColor', function() {
-                this.show(this.currentView, {forceShow: true});
-            }.bind(rackStageRegion));
+        // Create a RackToolTip Model and View and bind it to its region
+        var rackToolTip = new RackToolTip();
+        var rackToolTipView = new RackToolTipView({
+            model: rackToolTip
+        });
 
+        var rackToolTipRegion = this.getRegion('modelData');
+        rackToolTipRegion.show(rackToolTipView);
     });
 
     RackApplication.addRegions({
         rackViewOptions: '#rack-view-options',
         x3dScene: '#x3dScene',
-        leaderDataRegion: '#leader-data-region'
+        leaderDataRegion: '#leader-data-region',
+        modelData: '#model-Data'
     });
 
     RackApplication.start();
+
+    // Application.vent.trigger('dlfksd', {});
+    // Application.on('dlfksd', _doStuff);
+
+    // _
 
     //  Expose Application globally for referencing EventAggregator, etc. without incurring circular reference in requireJS.
     window.Application = RackApplication;
