@@ -78,7 +78,8 @@ define([
         },
 
         handleRackMouseover: function() {
-            var obj = {
+            
+            Backbone.Wreqr.radio.channel('hover-rack').vent.trigger('hoverRack', {
                 componentIDData: this.model.get('componentId'),
                 nameData: this.model.get('name'),
                 powerData: Utility.roundTo(this.model.get('powerCurrent')) + "/" + Utility.roundTo(this.model.get('powerPlanned')) + "/" + Utility.roundTo(this.model.get('powerMax')),
@@ -88,10 +89,7 @@ define([
                 unitLocationData: this.model.get('largestUnitLocation'),
                 unitSizeData: this.model.get('largestUnitSize'),
                 powerADData: this.model.get('powerActualDerivation')
-            };
-            // console.log(obj);
-
-            Backbone.Wreqr.radio.channel('hover-rack').vent.trigger('hoverRack', obj);
+            });
             
             if(this.model.get('transparency') === '0.3')
                 this.model.set('transparency', '0.0');   

@@ -62,6 +62,10 @@ define([
             colorOptions: '.color-option',
             formGroup: '.form-group',
             // gridMaterial: '#grid-material'
+
+            // Real Ui
+            viewShuffle: '#view-shuffle'
+
         },
 
         events: {
@@ -73,6 +77,7 @@ define([
         },
 
         onShow: function() {
+            this.bindUIElements();
             // Select the first element in each category
             $(this.ui.cameraOptions).children()[0].className += " selected-view";
             $(this.ui.colorOptions).children()[0].className += " selected-color";
@@ -107,7 +112,7 @@ define([
 
         /* if shuffle is clicked it will call shuffleView every 5sec */
         shuffleViewActivated: function() {
-            if (document.getElementById('view-shuffle').checked === true) {
+            if (this.ui.viewShuffle[0].checked === true) {
                 this.shuffleId = setInterval((function() {
                     this.shuffleView();
                 }).bind(this), 5000);
@@ -123,7 +128,8 @@ define([
         },
 
         toggleGridTransparency: function() {
-            // Can't use a ui element because the grid is not loaded yet
+            // Can't use a ui element because the grid is not within this view.
+            // Need to set up an event to listen to this and change the value
             var material = $('#grid-material')[0];   
             material.setAttribute("transparency", material.transparency === "1.0" ? ".65" : "1.0");    
         },
