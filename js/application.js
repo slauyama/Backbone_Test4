@@ -53,7 +53,7 @@ define([
         // Simply reshowing the current view onto the region
         rackStageRegion.currentView
             .listenTo(rackViewOptionsRegion.currentView, 'changingColor', function() {
-                this.show(this.currentView);
+                this.show(this.currentView, {forceShow: true});
             }.bind(rackStageRegion));
 
     });

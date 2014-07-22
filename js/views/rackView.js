@@ -92,15 +92,16 @@ define([
             document.getElementById("UnitLocation-Data").innerHTML = this.model.get('largestUnitLocation');
             document.getElementById("UnitSize-Data").innerHTML = this.model.get('largestUnitSize');
             // document.getElementById("PowerAD-Data").innerHTML = this.model.get('powerActualDerivation');
-
-            this.transparencyMouseover();
+            
+            if(this.model.get('transparency') === '0.3')
+                this.transparencyMouseover();   
             
         },
 
-        transparencyMouseover: function() {
+        transparencyMouseover: _.throttle(function() {
             console.log('mouseover');
             this.model.set('transparency', '0.0');
-        },
+        }, 1000),
 
         transparencyMouseout: function() {
             console.log('mouseout');
@@ -125,7 +126,7 @@ define([
 
                 d3.select('#rack' + this.model.get("componentId")).node()
                     .addEventListener('mouseout', function(){
-                        this.handleRackMouseout();
+                        this.transparencyMouseout();
                     }.bind(this));
             }.bind(this));
         }	   

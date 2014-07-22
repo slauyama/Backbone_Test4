@@ -170,7 +170,10 @@ x3d {
     list-style-position: inside; 
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-radius: 5px; }
+    border-radius: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap; }
     #leader-data div:hover {
       background-color: #dee0dd;
       margin: 1px;
@@ -178,6 +181,4 @@ x3d {
     #leader-data .leader li{
       margin-left: 10px;
       width: 225px;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap; }
+    }
