@@ -11,10 +11,13 @@ define([
 			coordinates: ""
 		},
 
+		initialize: function() {
+			this.set('color', '0.8, 0.8, 0.8');
+		    this.set('transparency', '0.65');
+		},
+
 		createGrid: function(rackFloor) {
 		    var coordinateConnections, coordinates, connections, grid, gridStart, color, transparency;
-		    this.set('color', '0.8, 0.8, 0.8');
-		    this.set('transparency', '0.65');
 
 		    /* coordinateConnections: string representing connection of coordinates
 		    all coordinates are connected until it reaches a -1

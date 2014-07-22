@@ -61,9 +61,6 @@ define([
             cameraOptions: '.camera-option',
             colorOptions: '.color-option',
             formGroup: '.form-group',
-            // gridMaterial: '#grid-material'
-
-            // Real Ui
             viewShuffle: '#view-shuffle'
 
         },
@@ -128,10 +125,8 @@ define([
         },
 
         toggleGridTransparency: function() {
-            // Can't use a ui element because the grid is not within this view.
-            // Need to set up an event to listen to this and change the value
-            var material = $('#grid-material')[0];   
-            material.setAttribute("transparency", material.transparency === "1.0" ? ".65" : "1.0");    
+            // Using the radio channel to trigger an event.
+            Backbone.Wreqr.radio.channel('grid-options').vent.trigger('gridClicked');    
         },
 
         toggleCamera: _.throttle(function(event) {
