@@ -1,29 +1,31 @@
 define([
     'enums/colorValue',
-	"text!templates/rackViewTemplate.html",
+    "text!templates/rackViewTemplate.html",
     "utility"
 ], function(ColorValue, RackViewTemplate, Utility){
-	"use strict";
+    "use strict";
 
-	var RackView = Backbone.Marionette.ItemView.extend({
-	    // Each rack is the type transform
-	    tagName: 'transform',
-	    template: _.template(RackViewTemplate),
-	 
-	    // Get the x and y translation from the model 
-	    attributes: function() {
-		    return {
-	            translation: this.model.get('adjustedXPosition') + ' ' + this.model.get('adjustedYPosition') + ' 0'
-	        };
-	    },
+    var RackView = Backbone.Marionette.ItemView.extend({
+        // Each rack is the type transform
+        tagName: 'transform',
+        template: _.template(RackViewTemplate),
+
+        // Get the x and y translation from the model 
+        attributes: function() {
+            return {
+                id: "rack" + this.model.get('componentId'),
+                translation: this.model.get('adjustedXPosition') + ' ' + this.model.get('adjustedYPosition') + ' 0'
+            };
+        },
 
         ui: {
-            rackMaterial: '.rack-material'
+            rackMaterial: '.rack-material',
+            componentId: 'ComponentID-Data'
         },
 
         // Might want to use something like this in the future not sure about using it now.
         modelEvents: {
-            "change:transparency": '_onChangeTransparency'
+            "change:transparency": 'onChangeTransparency'
         },
 
         templateHelpers: {
@@ -59,13 +61,8 @@ define([
                 }
 
                 var red, green, redString, greenString, color; 
-                if (value < 0.5) {
-                    red = Math.floor(value * 255);
-                    green = 200;
-                } else {
-                    red = 255;
-                    green = Math.floor((1 - value) * 255);
-                }
+                red = value < 0.5 ? Math.floor(value * 255) : 255;
+                green = value < 0.5 ? 200 : Math.floor((1 - value) * 255);
 
                 redString = (red < 16 ? "0" : "") + red.toString(16);
                 greenString = (green < 16 ? "0" : "") + green.toString(16);
@@ -95,15 +92,31 @@ define([
             // document.getElementById("PowerAD-Data").innerHTML = this.model.get('powerActualDerivation');
             
             if(this.model.get('transparency') === '0.3')
-                this.transparencyMouseover();   
+                this.model.set('transparency', '0.0');   
         },
 
-        transparencyMouseover: function() {
-            this.model.set('transparency', '0.0');
-        },
+        handleRackMouseout: function() {
+            // Not sure if i can use a qtip while using the canvas.
+            // Atleast I could use a model and view. '
+            // Not sure how i want the data displayed
+            console.log($('#ComponentID-Data'), this.ui.componentId);
+            document.getElementById("ComponentID-Data").innerHTML = "";
+            document.getElementById("Name-Data").innerHTML = "";
+            document.getElementById("Power-Data").innerHTML = "";
+            document.getElementById("Heat-Data").innerHTML = "";
+            document.getElementById("Weight-Data").innerHTML = "";
+            document.getElementById("UsedUnits-Data").innerHTML = "";
+            document.getElementById("UnitLocation-Data").innerHTML = "";
+            document.getElementById("UnitSize-Data").innerHTML = "";
+            // document.getElementById("PowerAD-Data").innerHTML = "";
+            
 
-        transparencyMouseout: function() {
-            this.model.set('transparency', '0.3' );
+            this.model.set('transparency', '0.3' ); 
+        },
+        
+        
+        onChangeTransparency: function(model, transparency){
+            this.ui.rackMaterial.attr('transparency', transparency)
         },
 
         onShow: function() {
@@ -115,13 +128,10 @@ define([
             var rackNode = d3.select('#rack' + componentId).node();
 
             rackNode.addEventListener('mouseover', this.handleRackMouseover.bind(this));
-            rackNode.addEventListener('mouseout', this.transparencyMouseout.bind(this));
+            rackNode.addEventListener('mouseout', this.handleRackMouseout.bind(this));
         },
 
-        _onChangeTransparency: function(model, transparency){
-            this.ui.rackMaterial.attr('transparency', transparency)
-        }
-	});
+    });
 
-	return RackView;
+    return RackView;
 });

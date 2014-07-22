@@ -40,7 +40,7 @@ define([
                     title:"Weight", className: "color-button"
                 },
                 {
-                    title:"Temperature", className: "color-button"
+                    title:"Heat", className: "color-button"
                 }
             ],
 
