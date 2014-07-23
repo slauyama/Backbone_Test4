@@ -2,6 +2,7 @@ define([
 	'models/rackToolTip',
 	'text!templates/rackToolTipTemplate.html'
 ], function(RackToolTip, RackToolTipTemplate) {
+	"use strict";
 
 	var RackToolTipView = Backbone.Marionette.ItemView.extend({
 		tagName: 'ul',

@@ -8,7 +8,7 @@ define(function(){
 	    template: _.template(''),
 	    
 	    modelEvents: {
-	    	"change:setBind": "_setBind"
+	    	"change:setBind": "_changeSetBind"
 	    },
 	    
 	    attributes: function() {
@@ -21,7 +21,8 @@ define(function(){
 	    	};
 	    },
 
-	    _setBind: function(model, setBind) {
+	    // Any changes to the model's setBind attibute will change the el's 'set_bind' attribute
+	    _changeSetBind: function(model, setBind) {
 	    	this.el.setAttribute('set_bind', setBind);
 	    }
 

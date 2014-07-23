@@ -1,4 +1,5 @@
 define(function() {
+	"use strict";
 
 	var RackToolTip = Backbone.Model.extend({
 		defaults: {

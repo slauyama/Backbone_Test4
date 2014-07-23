@@ -72,13 +72,14 @@ define([
         },
 
         onShow: function() {
-
+            console.log("RackOptionsView onShow");
             // Call the first view in the list of views
-            try {
-                document.getElementById(this.ui.cameraOptions.children()[0].value).setAttribute('set_bind', 'true');
-            } catch(exception) {
-                return "Cannot call the first view";
-            }
+            Backbone.Wreqr.radio.channel('rack-options').commands.execute('callFirstCamera');
+            // try {
+            //     document.getElementById(this.ui.cameraOptions.children()[0].value).setAttribute('set_bind', 'true');
+            // } catch(exception) {
+            //     return "Cannot call the first view";
+            // }
 
             $('h3[title!=""]').qtip();
         },
@@ -119,13 +120,13 @@ define([
                 $('.selected-view').removeClass('selected-view');
                 event.currentTarget.className += " selected-view";
 
-                /* To activate a viewpoint you set "set_bind" to true */
-                Backbone.Wreqr.radio.channel('rack-options').vent.trigger('changeCamera', event.currentTarget.value);
-                // try {
-                    // document.getElementById(event.currentTarget.value).setAttribute('set_bind', 'true');
-                // } catch(exception) {
-                //     console.log("Cannot find " + event.currentTarget.value + " '" + exception + "'")
-                // }
+                // Creating a event in the rack-options channel.
+                // RackViewpointsView will listen to it.
+                try {
+                    Backbone.Wreqr.radio.channel('rack-options').vent.trigger('changeCamera', event.currentTarget.value);
+                } catch(exception) {
+                    console.log("Cannot find " + event.currentTarget.value + " '" + exception + "'")
+                }
             }
             
         }, 1500),
