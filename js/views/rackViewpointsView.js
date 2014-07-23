@@ -9,8 +9,18 @@ define([
 	    tagName: 'group',
 
 	    initialize: function() {
-	    	
-	    }
+	    	this.listenTo(Backbone.Wreqr.radio.channel('rack-options').vent, "changeCamera", this._changeCamera)
+	    },
+
+	    _changeCamera: function(object) {
+	    	this.collection.each(function(model) {
+	    		if (model.id === object) {
+	    			model.set('setBind', 'true');
+	    		} else {
+	    			model.set('setBind', '');
+	    		}
+	    	});
+	    } 
 	});
 
 	return RackViewpointsViews;

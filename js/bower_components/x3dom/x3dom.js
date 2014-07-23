@@ -3952,7 +3952,9 @@ x3dom.Runtime.prototype.ready = function () {
     x3dom.debug.logInfo('System ready.');
 };
 x3dom.Runtime.prototype.enterFrame = function () {};
-x3dom.Runtime.prototype.exitFrame = function () {};
+x3dom.Runtime.prototype.exitFrame = function () {
+    debugger;
+};
 x3dom.Runtime.prototype.triggerRedraw = function () {
     this.canvas.doc.needRender = true;
 };

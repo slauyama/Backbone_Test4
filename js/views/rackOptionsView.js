@@ -112,16 +112,6 @@ define([
             }
         },
 
-        toggleNames: function() {
-            // Triggers and event caught in racksView
-            Backbone.Wreqr.radio.channel('rack-options').vent.trigger('toggleTextTransparency');
-        },
-
-        toggleGridTransparency: function() {
-            // Using the radio channel to trigger an event.
-            Backbone.Wreqr.radio.channel('rack-options').vent.trigger('gridClicked');    
-        },
-
         toggleCamera: _.throttle(function(event) {
             if (event.currentTarget.className.lastIndexOf("selected-view") === -1) {
                 // Should not be using event.currentTarget but will figure that out later
@@ -130,11 +120,12 @@ define([
                 event.currentTarget.className += " selected-view";
 
                 /* To activate a viewpoint you set "set_bind" to true */
-                try {
-                    document.getElementById(event.currentTarget.value).setAttribute('set_bind', 'true');
-                } catch(exception) {
-                    console.log("Cannot find " + event.currentTarget.value + " '" + exception + "'")
-                }
+                Backbone.Wreqr.radio.channel('rack-options').vent.trigger('changeCamera', event.currentTarget.value);
+                // try {
+                    // document.getElementById(event.currentTarget.value).setAttribute('set_bind', 'true');
+                // } catch(exception) {
+                //     console.log("Cannot find " + event.currentTarget.value + " '" + exception + "'")
+                // }
             }
             
         }, 1500),
@@ -148,6 +139,16 @@ define([
                 // Sending a signal into the rack-options channel
                 Backbone.Wreqr.radio.channel('rack-options').vent.trigger('changeColor', event.currentTarget.value);
             }
+        },
+
+        toggleGridTransparency: function() {
+            // Using the radio channel to trigger an event.
+            Backbone.Wreqr.radio.channel('rack-options').vent.trigger('gridClicked');    
+        },
+
+        toggleNames: function() {
+            // Triggers and event caught in racksView
+            Backbone.Wreqr.radio.channel('rack-options').vent.trigger('toggleTextTransparency');
         }
     });
 

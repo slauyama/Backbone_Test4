@@ -117,11 +117,11 @@ define([
         },
 
         _onChangeRackTransparency: function(model, rackTransparency){
-            this.ui.rackMaterial.attr('transparency', rackTransparency)
+            this.ui.rackMaterial.attr('transparency', rackTransparency);
         },
 
         _onChangeTextTransparency: function(model, textTransparency){
-            this.ui.textMaterial.attr('transparency', textTransparency)
+            this.ui.textMaterial.attr('transparency', textTransparency);
         }
     });
 

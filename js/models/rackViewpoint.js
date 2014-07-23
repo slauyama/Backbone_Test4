@@ -7,7 +7,8 @@ define(function() {
 			centerOfRotation: "",
 			position: "",
 			orientation: "",
-			fieldOfView: ""
+			fieldOfView: "",
+			setBind: ""
 		}
 	});
 
