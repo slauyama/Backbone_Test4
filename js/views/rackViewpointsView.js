@@ -12,12 +12,15 @@ define([
 		    // Listend to a signal from the rackOptionsView
 		    // Calls the private function _changeCamera
 	    	this.listenTo(Backbone.Wreqr.radio.channel('rack-options').vent, "changeCamera", this._changeCamera)
-	    	this.listenTo(Backbone.Wreqr.radio.channel('rack-options').commands, "callFirstCamera", this._callFirstCamera)
+
+	    	// I think i should use a command rather than a trigger
+	    	// this.listenTo(Backbone.Wreqr.radio.channel('rack-options').commands, "callFirstCamera", this._callFirstCamera);
+	    	this.listenTo(Backbone.Wreqr.radio.channel('rack-options').vent, "callFirstCamera", this._callFirstCamera);
 	    },
 
 	    _callFirstCamera: function(){
-	    	debugger;
-	    	this._changeCamera();
+	    	var firstId = this.collection.models[0].id;
+	    	this._changeCamera(firstId);
 	    },
 
 	    // Changes the setBind attribute in the model

@@ -71,15 +71,16 @@ define([
             'click #names-toggle' : 'toggleNames'
         },
 
-        onShow: function() {
-            console.log("RackOptionsView onShow");
+        initialize: function() {
             // Call the first view in the list of views
-            Backbone.Wreqr.radio.channel('rack-options').commands.execute('callFirstCamera');
-            // try {
-            //     document.getElementById(this.ui.cameraOptions.children()[0].value).setAttribute('set_bind', 'true');
-            // } catch(exception) {
-            //     return "Cannot call the first view";
-            // }
+
+            // I think i should use a command rather than a trigger
+            // Backbone.Wreqr.radio.channel('rack-options').commands.execute( 'callFirstCamera');
+
+            Backbone.Wreqr.radio.channel('rack-options').vent.trigger( 'callFirstCamera');            
+        },
+
+        onShow: function() {
 
             $('h3[title!=""]').qtip();
         },
