@@ -23,8 +23,6 @@ define([
 	    		model.set("textTransparency", model.get('textTransparency') === "0" ? "1.0" : "0");
 	    	});
 
-	    	// // Not sure if calling render here is a good idea.
-	    	// this.render();
 	    }
 	});
 

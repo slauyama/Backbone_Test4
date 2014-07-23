@@ -117,11 +117,7 @@ define([
         },
 
         toggleNames: function() {
-            _.each($('.rack-text'), function(material) {
-                material.setAttribute("transparency", material.transparency === "0" ? "1.0" : "0");
-            });
-            // Toggle Text Transparency
-            // Backbone.Wreqr.radio.channel('rack-options').vent.trigger('toggleTextTransparency');
+            Backbone.Wreqr.radio.channel('rack-options').vent.trigger('toggleTextTransparency');
         },
 
         toggleGridTransparency: function() {

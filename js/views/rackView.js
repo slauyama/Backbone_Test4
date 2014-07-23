@@ -21,7 +21,7 @@ define([
         // When the models property changes run the private function
         modelEvents: {
             'change:rackTransparency': '_onChangeRackTransparency',
-            'change:textTransparency': 'render'
+            'change:textTransparency': '_onChangeTextTransparency'
         },
 
         templateHelpers: {
@@ -75,6 +75,7 @@ define([
 
         ui: {
             rackMaterial: '.rack-material',
+            textMaterial: '.text-material',
             componentId: '#ComponentID-Data'
         },
 
@@ -117,6 +118,10 @@ define([
 
         _onChangeRackTransparency: function(model, rackTransparency){
             this.ui.rackMaterial.attr('transparency', rackTransparency)
+        },
+
+        _onChangeTextTransparency: function(model, textTransparency){
+            this.ui.textMaterial.attr('transparency', textTransparency)
         }
     });
 
