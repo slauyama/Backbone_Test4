@@ -19,6 +19,7 @@ define([
 
 	    toggleAllTransparency: function() {
 	    	// For each model within the collection, toggle the transparency
+	    	// RackView automativcally picks up any changes toward the textTransparency and changes the attribute
 	    	this.collection.forEach(function(model) {
 	    		model.set("textTransparency", model.get('textTransparency') === "0" ? "1.0" : "0");
 	    	});

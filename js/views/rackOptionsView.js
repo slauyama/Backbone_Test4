@@ -13,7 +13,7 @@ define([
         templateHelpers: {
             viewButtons: [
                 {
-                    title:"Top View", className: "view-button1"
+                    title:"Top View", className: "view-button1 selected-view"
                 },
                 {
                     title:"Front View", className: "view-button2"
@@ -34,7 +34,7 @@ define([
             
             colorButtons: [
                 {
-                    title:"Power", className: "color-button"
+                    title:"Power", className: "color-button selected-color"
                 },
                 {
                     title:"Weight", className: "color-button"
@@ -61,7 +61,6 @@ define([
             cameraOptions: '.camera-option',
             colorOptions: '.color-option',
             viewShuffle: '#view-shuffle',
-            selectedColor: '.selected-color'
         },
 
         events: {
@@ -73,10 +72,7 @@ define([
         },
 
         onShow: function() {
-            // Select the first element in each category
-            this.ui.cameraOptions.children()[0].className += " selected-view";
-            this.ui.colorOptions.children()[0].className += " selected-color";
-            
+
             // Call the first view in the list of views
             try {
                 document.getElementById(this.ui.cameraOptions.children()[0].value).setAttribute('set_bind', 'true');
@@ -90,7 +86,7 @@ define([
         shuffleView: function() {
             var currentView, currentNumber, targetNumber, targetView, viewTotal;
             
-            viewTotal = $('.camera-option > .button').length;
+            viewTotal = this.ui.cameraOptions.children().length;
 
             currentView = $('.selected-view')[0];
             currentNumber = Number.parseInt(
@@ -117,6 +113,7 @@ define([
         },
 
         toggleNames: function() {
+            // Triggers and event caught in racksView
             Backbone.Wreqr.radio.channel('rack-options').vent.trigger('toggleTextTransparency');
         },
 
